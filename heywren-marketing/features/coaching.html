@@ -81,46 +81,135 @@
       .nav-links { gap: 16px; }
       .footer-container { grid-template-columns: 1fr 1fr; }
     }
-  </style>
+  
+/* === UNIFIED NAV === */
+/* === UNIFIED NAV === */
+.hw-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.hw-nav-logo { display: flex; align-items: center; text-decoration: none; }
+.hw-nav-logo svg { height: 26px; width: auto; }
+.hw-nav-links { display: flex; gap: 28px; list-style: none; align-items: center; margin: 0; padding: 0; }
+.hw-nav-links a { text-decoration: none; color: #4b5563; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.hw-nav-links a:hover { color: #4f46e5; }
+.hw-nav-links a.active { color: #4f46e5; font-weight: 600; }
+.hw-nav-right { display: flex; align-items: center; gap: 16px; }
+.hw-nav-login {
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+.hw-nav-login:hover { color: #4f46e5; border-color: #c7d2fe; background: #eef2ff; }
+.hw-nav-cta {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white !important;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+    display: inline-block;
+}
+.hw-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35); }
+@media (max-width: 768px) {
+    .hw-nav-links { display: none; }
+    .hw-nav-login { display: none; }
+    .hw-nav { padding: 0 16px; }
+}
+
+/* === UNIFIED FOOTER === */
+/* === UNIFIED FOOTER === */
+.hw-footer {
+    background: #0f0d2e;
+    color: rgba(255,255,255,0.6);
+    padding: 64px 32px 32px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.hw-footer a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+.hw-footer a:hover { color: white; }
+.hw-footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+}
+.hw-footer-brand p { margin-top: 16px; font-size: 13px; line-height: 1.7; max-width: 280px; }
+.hw-footer-brand svg { opacity: 0.7; }
+.hw-footer h4 {
+    color: rgba(255,255,255,0.9);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 16px;
+}
+.hw-footer-col { display: flex; flex-direction: column; gap: 10px; }
+.hw-footer-col a { font-size: 14px; }
+.hw-footer-bottom {
+    max-width: 1100px;
+    margin: 48px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.hw-footer-social { display: flex; gap: 20px; }
+.hw-footer-social a { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.hw-footer-legal { display: flex; gap: 20px; font-size: 13px; }
+@media (max-width: 768px) {
+    .hw-footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .hw-footer-brand { grid-column: 1 / -1; }
+    .hw-footer-bottom { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+    .hw-footer-grid { grid-template-columns: 1fr; }
+    .hw-footer { padding: 40px 20px 24px; }
+}
+
+</style>
 </head>
 <body>
-  <nav>
-    <div class="nav-container">
-      <svg class="logo" width="140" height="30" viewBox="0 0 370 80" fill="none">
-        <g transform="translate(0, 4)">
-          <ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
-          <circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
-          <circle cx="53" cy="28" r="2" fill="#4f46e5"/>
-          <path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-          <path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          <path d="M 26 45 C 34 39, 46 37, 52 41" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          <path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        </g>
-        <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/>
-        <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
-          <path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>
-          <path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>
-          <path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>
-        </g>
-        <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
-          <path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>
-          <path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>
-          <path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>
-          <path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>
-        </g>
-      </svg>
-      <ul class="nav-links">
-        <li><a href="/#features">Features</a></li>
-        <li><a href="/#pricing">Pricing</a></li>
-                    <li><a href="../demo.html">Demo</a></li>
-                    <li><a href="../blog/">Blog</a></li>
-        <li><a href="../glossary.html">Glossary</a></li>
-        <li><a href="../faq.html">FAQ</a></li>
-        <li><a href="https://app.heywren.ai/login" style="color:#4f46e5;font-weight:600;font-size:14px;text-decoration:none;">Log in</a></li>
-        <li><a href="https://app.heywren.ai/signup" class="cta-button" style="text-decoration:none;color:white;">Start Free Trial</a></li>
-      </ul>
+  <nav class="hw-nav">
+    <a href="/" class="hw-nav-logo"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+    <ul class="hw-nav-links">
+            <li><a href="/#features" class="active">Features</a></li>
+            <li><a href="/#pricing">Pricing</a></li>
+            <li><a href="/demo">Demo</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/glossary">Glossary</a></li>
+            <li><a href="/faq">FAQ</a></li>
+    </ul>
+    <div class="hw-nav-right">
+        <a href="/#signup" class="hw-nav-login">Log in</a>
+        <a href="/#signup" class="hw-nav-cta">Start Free Trial</a>
     </div>
-  </nav>
+</nav>
 
   <section class="hero">
     <div class="hero-content">
@@ -264,52 +353,51 @@
     <button class="cta-button" style="padding: 14px 40px; font-size: 16px;">Start 7-Day Free Trial — No Credit Card Required</button>
   </section>
 
-    <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h4>Product</h4>
-        <ul>
-          <li><a href="/#features">Features</a></li>
-          <li><a href="/#pricing">Pricing</a></li>
-          <li><a href="#">AI Nudges</a></li>
-          <li><a href="#">Draft Queue</a></li>
-          <li><a href="#">Meeting Briefings</a></li>
-          <li><a href="#">Commitment Tracing</a></li>
-          <li><a href="#">Achievements</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Resources</h4>
-        <ul>
-          <li><a href="../blog/">Blog</a></li>
-          <li><a href="../glossary.html">Glossary</a></li>
-          <li><a href="../faq.html">FAQ</a></li>
-          <li><a href="/#pricing">Pricing</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Press</a></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Security</a></li>
-          <li><a href="#">Data Processing</a></li>
-        </ul>
-      </div>
+    <footer class="hw-footer">
+    <div class="hw-footer-grid">
+        <div class="hw-footer-brand">
+            <svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg>
+            <p>AI-powered follow-through for teams that actually get things done. Never let a commitment fall through the cracks again.</p>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Product</h4>
+            <a href="/features/ai-nudges">AI Nudges</a>
+            <a href="/features/draft-queue">Draft Queue</a>
+            <a href="/features/meeting-briefings">Briefings</a>
+            <a href="/features/commitment-tracing">Commitment Tracing</a>
+            <a href="/features/achievements">Achievements</a>
+            <a href="/features/playbooks">Playbooks</a>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Resources</h4>
+            <a href="/blog">Blog</a>
+            <a href="/glossary">Glossary</a>
+            <a href="/faq">FAQ</a>
+            <a href="/demo">Interactive Demo</a>
+            <a href="/#pricing">Pricing</a>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Company</h4>
+            <a href="/">Home</a>
+            <a href="mailto:hello@heywren.ai">Contact</a>
+            <a href="https://twitter.com/heywren">Twitter</a>
+            <a href="https://linkedin.com/company/heywren">LinkedIn</a>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Legal</h4>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/dpa">Data Processing</a>
+        </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 HeyWren</p>
+    <div class="hw-footer-bottom">
+        <span>&copy; 2026 HeyWren, Inc. All rights reserved.</span>
+        <div class="hw-footer-legal">
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+        </div>
     </div>
-  </footer>
+</footer>
 
   <script>
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {

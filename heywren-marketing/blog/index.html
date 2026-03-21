@@ -45,24 +45,135 @@
         footer { background: #1e1b4b; color: rgba(255,255,255,0.5); padding: 32px 2rem; text-align: center; font-size: 13px; }
         footer a { color: rgba(255,255,255,0.7); }
         @media (max-width: 768px) { .nav-links { display: none; } .blog-grid { grid-template-columns: 1fr; } .newsletter-form { flex-direction: column; } }
-    </style>
+    
+/* === UNIFIED NAV === */
+/* === UNIFIED NAV === */
+.hw-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e5e7eb;
+    padding: 0 32px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.hw-nav-logo { display: flex; align-items: center; text-decoration: none; }
+.hw-nav-logo svg { height: 26px; width: auto; }
+.hw-nav-links { display: flex; gap: 28px; list-style: none; align-items: center; margin: 0; padding: 0; }
+.hw-nav-links a { text-decoration: none; color: #4b5563; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+.hw-nav-links a:hover { color: #4f46e5; }
+.hw-nav-links a.active { color: #4f46e5; font-weight: 600; }
+.hw-nav-right { display: flex; align-items: center; gap: 16px; }
+.hw-nav-login {
+    color: #4b5563;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+.hw-nav-login:hover { color: #4f46e5; border-color: #c7d2fe; background: #eef2ff; }
+.hw-nav-cta {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    color: white !important;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25);
+    display: inline-block;
+}
+.hw-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35); }
+@media (max-width: 768px) {
+    .hw-nav-links { display: none; }
+    .hw-nav-login { display: none; }
+    .hw-nav { padding: 0 16px; }
+}
+
+/* === UNIFIED FOOTER === */
+/* === UNIFIED FOOTER === */
+.hw-footer {
+    background: #0f0d2e;
+    color: rgba(255,255,255,0.6);
+    padding: 64px 32px 32px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.hw-footer a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+.hw-footer a:hover { color: white; }
+.hw-footer-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    gap: 48px;
+}
+.hw-footer-brand p { margin-top: 16px; font-size: 13px; line-height: 1.7; max-width: 280px; }
+.hw-footer-brand svg { opacity: 0.7; }
+.hw-footer h4 {
+    color: rgba(255,255,255,0.9);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 16px;
+}
+.hw-footer-col { display: flex; flex-direction: column; gap: 10px; }
+.hw-footer-col a { font-size: 14px; }
+.hw-footer-bottom {
+    max-width: 1100px;
+    margin: 48px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.hw-footer-social { display: flex; gap: 20px; }
+.hw-footer-social a { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.hw-footer-legal { display: flex; gap: 20px; font-size: 13px; }
+@media (max-width: 768px) {
+    .hw-footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .hw-footer-brand { grid-column: 1 / -1; }
+    .hw-footer-bottom { flex-direction: column; text-align: center; }
+}
+@media (max-width: 480px) {
+    .hw-footer-grid { grid-template-columns: 1fr; }
+    .hw-footer { padding: 40px 20px 24px; }
+}
+
+</style>
 </head>
 <body>
-    <nav>
-        <a href="/" class="logo"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
-        <ul class="nav-links">
+    <nav class="hw-nav">
+    <a href="/" class="hw-nav-logo"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+    <ul class="hw-nav-links">
             <li><a href="/#features">Features</a></li>
             <li><a href="/#pricing">Pricing</a></li>
-            <li><a href="../demo">Demo</a></li>
-            <li><a href="./" style="color: #4f46e5; font-weight: 600;">Blog</a></li>
-            <li><a href="../glossary">Glossary</a></li>
-            <li><a href="../faq">FAQ</a></li>
-        </ul>
-        <div class="nav-right">
-            <a href="https://app.heywren.ai/login" class="login-link">Log in</a>
-            <a href="#newsletter" class="cta-button">Start Free Trial</a>
-        </div>
-    </nav>
+            <li><a href="/demo">Demo</a></li>
+            <li><a href="/blog" class="active">Blog</a></li>
+            <li><a href="/glossary">Glossary</a></li>
+            <li><a href="/faq">FAQ</a></li>
+    </ul>
+    <div class="hw-nav-right">
+        <a href="/#signup" class="hw-nav-login">Log in</a>
+        <a href="/#signup" class="hw-nav-cta">Start Free Trial</a>
+    </div>
+</nav>
 
     <div class="hero-section">
         <h1>The HeyWren Blog</h1>
@@ -70,121 +181,121 @@
     </div>
 
     <div class="blog-grid">
-                <a href="why-follow-through-matters.html" class="blog-card">
+                <a href="/blog/why-follow-through-matters.html" class="blog-card">
                     <span class="blog-category">CAREER</span>
                     <h3>Why Follow-Through Is the #1 Predictor of Career Success</h3>
                     <p>Discover why follow-through skills matter more than talent.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="action-items-never-completed.html" class="blog-card">
+                <a href="/blog/action-items-never-completed.html" class="blog-card">
                     <span class="blog-category">RESEARCH</span>
                     <h3>44% of Action Items Never Get Completed — Here's Why</h3>
                     <p>The science behind why most action items die in Slack threads and inboxes.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="cost-of-dropped-commitments.html" class="blog-card">
+                <a href="/blog/cost-of-dropped-commitments.html" class="blog-card">
                     <span class="blog-category">LEADERSHIP</span>
                     <h3>The Hidden Cost of Dropped Commitments</h3>
                     <p>Every broken promise costs your team trust, time, and revenue.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="team-execution-gap.html" class="blog-card">
+                <a href="/blog/team-execution-gap.html" class="blog-card">
                     <span class="blog-category">EXECUTION</span>
                     <h3>The Team Execution Gap: Why Plans Fail After Meetings</h3>
                     <p>Understanding the gap between what teams plan and what actually gets done.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="what-is-work-observability.html" class="blog-card">
+                <a href="/blog/what-is-work-observability.html" class="blog-card">
                     <span class="blog-category">CONCEPTS</span>
                     <h3>What Is Work Observability?</h3>
                     <p>The new discipline of seeing how work actually flows through your organization.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="stop-things-falling-through-cracks.html" class="blog-card">
+                <a href="/blog/stop-things-falling-through-cracks.html" class="blog-card">
                     <span class="blog-category">PRODUCTIVITY</span>
                     <h3>How to Stop Things From Falling Through the Cracks</h3>
                     <p>Practical strategies for ensuring nothing gets lost in the chaos of modern work.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="accountability-at-work.html" class="blog-card">
+                <a href="/blog/accountability-at-work.html" class="blog-card">
                     <span class="blog-category">CULTURE</span>
                     <h3>Building a Culture of Accountability Without Micromanaging</h3>
                     <p>How to create accountability that empowers rather than controls.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="meeting-action-items-guide.html" class="blog-card">
+                <a href="/blog/meeting-action-items-guide.html" class="blog-card">
                     <span class="blog-category">MEETINGS</span>
                     <h3>The Definitive Guide to Meeting Action Items</h3>
                     <p>Turn meetings into momentum with better action item practices.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="ceo-follow-through.html" class="blog-card">
+                <a href="/blog/ceo-follow-through.html" class="blog-card">
                     <span class="blog-category">LEADERSHIP</span>
                     <h3>CEO Follow-Through: Leading by Example</h3>
                     <p>Why the best leaders are obsessive about closing loops.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="ai-coaching-managers.html" class="blog-card">
+                <a href="/blog/ai-coaching-managers.html" class="blog-card">
                     <span class="blog-category">AI</span>
                     <h3>How AI Is Coaching Managers to Be Better Leaders</h3>
                     <p>AI-powered coaching is transforming management effectiveness.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="ai-executive-assistant.html" class="blog-card">
+                <a href="/blog/ai-executive-assistant.html" class="blog-card">
                     <span class="blog-category">AI</span>
                     <h3>The Rise of the AI Executive Assistant</h3>
                     <p>Why AI assistants are becoming essential for modern leaders.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="ai-meeting-prep.html" class="blog-card">
+                <a href="/blog/ai-meeting-prep.html" class="blog-card">
                     <span class="blog-category">AI</span>
                     <h3>AI Meeting Prep: Never Walk In Unprepared Again</h3>
                     <p>How AI transforms meeting preparation from chore to superpower.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="ai-productivity-tools-2026.html" class="blog-card">
+                <a href="/blog/ai-productivity-tools-2026.html" class="blog-card">
                     <span class="blog-category">AI</span>
                     <h3>The Best AI Productivity Tools in 2026</h3>
                     <p>A curated guide to the AI tools reshaping how teams work.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="blind-spots-at-work.html" class="blog-card">
+                <a href="/blog/blind-spots-at-work.html" class="blog-card">
                     <span class="blog-category">LEADERSHIP</span>
                     <h3>Blind Spots at Work: What You Can't See Is Hurting Your Team</h3>
                     <p>Identifying and eliminating the hidden gaps in team performance.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="commitment-tracking-vs-project-management.html" class="blog-card">
+                <a href="/blog/commitment-tracking-vs-project-management.html" class="blog-card">
                     <span class="blog-category">CONCEPTS</span>
                     <h3>Commitment Tracking vs. Project Management: What's the Difference?</h3>
                     <p>Why traditional PM tools miss the most important signals.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="datadog-for-work.html" class="blog-card">
+                <a href="/blog/datadog-for-work.html" class="blog-card">
                     <span class="blog-category">CONCEPTS</span>
                     <h3>Datadog for Work: Observability Comes to the Workplace</h3>
                     <p>Applying engineering observability principles to team execution.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="follow-up-email-templates.html" class="blog-card">
+                <a href="/blog/follow-up-email-templates.html" class="blog-card">
                     <span class="blog-category">PRODUCTIVITY</span>
                     <h3>Follow-Up Email Templates That Actually Get Responses</h3>
                     <p>Battle-tested templates for polite, effective follow-ups.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="future-of-work-ai.html" class="blog-card">
+                <a href="/blog/future-of-work-ai.html" class="blog-card">
                     <span class="blog-category">AI</span>
                     <h3>The Future of Work Is AI-Augmented, Not AI-Replaced</h3>
                     <p>How AI will enhance human work rather than eliminate it.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="reduce-meetings.html" class="blog-card">
+                <a href="/blog/reduce-meetings.html" class="blog-card">
                     <span class="blog-category">PRODUCTIVITY</span>
                     <h3>How to Reduce Meetings Without Losing Alignment</h3>
                     <p>Cut meeting bloat while keeping your team in sync.</p>
                     <span class="read-more">Read article &rarr;</span>
                 </a>
-                <a href="slack-email-overload.html" class="blog-card">
+                <a href="/blog/slack-email-overload.html" class="blog-card">
                     <span class="blog-category">PRODUCTIVITY</span>
                     <h3>Slack and Email Overload: Taming the Notification Beast</h3>
                     <p>Strategies for managing the firehose of modern work communication.</p>
@@ -202,9 +313,51 @@
         <p style="font-size: 12px; color: #9ca3af; margin-top: 12px;">No spam. Unsubscribe anytime.</p>
     </div>
 
-    <footer>
-        <p>&copy; 2026 HeyWren &nbsp;|&nbsp; <a href="/">Home</a> &nbsp;|&nbsp; <a href="/privacy">Privacy</a> &nbsp;|&nbsp; <a href="/terms">Terms</a></p>
-    </footer>
+    <footer class="hw-footer">
+    <div class="hw-footer-grid">
+        <div class="hw-footer-brand">
+            <svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg>
+            <p>AI-powered follow-through for teams that actually get things done. Never let a commitment fall through the cracks again.</p>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Product</h4>
+            <a href="/features/ai-nudges">AI Nudges</a>
+            <a href="/features/draft-queue">Draft Queue</a>
+            <a href="/features/meeting-briefings">Briefings</a>
+            <a href="/features/commitment-tracing">Commitment Tracing</a>
+            <a href="/features/achievements">Achievements</a>
+            <a href="/features/playbooks">Playbooks</a>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Resources</h4>
+            <a href="/blog">Blog</a>
+            <a href="/glossary">Glossary</a>
+            <a href="/faq">FAQ</a>
+            <a href="/demo">Interactive Demo</a>
+            <a href="/#pricing">Pricing</a>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Company</h4>
+            <a href="/">Home</a>
+            <a href="mailto:hello@heywren.ai">Contact</a>
+            <a href="https://twitter.com/heywren">Twitter</a>
+            <a href="https://linkedin.com/company/heywren">LinkedIn</a>
+        </div>
+        <div class="hw-footer-col">
+            <h4>Legal</h4>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/dpa">Data Processing</a>
+        </div>
+    </div>
+    <div class="hw-footer-bottom">
+        <span>&copy; 2026 HeyWren, Inc. All rights reserved.</span>
+        <div class="hw-footer-legal">
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+        </div>
+    </div>
+</footer>
 
     <script>
     document.getElementById('mc-blog-form').addEventListener('submit', function(e) {
