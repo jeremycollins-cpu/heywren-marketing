@@ -2487,20 +2487,33 @@
         });
     });
 
-    // Mailchimp form handler
+    // Mailchimp form handler — submits via hidden form POST
     function handleSignup(formId, emailId) {
         var form = document.getElementById(formId);
         if (!form) return;
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             var email = document.getElementById(emailId).value;
-            // Store in Mailchimp - replace a41757dde1c120bdd7a8a31bf61e9139 and 03e5683144 after setup
-            var mcUrl = 'https://heywren.us13.list-manage.com/subscribe/post?u=a41757dde1c120bdd7a8a31bf61e9139&id=03e5683144&EMAIL=' + encodeURIComponent(email) + '&SIGNUP_SOURCE=' + encodeURIComponent(formId);
-            window.open(mcUrl, '_blank');
+            // Create hidden form to POST to Mailchimp
+            var mcForm = document.createElement('form');
+            mcForm.method = 'POST';
+            mcForm.action = 'https://heywren.us13.list-manage.com/subscribe/post';
+            mcForm.target = '_blank';
+            var fields = {u: 'a41757dde1c120bdd7a8a31bf61e9139', id: '03e5683144', EMAIL: email, SIGNUP_SOURCE: formId};
+            for (var key in fields) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                mcForm.appendChild(input);
+            }
+            document.body.appendChild(mcForm);
+            mcForm.submit();
+            document.body.removeChild(mcForm);
             if (formId === 'mc-modal-form') {
-                form.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:16px;">Thanks! Check your email to get started.</p>';
+                form.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:16px;">Thanks! Check your email to confirm.</p>';
             } else {
-                form.innerHTML = '<p style="color:white;font-weight:600;padding:8px;">Thanks! Check your email.</p>';
+                form.innerHTML = '<p style="color:white;font-weight:600;padding:8px;">Thanks! Check your email to confirm.</p>';
             }
         });
     }

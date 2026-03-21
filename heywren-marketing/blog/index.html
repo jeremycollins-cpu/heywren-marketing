@@ -363,9 +363,21 @@
     document.getElementById('mc-blog-form').addEventListener('submit', function(e) {
         e.preventDefault();
         var email = document.getElementById('mc-blog-email').value;
-        // Mailchimp signup - will be configured with actual list ID
-        var mcUrl = 'https://heywren.us13.list-manage.com/subscribe/post?u=a41757dde1c120bdd7a8a31bf61e9139&id=03e5683144&EMAIL=' + encodeURIComponent(email);
-        window.open(mcUrl, '_blank');
+        var mcForm = document.createElement('form');
+        mcForm.method = 'POST';
+        mcForm.action = 'https://heywren.us13.list-manage.com/subscribe/post';
+        mcForm.target = '_blank';
+        var fields = {u: 'a41757dde1c120bdd7a8a31bf61e9139', id: '03e5683144', EMAIL: email, SIGNUP_SOURCE: 'blog-newsletter'};
+        for (var key in fields) {
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = fields[key];
+            mcForm.appendChild(input);
+        }
+        document.body.appendChild(mcForm);
+        mcForm.submit();
+        document.body.removeChild(mcForm);
         this.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:12px;">Thanks! Check your email to confirm.</p>';
     });
     </script>
