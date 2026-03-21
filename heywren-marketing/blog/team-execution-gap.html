@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Execution Gap: Why Strategy Fails and How to Close It</title>
+    <meta name="description" content="Discover why strategy fails and how to close the execution gap. Learn proven tactics to turn plans into reality.">
+    <meta name="keywords" content="strategy execution gap, team execution, strategy vs execution, why strategy fails">
+    <meta property="og:title" content="The Execution Gap: Why Strategy Fails and How to Close It">
+    <meta property="og:description" content="Why strategy fails and how to close the execution gap. Turn your plans into reality.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.8; color: #1f2937; background-color: #ffffff; }
+        nav { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .logo { font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #4f46e5, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: #4b5563; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #4f46e5; }
+        .cta-button { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s; text-decoration: none; display: inline-block; }
+        .cta-button:hover { transform: translateY(-2px); }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+        .article-header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+            padding: 80px 2rem 72px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .article-header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -60px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .header-bird {
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+        .article-header h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .article-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            align-items: center;
+        }
+        .article-meta-divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        .category-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            color: #c7d2fe;
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+        }
+        .author-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 14px 4px 4px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-body { padding: 2rem 0; font-size: 18px; }
+        .article-body h2 { font-size: 28px; font-weight: 700; margin: 2rem 0 1rem 0; color: #111827; }
+        .article-body h3 { font-size: 22px; font-weight: 600; margin: 1.5rem 0 0.75rem 0; color: #1f2937; }
+        .article-body p { margin-bottom: 1.5rem; line-height: 1.8; }
+        .article-body ul, .article-body ol { margin: 1.5rem 0 1.5rem 1.5rem; line-height: 1.8; }
+        .article-body li { margin-bottom: 0.75rem; }
+        .cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 2rem; border-radius: 0.75rem; margin: 3rem 0; text-align: center; }
+        .cta-box h3 { color: white; font-size: 24px; margin-bottom: 0.5rem; }
+        .cta-box p { margin-bottom: 1.5rem; color: #f0f0f0; }
+        .cta-button-white { background: white; color: #4f46e5; padding: 0.875rem 2rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s; font-size: 16px; }
+        .cta-button-white:hover { transform: translateY(-2px); }
+        .related-posts { margin: 4rem 0; padding-top: 3rem; border-top: 1px solid #e5e7eb; }
+        .related-posts h3 { font-size: 24px; font-weight: 700; margin-bottom: 1.5rem; color: #111827; }
+        .posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .post-card { border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; transition: border-color 0.2s; }
+        .post-card:hover { border-color: #4f46e5; }
+        .post-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 0.5rem; color: #111827; }
+        .post-card a { color: #4f46e5; text-decoration: none; font-weight: 500; }
+        .post-card a:hover { text-decoration: underline; }
+        footer { background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 2rem; text-align: center; color: #6b7280; font-size: 14px; }
+        footer a { color: #4f46e5; text-decoration: none; }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; padding: 1rem; }
+            .nav-links { flex-direction: column; gap: 1rem; text-align: center; }
+            .article-header h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+        <nav>
+        <a href="/" class="logo" style="display:flex;align-items:center"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+        <ul class="nav-links">
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="../demo.html">Demo</a></li>
+                    <li><a href="./">Blog</a></li>
+            <li><a href="../glossary.html">Glossary</a></li>
+            <li><a href="../faq.html">FAQ</a></li>
+        </ul>
+        <a href="#" class="cta-button">Start 7-Day Free Trial</a>
+    </nav>
+
+    <div class="article-header">
+        <div class="header-inner">
+            <svg class="header-bird" width="48" height="48" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="50" cy="30" r="9" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="53" cy="28" r="2" fill="rgba(255,255,255,0.2)"/><path d="M 58 29 L 66 26 L 59 33" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            <span class="category-tag">STRATEGY</span>
+            <h1>The Execution Gap: Why Strategy Fails and How to Close It</h1>
+            <p class="article-subtitle">Great strategy with poor execution loses to average strategy with great execution every time.</p>
+            <div class="article-meta">
+                <span class="author-badge"><span class="author-avatar"><svg width="14" height="14" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="14" ry="10" stroke="#fff" stroke-width="2" fill="none"/><circle cx="48" cy="32" r="7" stroke="#fff" stroke-width="2" fill="none"/></svg></span>The Wren Team</span>
+                <span class="article-meta-divider"></span>
+                <span>March 21, 2026</span>
+                <span class="article-meta-divider"></span>
+                <span>8 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="article-body">
+            <p>Your company has a great strategy. Smart people came together. Created a compelling plan. Everyone agreed it was the right direction.</p>
+
+            <p>Six months later, almost nothing from that plan has shipped.</p>
+
+            <p>This is the execution gap. It's the difference between what your strategy says will happen and what actually happens. And it's the reason 60% of strategic initiatives fail.</p>
+
+            <h2>Why the Execution Gap Exists</h2>
+
+            <p><strong>1. Strategy is abstract. Execution is concrete.</strong> A strategy might say "dominate the SMB market." Execution means a specific person building specific features for specific customers by a specific date. Most strategies don't go that deep.</p>
+
+            <p><strong>2. Strategy is decided at the top. Execution happens at the bottom.</strong> The C-suite creates the strategy. The teams have to figure out how to execute it. Information gets lost in the gap.</p>
+
+            <p><strong>3. Strategy is optional. Execution is real.</strong> When the team has a choice between working on strategy items and urgent fires, fires always win. There's no system forcing execution on strategic initiatives.</p>
+
+            <p><strong>4. Strategy is written down. Execution lives in email, Slack, and people's heads.</strong> Without a system to track strategic commitments and execution, they just disappear.</p>
+
+            <p><strong>5. Nobody is accountable for strategy execution.</strong> Everyone is accountable for their own tasks. But who's accountable for "did we execute on the strategy?" Usually nobody.</p>
+
+            <h2>The Cost of the Execution Gap</h2>
+
+            <p>This isn't a minor problem. Execution gaps cost organizations:</p>
+
+            <ul>
+                <li><strong>Lost opportunity:</strong> Market windows close. Competitors capture share. First-mover advantage disappears.</li>
+                <li><strong>Morale problems:</strong> Teams don't believe in strategy if it never happens. Cynicism sets in.</li>
+                <li><strong>Wasted planning:</strong> All that strategy work was for nothing. Organizations become afraid to commit to strategy.</li>
+                <li><strong>Career risk:</strong> Executives stake their careers on strategy. When it fails, they fail.</li>
+            </ul>
+
+            <div class="cta-box">
+                <h3>Close Your Execution Gap</h3>
+                <p>Track strategic commitments. Ensure execution. Bridge the gap between strategy and reality.</p>
+                <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+            </div>
+
+            <h2>How to Close the Gap</h2>
+
+            <p><strong>1. Translate Strategy into Explicit Commitments</strong></p>
+
+            <p>Don't leave strategy abstract. Convert it into specific commitments: what will ship, by when, owned by whom.</p>
+
+            <p>"Dominate SMB" becomes "Launch SMB pricing tier by Q2, with at least 100 pilot customers, owned by Sarah."</p>
+
+            <p><strong>2. Make Strategic Commitments as Important as Operational Ones</strong></p>
+
+            <p>Right now, operational crises always win. Build a system where strategic commitments surface alongside operational work. Make them equally visible.</p>
+
+            <p><strong>3. Track Strategic Progress Weekly</strong></p>
+
+            <p>Monthly reviews are too late. Weekly reviews of strategic commitments keep them from slipping. Are we on track? What blockers do we need to clear?</p>
+
+            <p><strong>4. Create Accountability for Strategy Execution</strong></p>
+
+            <p>Someone is accountable for each strategic commitment. Not "the team." A specific person who you check in with weekly.</p>
+
+            <p><strong>5. Be Willing to Kill Non-Strategic Work</strong></p>
+
+            <p>If the team is going to execute on strategy, something has to go. Either get rid of lower-priority work, or hire more people. Don't just add strategy on top.</p>
+
+            <h2>What It Looks Like In Practice</h2>
+
+            <p><strong>Q Planning Meeting:</strong> Leadership articulates strategy. Breaks it into specific commitments with owners and deadlines.</p>
+
+            <p><strong>Weekly Team Standup:</strong> Review strategic commitments alongside operational work. "Are we shipping on our strategy initiatives?"</p>
+
+            <p><strong>Weekly Executive Review:</strong> Leadership checks in on strategic progress. Blockers get escalated. Risks get addressed.</p>
+
+            <p><strong>EOQ Review:</strong> Which strategic commitments shipped? Which didn't? Why? What do we learn?</p>
+
+            <h2>The Organizations That Win</h2>
+
+            <p>The organizations that outexecute their competitors don't have better strategies. They have better execution.</p>
+
+            <p>They close the gap by:</p>
+
+            <ul>
+                <li>Making strategy explicit and trackable</li>
+                <li>Creating clear ownership and deadlines</li>
+                <li>Reviewing progress obsessively</li>
+                <li>Being willing to sacrifice for strategy</li>
+                <li>Celebrating execution, not just planning</li>
+            </ul>
+
+            <h2>Why Most Organizations Don't Close the Gap</h2>
+
+            <p>Because it requires discipline. It requires saying no to things. It requires checking in weekly on progress.</p>
+
+            <p>It's easier to create a brilliant strategy and hope it happens. But hope isn't a strategy.</p>
+
+            <p>Organizations that close the execution gap are the ones that systematically ensure strategic commitments get executed.</p>
+
+            <h2>Start Today</h2>
+
+            <p>Pick one strategic initiative. Break it into explicit commitments. Assign an owner. Set a deadline. Review weekly.</p>
+
+            <p>See what happens to execution when you systematically track and follow up on strategy.</p>
+
+            <p>Then expand it. Make it how your organization operates.</p>
+
+            <p>That's how you close the execution gap and actually become the company you strategized to be.</p>
+        </div>
+
+        <div class="related-posts">
+            <h3>Related Posts</h3>
+            <div class="posts-grid">
+                <div class="post-card">
+                    <h4>What Is Work Observability? The New Category Changing How Teams Execute</h4>
+                    <p><a href="what-is-work-observability.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>Why CEOs Are the Worst at Follow-Through</h4>
+                    <p><a href="ceo-follow-through.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>The $8.9 Trillion Cost of Broken Commitments at Work</h4>
+                    <p><a href="cost-of-dropped-commitments.html">Read article →</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box" style="margin: 4rem 0 2rem 0;">
+            <h3>Bridge the Strategy-Execution Gap</h3>
+            <p>Strategic commitment tracking ensures your plans become reality. Close the execution gap once and for all.</p>
+            <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+        </div>
+    </div>
+
+        <footer>
+        <p>&copy; 2026 HeyWren | <a href="/">Home</a> | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+    </footer>
+</body>
+</html>

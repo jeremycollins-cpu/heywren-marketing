@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 7 Blind Spots Every Leader Has (And How to Fix Them)</title>
+    <meta name="description" content="Discover the 7 blind spots that prevent leaders from seeing execution gaps. Learn how to identify and fix them with work observability.">
+    <meta name="keywords" content="leadership blind spots, manager blind spots, things managers miss, execution blind spots">
+    <meta property="og:title" content="The 7 Blind Spots Every Leader Has (And How to Fix Them)">
+    <meta property="og:description" content="The 7 blind spots every leader has that prevent seeing execution gaps. How to identify and fix them.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; line-height: 1.8; color: #1f2937; background-color: #ffffff; }
+        nav { position: sticky; top: 0; z-index: 100; background: white; border-bottom: 1px solid #e5e7eb; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .logo { font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #4f46e5, #7c3aed); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: #4b5563; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: #4f46e5; }
+        .cta-button { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s; text-decoration: none; display: inline-block; }
+        .cta-button:hover { transform: translateY(-2px); }
+        .container { max-width: 800px; margin: 0 auto; padding: 0 2rem; }
+        .article-header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+            padding: 80px 2rem 72px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .article-header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -60px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .header-bird {
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+        .article-header h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .article-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            align-items: center;
+        }
+        .article-meta-divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        .category-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            color: #c7d2fe;
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+        }
+        .author-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 14px 4px 4px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-body { padding: 2rem 0; font-size: 18px; }
+        .article-body h2 { font-size: 28px; font-weight: 700; margin: 2rem 0 1rem 0; color: #111827; }
+        .article-body h3 { font-size: 22px; font-weight: 600; margin: 1.5rem 0 0.75rem 0; color: #1f2937; }
+        .article-body p { margin-bottom: 1.5rem; line-height: 1.8; }
+        .article-body ul, .article-body ol { margin: 1.5rem 0 1.5rem 1.5rem; line-height: 1.8; }
+        .article-body li { margin-bottom: 0.75rem; }
+        .cta-box { background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 2rem; border-radius: 0.75rem; margin: 3rem 0; text-align: center; }
+        .cta-box h3 { color: white; font-size: 24px; margin-bottom: 0.5rem; }
+        .cta-box p { margin-bottom: 1.5rem; color: #f0f0f0; }
+        .cta-button-white { background: white; color: #4f46e5; padding: 0.875rem 2rem; border-radius: 0.5rem; border: none; cursor: pointer; font-weight: 600; transition: transform 0.2s; font-size: 16px; }
+        .cta-button-white:hover { transform: translateY(-2px); }
+        .related-posts { margin: 4rem 0; padding-top: 3rem; border-top: 1px solid #e5e7eb; }
+        .related-posts h3 { font-size: 24px; font-weight: 700; margin-bottom: 1.5rem; color: #111827; }
+        .posts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .post-card { border: 1px solid #e5e7eb; border-radius: 0.5rem; padding: 1.5rem; transition: border-color 0.2s; }
+        .post-card:hover { border-color: #4f46e5; }
+        .post-card h4 { font-size: 16px; font-weight: 600; margin-bottom: 0.5rem; color: #111827; }
+        .post-card a { color: #4f46e5; text-decoration: none; font-weight: 500; }
+        .post-card a:hover { text-decoration: underline; }
+        footer { background: #f9fafb; border-top: 1px solid #e5e7eb; padding: 2rem; text-align: center; color: #6b7280; font-size: 14px; }
+        footer a { color: #4f46e5; text-decoration: none; }
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 1rem; padding: 1rem; }
+            .nav-links { flex-direction: column; gap: 1rem; text-align: center; }
+            .article-header h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+        <nav>
+        <a href="/" class="logo" style="display:flex;align-items:center"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+        <ul class="nav-links">
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="../demo.html">Demo</a></li>
+                    <li><a href="./">Blog</a></li>
+            <li><a href="../glossary.html">Glossary</a></li>
+            <li><a href="../faq.html">FAQ</a></li>
+        </ul>
+        <a href="#" class="cta-button">Start 7-Day Free Trial</a>
+    </nav>
+
+    <div class="article-header">
+        <div class="header-inner">
+            <svg class="header-bird" width="48" height="48" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="50" cy="30" r="9" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="53" cy="28" r="2" fill="rgba(255,255,255,0.2)"/><path d="M 58 29 L 66 26 L 59 33" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            <span class="category-tag">LEADERSHIP</span>
+            <h1>The 7 Blind Spots Every Leader Has (And How to Fix Them)</h1>
+            <p class="article-subtitle">Every leader has them. The best leaders find and fix them.</p>
+            <div class="article-meta">
+                <span class="author-badge"><span class="author-avatar"><svg width="14" height="14" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="14" ry="10" stroke="#fff" stroke-width="2" fill="none"/><circle cx="48" cy="32" r="7" stroke="#fff" stroke-width="2" fill="none"/></svg></span>The Wren Team</span>
+                <span class="article-meta-divider"></span>
+                <span>March 21, 2026</span>
+                <span class="article-meta-divider"></span>
+                <span>7 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="article-body">
+            <p>Every leader thinks they see what's happening in their organization. But they don't. They have significant blind spots.</p>
+
+            <p>Not because they're bad leaders. But because they lack a system for seeing what's actually happening vs. what people tell them is happening.</p>
+
+            <p>Here are the seven blind spots every leader has, and how work observability fixes them.</p>
+
+            <h2>Blind Spot #1: The Overly Optimistic Status</h2>
+
+            <p>When you ask people how things are going, they say "on track." But "on track" is vague and hopeful.</p>
+
+            <p>Reality: only 56% of commitments are actually on track.</p>
+
+            <p><strong>How to fix it:</strong> Don't ask people if they're on track. Look at the data. Are deadlines being met? Are milestones being hit? The system tells you.</p>
+
+            <h2>Blind Spot #2: The Buried Blockers</h2>
+
+            <p>Someone is stuck. But they don't want to bother you. Or they think they can figure it out. So they don't escalate.</p>
+
+            <p>Meanwhile, a project is dying because of that blocker.</p>
+
+            <p><strong>How to fix it:</strong> Make blockers visible. Create a system where blockers surface automatically, not through personal escalation.</p>
+
+            <h2>Blind Spot #3: The Silent Commitment Slip</h2>
+
+            <p>You made a commitment to the board. Your team is executing it. Or are they? You don't really know until it's too late.</p>
+
+            <p><strong>How to fix it:</strong> Track the big commitments. See in real-time whether they're on track. Know 30 days in advance if something is at risk.</p>
+
+            <h2>Blind Spot #4: The Distributed Dependency</h2>
+
+            <p>Feature A depends on Feature B. You don't know that. Feature B slips. Feature A suddenly can't ship. You're surprised.</p>
+
+            <p><strong>How to fix it:</strong> Map dependencies. Create visibility into what depends on what. Know when a slip in one thing affects everything else.</p>
+
+            <h2>Blind Spot #5: The Pattern Nobody Sees</h2>
+
+            <p>You have problems, but you don't see the pattern. This person is always late. This kind of commitment always slips. This team is consistently over-committed.</p>
+
+            <p>Without data, you can't see patterns. Without patterns, you can't fix systemic issues.</p>
+
+            <p><strong>How to fix it:</strong> Track everything. Over time, patterns emerge. Then you can fix them systemically instead of constantly being surprised.</p>
+
+            <div class="cta-box">
+                <h3>See What's Really Happening</h3>
+                <p>Work observability eliminates these blind spots. See your team's execution in real-time. Make data-driven decisions.</p>
+                <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+            </div>
+
+            <h2>Blind Spot #6: The Invisible Constraints</h2>
+
+            <p>Your team is less productive than they should be. But you don't know why. Maybe it's meetings. Maybe it's unclear priorities. Maybe they're over-committed.</p>
+
+            <p>Without visibility, you can't see the actual constraint.</p>
+
+            <p><strong>How to fix it:</strong> Look at the data. Where are deadlines being missed? What blockers appear most frequently? What is the team spending time on? Patterns reveal constraints.</p>
+
+            <h2>Blind Spot #7: The Accountability Void</h2>
+
+            <p>You want accountability. But without visibility into what was committed and what was delivered, accountability is just blame.</p>
+
+            <p>Real accountability requires clear commitments and clear visibility into follow-through.</p>
+
+            <p><strong>How to fix it:</strong> Make commitments explicit and visible. Track whether they happen. That's accountability without blame.</p>
+
+            <h2>How Work Observability Fixes All of These</h2>
+
+            <p>Work observability creates a system where:</p>
+
+            <ul>
+                <li>Commitments are explicit (no vague "on track" statements)</li>
+                <li>Blockers surface automatically (not through personal escalation)</li>
+                <li>Big promises are tracked in real-time</li>
+                <li>Dependencies are visible</li>
+                <li>Patterns emerge from data</li>
+                <li>Constraints become visible</li>
+                <li>Accountability is natural (not punitive)</li>
+            </ul>
+
+            <h2>The Result</h2>
+
+            <p>When leaders eliminate these seven blind spots, they:</p>
+
+            <ul>
+                <li>Make faster, better decisions (based on data, not hope)</li>
+                <li>Surface problems before they're crises</li>
+                <li>Fix systemic issues instead of constantly reacting</li>
+                <li>Build trust (people feel known and supported, not surveilled)</li>
+                <li>Improve execution (things actually get done on time)</li>
+            </ul>
+
+            <h2>Start Today</h2>
+
+            <p>Pick one big commitment. Track it obsessively for the next month. See what blind spots appear.</p>
+
+            <p>I guarantee you'll be surprised by what you discover about your own execution visibility.</p>
+
+            <p>From there, expand. Build the system. Eliminate blind spots systematically.</p>
+
+            <p>That's how great leaders stay informed without micromanaging.</p>
+        </div>
+
+        <div class="related-posts">
+            <h3>Related Posts</h3>
+            <div class="posts-grid">
+                <div class="post-card">
+                    <h4>What Is Work Observability? The New Category Changing How Teams Execute</h4>
+                    <p><a href="what-is-work-observability.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>The Execution Gap: Why Strategy Fails and How to Close It</h4>
+                    <p><a href="team-execution-gap.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>Datadog for Work: Why Your Team Needs an Observability Layer</h4>
+                    <p><a href="datadog-for-work.html">Read article →</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box" style="margin: 4rem 0 2rem 0;">
+            <h3>Eliminate Your Blind Spots</h3>
+            <p>See what's really happening with execution. Make better decisions. Lead with confidence.</p>
+            <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+        </div>
+    </div>
+
+        <footer>
+        <p>&copy; 2026 HeyWren | <a href="/">Home</a> | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+    </footer>
+</body>
+</html>

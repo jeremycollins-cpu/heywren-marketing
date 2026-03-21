@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Commitment Tracing - Like distributed tracing but for promises. Follow every commitment from origin to resolution.">
+  <meta property="og:title" content="Commitment Tracing | HeyWren">
+  <meta property="og:description" content="Distributed tracing for your promises. Track every commitment from origin to resolution with full context.">
+  <meta property="og:image" content="https://heywren.ai/og-tracing.png">
+  <meta property="og:url" content="https://heywren.ai/features/commitment-tracing.html">
+  <title>Commitment Tracing | HeyWren</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #1f2937; background: #fafbfc; line-height: 1.6; }
+    nav { position: sticky; top: 0; z-index: 1000; background: white; border-bottom: 1px solid #e5e7eb; padding: 16px 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .logo { height: 30px; width: auto; }
+    .nav-links { display: flex; gap: 32px; align-items: center; list-style: none; }
+    .nav-links a { text-decoration: none; color: #4b5563; font-size: 14px; font-weight: 500; transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .nav-links a:hover { color: #4f46e5; }
+    .cta-button { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border: none; padding: 10px 24px; border-radius: 14px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3), 0 2px 4px rgba(79, 70, 229, 0.2); }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4), 0 4px 8px rgba(79, 70, 229, 0.25); }
+    .hero { max-width: 1200px; margin: 0 auto; padding: 80px 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .hero-content h1 { font-size: 52px; font-weight: 800; line-height: 1.1; margin-bottom: 24px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-content p { font-size: 20px; color: #6b7280; margin-bottom: 32px; line-height: 1.5; }
+    .hero-stat { background: white; border-left: 4px solid #4f46e5; padding: 16px 20px; margin-bottom: 32px; border-radius: 14px; font-size: 16px; font-weight: 600; color: #1f2937; box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); }
+    .hero-cta { display: flex; gap: 16px; align-items: center; }
+    .hero-cta a { display: inline-flex; align-items: center; padding: 14px 32px; border-radius: 14px; font-weight: 600; text-decoration: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .primary-cta { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3), 0 2px 4px rgba(79, 70, 229, 0.2); }
+    .primary-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4), 0 4px 8px rgba(79, 70, 229, 0.25); }
+    .secondary-cta { color: #4f46e5; border: 2px solid #4f46e5; background: transparent; }
+    .secondary-cta:hover { background: #f3f0ff; }
+    .mockup-container { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.08), 0 1px 3px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; }
+    .trace-timeline { position: relative; padding: 24px 0; }
+    .trace-item { display: flex; gap: 20px; margin-bottom: 24px; position: relative; }
+    .trace-item::before { content: ""; position: absolute; left: 15px; top: 40px; width: 2px; height: calc(100% + 24px); background: linear-gradient(180deg, #4f46e5 0%, transparent 100%); }
+    .trace-item:last-child::before { display: none; }
+    .trace-dot { width: 32px; height: 32px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 12px; position: relative; z-index: 1; }
+    .trace-content { background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%); border: 1px solid #e9d5ff; border-radius: 10px; padding: 16px; flex: 1; }
+    .trace-time { font-size: 12px; color: #6b7280; font-weight: 600; margin-bottom: 4px; }
+    .trace-action { font-size: 14px; font-weight: 600; color: #1f2937; margin-bottom: 8px; }
+    .trace-detail { font-size: 13px; color: #6b7280; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
+    .section-title { font-size: 36px; font-weight: 800; margin-bottom: 16px; color: #1f2937; }
+    .section-subtitle { font-size: 18px; color: #6b7280; margin-bottom: 48px; line-height: 1.5; }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+    .problem-list { list-style: none; }
+    .problem-list li { display: flex; gap: 16px; margin-bottom: 24px; font-size: 16px; color: #374151; }
+    .problem-list li::before { content: "✕"; color: #ef4444; font-weight: 800; flex-shrink: 0; font-size: 20px; }
+    .bird-illustration { width: 100%; max-width: 300px; height: auto; }
+    .how-it-works { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
+    .step { background: white; padding: 32px 24px; border-radius: 14px; text-align: center; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .step:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .step-number { width: 48px; height: 48px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; margin: 0 auto 16px; }
+    .step-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #1f2937; }
+    .step-desc { font-size: 14px; color: #6b7280; line-height: 1.5; }
+    .benefits-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+    .benefit-card { background: white; padding: 32px; border-radius: 14px; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .benefit-icon { width: 56px; height: 56px; background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 16px; }
+    .benefit-title { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #1f2937; }
+    .benefit-desc { font-size: 14px; color: #6b7280; line-height: 1.6; }
+    .use-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
+    .use-case { background: linear-gradient(135deg, #fafbfc 0%, #f3f0ff 100%); padding: 28px; border-radius: 14px; border: 1px solid #e5e7eb; }
+    .use-case-role { font-size: 14px; font-weight: 700; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .use-case-desc { font-size: 16px; color: #374151; line-height: 1.6; }
+    .final-cta { text-align: center; padding: 80px 24px; background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%); }
+    .final-cta h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; color: #1f2937; }
+    .final-cta p { font-size: 18px; color: #6b7280; margin-bottom: 32px; }
+    footer { background: #18181b; color: white; padding: 48px 24px; }
+    .footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; margin-bottom: 32px; }
+    .footer-section h4 { font-size: 14px; font-weight: 700; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .footer-section ul { list-style: none; }
+    .footer-section a { color: #d1d5db; text-decoration: none; font-size: 14px; margin-bottom: 8px; display: block; transition: color 0.2s; }
+    .footer-section a:hover { color: #4f46e5; }
+    .footer-bottom { border-top: 1px solid #374151; padding-top: 24px; text-align: center; color: #9ca3af; font-size: 14px; }
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; padding: 48px 24px; }
+      .hero-content h1 { font-size: 36px; }
+      .how-it-works, .benefits-grid, .use-cases { grid-template-columns: 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 16px; }
+      .footer-container { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <svg class="logo" width="140" height="30" viewBox="0 0 370 80" fill="none">
+        <g transform="translate(0, 4)">
+          <ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+          <circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+          <circle cx="53" cy="28" r="2" fill="#4f46e5"/>
+          <path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M 26 45 C 34 39, 46 37, 52 41" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+          <path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </g>
+        <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/>
+        <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>
+          <path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>
+          <path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>
+        </g>
+        <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+          <path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>
+          <path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>
+          <path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>
+          <path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>
+        </g>
+      </svg>
+      <ul class="nav-links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="../demo.html">Demo</a></li>
+                    <li><a href="../blog/">Blog</a></li>
+        <li><a href="../glossary.html">Glossary</a></li>
+        <li><a href="../faq.html">FAQ</a></li>
+        <li><button class="cta-button">Start 7-Day Free Trial</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Commitment Tracing</h1>
+      <p>Like distributed tracing but for promises. Follow every commitment from origin through all related work to final resolution.</p>
+      <div class="hero-stat">✦ See where each promise came from, what it depends on, and its current status.</div>
+      <div class="hero-cta">
+        <a href="#signup" class="primary-cta">Start 7-Day Free Trial</a>
+        <a href="#demo" class="secondary-cta">View Demo</a>
+      </div>
+    </div>
+    <div class="mockup-container">
+      <div class="trace-timeline">
+        <div class="trace-item">
+          <div class="trace-dot">1</div>
+          <div class="trace-content">
+            <div class="trace-time">Jan 15, 2026 • 2:30 PM</div>
+            <div class="trace-action">Commitment Created</div>
+            <div class="trace-detail">Sarah: "Can you review the API proposal by end of week?"</div>
+          </div>
+        </div>
+        <div class="trace-item">
+          <div class="trace-dot">2</div>
+          <div class="trace-content">
+            <div class="trace-time">Jan 16, 2026 • 10:15 AM</div>
+            <div class="trace-action">Related: Design Review</div>
+            <div class="trace-detail">Engineering team discussion about API architecture</div>
+          </div>
+        </div>
+        <div class="trace-item">
+          <div class="trace-dot">3</div>
+          <div class="trace-content">
+            <div class="trace-time">Jan 17, 2026 • 3:45 PM</div>
+            <div class="trace-action">Progress: Draft Complete</div>
+            <div class="trace-detail">You send Sarah initial feedback on proposal</div>
+          </div>
+        </div>
+        <div class="trace-item">
+          <div class="trace-dot">4</div>
+          <div class="trace-content">
+            <div class="trace-time">Today • Pending</div>
+            <div class="trace-action">Follow-Up: Await Response</div>
+            <div class="trace-detail">Waiting for Sarah's sign-off to proceed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">The Problem</h2>
+    <p class="section-subtitle">Commitments scatter across channels and lose their context over time.</p>
+    <div class="problem-grid">
+      <ul class="problem-list">
+        <li>Can't see the full lifecycle of a commitment</li>
+        <li>Related work gets disconnected from the original promise</li>
+        <li>Status updates get lost in Slack threads</li>
+        <li>No visibility into blockers or dependent items</li>
+      </ul>
+      <svg class="bird-illustration" viewBox="0 0 200 200" fill="none">
+        <circle cx="100" cy="100" r="95" stroke="#4f46e5" stroke-width="2" opacity="0.1"/>
+        <path d="M 60 100 L 100 70 L 140 100 L 100 130 Z" stroke="#4f46e5" stroke-width="2.5" fill="none"/>
+        <circle cx="100" cy="100" r="12" stroke="#4f46e5" stroke-width="2" fill="none"/>
+        <path d="M 85 60 L 115 60 M 60 85 L 140 85 M 85 140 L 115 140" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-subtitle">Full visibility from promise to completion.</p>
+    <div class="how-it-works">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-title">Detect Origin</div>
+        <div class="step-desc">Capture where and when the commitment was made.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-title">Link Work</div>
+        <div class="step-desc">Connect related tasks, emails, and conversations automatically.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-title">Track Progress</div>
+        <div class="step-desc">Watch status updates flow through as you make progress.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-title">Resolve</div>
+        <div class="step-desc">Close with full context. See impact on related commitments.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Key Benefits</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🔍</div>
+        <div class="benefit-title">Complete Visibility</div>
+        <div class="benefit-desc">See every step from the moment a commitment is made to final delivery.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔗</div>
+        <div class="benefit-title">Dependency Mapping</div>
+        <div class="benefit-desc">Understand what blocks what and plan work accordingly.</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">📈</div>
+        <div class="benefit-title">Accountability</div>
+        <div class="benefit-desc">Clear record of promises, progress, and outcomes for every stakeholder.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Who Benefits Most</h2>
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="use-case-role">VP Product</div>
+        <div class="use-case-desc">Track feature commitments through design, engineering, and launch. See blockers early.</div>
+      </div>
+      <div class="use-case">
+        <div class="use-case-role">VP Sales</div>
+        <div class="use-case-desc">Customer promises link to delivery milestones. Clear view of deal progress.</div>
+      </div>
+      <div class="use-case">
+        <div class="use-case-role">COO / Chief of Staff</div>
+        <div class="use-case-desc">Executive commitments roll up with real-time status. Never surprise leadership again.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>See Every Commitment From Start to Finish</h2>
+    <p>Full visibility. Complete accountability. Clear outcomes.</p>
+    <button class="cta-button" style="padding: 14px 40px; font-size: 16px;">Start 7-Day Free Trial — No Credit Card Required</button>
+  </section>
+
+    <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="#">AI Nudges</a></li>
+          <li><a href="#">Draft Queue</a></li>
+          <li><a href="#">Meeting Briefings</a></li>
+          <li><a href="#">Commitment Tracing</a></li>
+          <li><a href="#">Achievements</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="../blog/">Blog</a></li>
+          <li><a href="../glossary.html">Glossary</a></li>
+          <li><a href="../faq.html">FAQ</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Press</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">Data Processing</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 HeyWren</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        if (this.getAttribute('href') !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

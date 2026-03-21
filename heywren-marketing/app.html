@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wren — The Assistant That Helps You Get Shit Done | heywren.ai</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+            background: #f7f7f8;
+            color: #18181b;
+            line-height: 1.6;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ---- ONBOARDING SECTION ---- */
+        .onboard-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%);
+            padding: 32px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .onboard-wrap::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 300px;
+            height: 300px;
+            opacity: 0.03;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M50 100 Q100 50 150 100 Q100 150 50 100" fill="none" stroke="white" stroke-width="2"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+        .onboard-card {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 560px;
+            padding: 48px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 1;
+        }
+        .onboard-logo {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .onboard-logo svg {
+            margin: 0 auto 12px;
+            display: block;
+        }
+        .onboard-title-logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #18181b;
+            margin-bottom: 4px;
+        }
+        .onboard-sub {
+            font-size: 13px;
+            color: #71717a;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        .onboard-step-indicator {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 48px;
+        }
+        .step-dot {
+            height: 3px;
+            flex: 1;
+            border-radius: 1.5px;
+            background: #e4e4e7;
+            transition: all 0.3s ease;
+        }
+        .step-dot.active {
+            background: #4f46e5;
+        }
+        .step-dot.done {
+            background: #4f46e5;
+        }
+        .onboard-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #18181b;
+            letter-spacing: -0.3px;
+        }
+        .onboard-desc {
+            font-size: 14px;
+            color: #52525b;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #18181b;
+            margin-bottom: 8px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d4d4d8;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            color: #18181b;
+        }
+        .form-input::placeholder {
+            color: #a1a1aa;
+        }
+        .form-input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+        .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d4d4d8;
+            border-radius: 10px;
+            font-size: 14px;
+            background: #ffffff;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #18181b;
+        }
+        .form-select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+        .form-hint {
+            font-size: 12px;
+            color: #a1a1aa;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+        .role-card {
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .role-card:hover {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+        .role-card.selected {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            box-shadow: 0 0 0 2px #4f46e5;
+        }
+        .role-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #18181b;
+            margin-bottom: 4px;
+        }
+        .role-desc {
+            font-size: 12px;
+            color: #a1a1aa;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .integration-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .integ-card {
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            padding: 14px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+        }
+        .integ-card:hover {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+        .integ-card.selected {
+            border-color: #16a34a;
+            background: #f0fdf4;
+        }
+        .integ-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+            background: #f3f0ff;
+            color: #4f46e5;
+        }
+        .integ-info { flex: 1; }
+        .integ-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #18181b;
+        }
+        .integ-desc {
+            font-size: 11px;
+            color: #a1a1aa;
+            margin-top: 2px;
+        }
+        .integ-status {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #a1a1aa;
+            background: #f0f0f0;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border: 1px solid #e4e4e7;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            background: #ffffff;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .team-member:hover {
+            border-color: #d4d4d8;
+            background: #f7f7f8;
+        }
+        .team-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #fff;
+            flex-shrink: 0;
+            background: #a1a1aa;
+        }
+        .team-info { flex: 1; }
+        .team-name-input {
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            outline: none;
+            width: 100%;
+            background: transparent;
+            color: #18181b;
+        }
+        .team-role-select {
+            font-size: 12px;
+            color: #a1a1aa;
+            border: none;
+            outline: none;
+            background: transparent;
+            cursor: pointer;
+            margin-top: 2px;
+            font-weight: 400;
+        }
+        .team-remove {
+            cursor: pointer;
+            color: #d4d4d8;
+            font-size: 16px;
+            padding: 4px 6px;
+            transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .team-remove:hover { color: #dc2626; }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            letter-spacing: 0;
+        }
+        .btn-primary {
+            background: #4f46e5;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+        .btn-primary:disabled {
+            background: #c7d2fe;
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: #f0f0f0;
+            color: #52525b;
+            font-weight: 500;
+        }
+        .btn-secondary:hover {
+            background: #e4e4e7;
+        }
+        .btn-ghost {
+            background: transparent;
+            color: #52525b;
+            font-weight: 500;
+        }
+        .btn-ghost:hover {
+            color: #18181b;
+            background: #f0f0f0;
+        }
+        .btn-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            gap: 12px;
+        }
+
+        .coach-preview {
+            background: #eef2ff;
+            border: 1px solid #e4e4e7;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 28px;
+        }
+        .coach-preview-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        .coach-preview-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+            background: #f0f0f0;
+        }
+        .coach-preview-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #18181b;
+        }
+        .coach-preview-desc {
+            font-size: 13px;
+            color: #52525b;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+        .coach-focus-list {
+            margin-top: 10px;
+            padding-left: 0;
+        }
+        .coach-focus-item {
+            font-size: 13px;
+            color: #52525b;
+            margin-bottom: 6px;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .success-animation {
+            text-align: center;
+            padding: 24px 0;
+        }
+        .success-check {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 20px;
+            animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid #4f46e5;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            70% { transform: scale(1.15); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pricing-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+        .pricing-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #a1a1aa;
+            cursor: pointer;
+            transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pricing-label.active {
+            color: #18181b;
+            font-weight: 600;
+        }
+        .pricing-switch {
+            width: 44px;
+            height: 24px;
+            border-radius: 12px;
+            background: #d4d4d8;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pricing-switch.annual {
+            background: #4f46e5;
+        }
+        .pricing-switch-knob {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .pricing-switch.annual .pricing-switch-knob {
+            transform: translateX(20px);
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .price-card {
+            border: 1px solid #e4e4e7;
+            border-radius: 14px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            background: #ffffff;
+            overflow: hidden;
+        }
+        .price-card:hover {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+        .price-card.selected {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            box-shadow: inset 0 0 0 1px #4f46e5;
+        }
+        .price-card.popular {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+        .price-card.popular::after {
+            content: 'POPULAR';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4f46e5;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+        }
+        .price-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #18181b;
+        }
+        .price-amount {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 36px;
+            font-weight: 600;
+            color: #18181b;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            font-variant-numeric: tabular-nums;
+        }
+        .price-period {
+            font-size: 12px;
+            color: #a1a1aa;
+            margin-bottom: 14px;
+            font-weight: 400;
+        }
+        .price-features {
+            text-align: left;
+            font-size: 12px;
+            color: #52525b;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .section-divider {
+            display: block;
+            margin: 32px 0;
+            width: 100%;
+            height: 8px;
+        }
+
+        /* ---- MAIN APP (post-onboarding) ---- */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            background: #f7f7f8;
+        }
+
+        .sidebar {
+            width: 240px;
+            background: #ffffff;
+            border-right: 1px solid #e4e4e7;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 10;
+        }
+        .sidebar-logo {
+            padding: 24px;
+            border-bottom: 1px solid #e4e4e7;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sidebar-logo svg {
+            flex-shrink: 0;
+        }
+        .sidebar-logo h1 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #18181b;
+            letter-spacing: -0.2px;
+        }
+        .sidebar-logo .sub {
+            font-size: 11px;
+            color: #a1a1aa;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+        .sidebar-logo .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 9px;
+            font-weight: 600;
+            color: #4f46e5;
+            padding: 2px 6px;
+            background: #f3f0ff;
+            border-radius: 4px;
+            margin-top: 6px;
+            width: 100%;
+        }
+        .sidebar-logo .live-badge::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #16a34a;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 8px;
+            overflow-y: auto;
+        }
+        .nav-item {
+            padding: 12px 14px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #52525b;
+            cursor: pointer;
+            border-radius: 10px;
+            margin-bottom: 4px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #4f46e5;
+            transform: translateX(-2px);
+            transition: transform 0.15s ease;
+        }
+        .nav-item:hover {
+            background: #f0f0f0;
+            color: #18181b;
+        }
+        .nav-item.active {
+            background: #eef2ff;
+            color: #4f46e5;
+            font-weight: 600;
+            box-shadow: 0 1px 3px rgba(79, 70, 229, 0.08);
+        }
+        .nav-item.active::before {
+            transform: translateX(0);
+        }
+        .sidebar-user {
+            padding: 16px 24px;
+            border-top: 1px solid #e4e4e7;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+            background: #4f46e5;
+        }
+
+        .main {
+            margin-left: 240px;
+            padding: 40px 48px;
+            min-height: 100vh;
+            flex: 1;
+            overflow-y: auto;
+        }
+        .page-header {
+            margin-bottom: 36px;
+            position: relative;
+        }
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 8" fill="none" preserveAspectRatio="none"><path d="M 0 4 C 100 1, 200 7, 300 4 C 400 1, 500 7, 600 4" stroke="%23e4e4e7" stroke-width="1" stroke-linecap="round" fill="none"/></svg>');
+            background-size: 100% 100%;
+            opacity: 0.6;
+        }
+        .page-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #18181b;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .page-header p {
+            font-size: 13px;
+            color: #a1a1aa;
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.02);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card:hover {
+            border-color: #d4d4d8;
+            transform: translateY(-1px);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
+            background: #f0f0f0;
+            color: #52525b;
+        }
+        .badge-success {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+        .badge-warning {
+            background: #fffbeb;
+            color: #d97706;
+        }
+        .badge-error {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .badge-info {
+            background: #f0f9ff;
+            color: #0369a1;
+        }
+
+        .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: transparent;
+            color: #4f46e5;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 0;
+            margin-left: 8px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .live-badge::before {
+            content: '●';
+            animation: pulse 2s infinite;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 28px;
+            margin-top: 28px;
+        }
+        .stat-card {
+            text-align: center;
+            padding: 24px 20px;
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 14px;
+            border-top: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4f46e5, #818cf8, #c7d2fe);
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.1);
+            border-color: #c7d2fe;
+        }
+        .stat-value {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: #18181b;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #71717a;
+            margin-top: 10px;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0.2px;
+        }
+
+        .nudge-card {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 16px;
+            border-left: 3px solid #e4e4e7;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04);
+        }
+        .nudge-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            border-color: #d4d4d8;
+            transform: translateY(-1px);
+        }
+        .nudge-card.urgent {
+            border-left-color: #dc2626;
+        }
+        .nudge-card.gentle {
+            border-left-color: #4f46e5;
+        }
+        .nudge-card.digest {
+            border-left-color: #a1a1aa;
+        }
+        .nudge-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.5;
+            color: #18181b;
+        }
+        .nudge-meta {
+            font-size: 11px;
+            color: #a1a1aa;
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .nudge-why {
+            font-size: 13px;
+            color: #52525b;
+            font-style: italic;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .nudge-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .nudge-btn {
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .nudge-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .nudge-btn.done {
+            background: #f0fdf4;
+            color: #16a34a;
+        }
+        .nudge-btn.snooze {
+            background: #fffbeb;
+            color: #d97706;
+        }
+        .nudge-btn.dismiss {
+            background: #f0f0f0;
+            color: #52525b;
+        }
+        .nudge-btn.open {
+            background: transparent;
+            color: #4f46e5;
+            border: 1px solid #4f46e5;
+        }
+
+        .source-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            color: #71717a;
+            margin-right: 6px;
+            text-transform: none;
+            letter-spacing: 0;
+            background: linear-gradient(135deg, #f4f4f5, #fafafa);
+            border: 1px solid #e4e4e7;
+        }
+
+        .coach-card {
+            background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #eef2ff 100%);
+            border: 1px solid #c7d2fe;
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .coach-card::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: -10%;
+            width: 200px;
+            height: 200px;
+            opacity: 0.05;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20 50 Q50 30 80 50 Q50 70 20 50" fill="none" stroke="%234f46e5" stroke-width="1.5"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+        .insight-card {
+            background: #ffffff;
+            border: 1px solid #e4e4e7;
+            border-radius: 14px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04);
+            position: relative;
+            overflow: hidden;
+        }
+        .insight-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5, #818cf8);
+            opacity: 0.6;
+        }
+        .insight-card:hover {
+            border-color: #c7d2fe;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.08);
+            transform: translateY(-1px);
+        }
+        .insight-card:hover::before {
+            opacity: 1;
+        }
+        .insight-priority {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #f0f0f0;
+            color: #52525b;
+        }
+        .insight-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #18181b;
+        }
+        .insight-body {
+            font-size: 13px;
+            color: #52525b;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            font-weight: 400;
+        }
+        .insight-action {
+            background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+            border-left: 3px solid #4f46e5;
+            padding: 14px 16px;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #3730a3;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #a1a1aa;
+            font-size: 13px;
+            font-weight: 400;
+            position: relative;
+        }
+        .empty-state::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            opacity: 0.08;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150"><ellipse cx="48" cy="52" rx="20" ry="16" stroke="%234f46e5" stroke-width="2" fill="none"/><circle cx="60" cy="40" r="10" stroke="%234f46e5" stroke-width="2" fill="none"/><circle cx="63" cy="38" r="3" fill="%234f46e5"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .empty-state-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .settings-section { margin-bottom: 32px; }
+        .settings-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #18181b;
+        }
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #e4e4e7;
+        }
+        .setting-info h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #18181b;
+        }
+        .setting-info p {
+            font-size: 12px;
+            color: #a1a1aa;
+            margin-top: 3px;
+            font-weight: 400;
+        }
+
+        .toggle {
+            position: relative;
+            width: 40px;
+            height: 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            background: #d4d4d8;
+        }
+        .toggle.on {
+            background: #4f46e5;
+        }
+        .toggle-knob {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .toggle.on .toggle-knob {
+            transform: translateX(16px);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 50;
+            animation: slideUp 0.3s ease;
+            text-transform: none;
+            letter-spacing: 0;
+            background: #18181b;
+        }
+        .toast.success { background: #4f46e5; }
+        .toast.error { background: #dc2626; }
+        .toast.info { background: #0369a1; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .role-grid, .integration-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .onboard-card { padding: 28px; }
+            .sidebar { display: none; }
+            .main { margin-left: 0; padding: 20px; }
+            .stat-grid { grid-template-columns: 1fr 1fr; }
+            .page-header h1 { font-size: 20px; }
+        }
+
+        /* Commitment Tracing */
+        .trace-card { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 28px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .trace-card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .trace-title { font-size: 16px; font-weight: 700; color: #18181b; letter-spacing: -0.3px; }
+        .trace-meta { display: flex; gap: 10px; align-items: center; margin-top: 6px; }
+        .trace-score { font-family: 'SF Mono', monospace; font-size: 13px; font-weight: 700; padding: 4px 10px; border-radius: 8px; }
+        .trace-status { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 100px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .trace-status.stalled { background: #fef2f2; color: #dc2626; }
+        .trace-status.active { background: #f0fdf4; color: #16a34a; }
+        .trace-status.at-risk { background: #fffbeb; color: #d97706; }
+        .trace-timeline { position: relative; padding-left: 24px; margin-top: 16px; }
+        .trace-timeline::before { content: ''; position: absolute; left: 7px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, #4f46e5, #c7d2fe); border-radius: 1px; }
+        .trace-event { position: relative; padding: 8px 0 8px 16px; font-size: 13px; color: #52525b; line-height: 1.5; }
+        .trace-event::before { content: ''; position: absolute; left: -20px; top: 14px; width: 10px; height: 10px; border-radius: 50%; border: 2px solid #4f46e5; background: #fff; }
+        .trace-event.current::before { background: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,0.2); }
+        .trace-event-date { font-size: 11px; font-weight: 600; color: #a1a1aa; margin-right: 8px; }
+        .trace-event-tool { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; background: #f4f4f5; color: #71717a; margin-right: 6px; }
+        .trace-tabs { display: flex; gap: 0; border-bottom: 1px solid #e4e4e7; margin-bottom: 28px; }
+        .trace-tab { padding: 12px 20px; font-size: 14px; font-weight: 600; cursor: pointer; border-bottom: 2.5px solid transparent; color: #a1a1aa; transition: all 0.15s; }
+        .trace-tab:hover { color: #18181b; }
+        .trace-tab.active { color: #4f46e5; border-bottom-color: #4f46e5; }
+        .deleg-card { background: #fff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 16px; display: flex; gap: 16px; align-items: flex-start; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .deleg-card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+
+        /* Relationship Health */
+        .rel-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .rel-card { background: #fff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .rel-card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(79,70,229,0.08); border-color: #c7d2fe; }
+        .rel-alert { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; font-size: 13px; color: #991b1b; display: flex; gap: 10px; }
+
+        /* Playbooks */
+        .playbook-card { background: #fff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 28px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); position: relative; overflow: hidden; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .playbook-card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .playbook-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #4f46e5, #818cf8); }
+        .playbook-active { position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 600; padding: 4px 10px; border-radius: 100px; background: #f0fdf4; color: #16a34a; text-transform: uppercase; letter-spacing: 0.5px; }
+        .playbook-trigger { background: #f7f7f8; border-radius: 10px; padding: 14px 18px; margin: 16px 0; font-size: 13px; color: #52525b; }
+        .playbook-trigger strong { color: #4f46e5; }
+        .playbook-action-item { padding: 8px 0; font-size: 13px; color: #52525b; display: flex; gap: 10px; border-bottom: 1px solid #f4f4f5; }
+        .playbook-action-item:last-child { border-bottom: none; }
+        .playbook-action-num { width: 22px; height: 22px; border-radius: 50%; background: #eef2ff; color: #4f46e5; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        /* SLO Cards */
+        .slo-card { background: #fff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        .slo-status { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 100px; }
+        .slo-status.healthy { background: #f0fdf4; color: #16a34a; }
+        .slo-status.warning { background: #fffbeb; color: #d97706; }
+        .slo-status.breached { background: #fef2f2; color: #dc2626; }
+        .slo-bar-bg { width: 100%; height: 8px; background: #f4f4f5; border-radius: 4px; overflow: hidden; margin: 10px 0; }
+        .slo-bar-fill { height: 100%; border-radius: 4px; }
+
+        /* Anomaly Bar */
+        .anomaly-bar { background: linear-gradient(135deg, #fef2f2, #fff7ed); border: 1px solid #fecaca; border-radius: 14px; padding: 20px 24px; margin-bottom: 24px; }
+        .anomaly-title { font-size: 13px; font-weight: 700; color: #991b1b; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .anomaly-item { font-size: 13px; color: #78350f; padding: 8px 0; border-bottom: 1px solid rgba(254,202,202,0.5); line-height: 1.5; }
+        .anomaly-item:last-child { border-bottom: none; }
+
+        /* Energy & Capacity */
+        .energy-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+        .energy-card { background: #fff; border: 1px solid #e4e4e7; border-radius: 12px; padding: 18px; text-align: center; }
+        .energy-value { font-size: 22px; font-weight: 700; font-family: 'SF Mono', monospace; }
+        .energy-label { font-size: 11px; color: #71717a; margin-top: 4px; }
+        .energy-indicator { font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 100px; margin-top: 8px; display: inline-block; }
+
+        /* Forecast */
+        .forecast-card { background: linear-gradient(135deg, #eef2ff, #f5f3ff); border: 1px solid #c7d2fe; border-radius: 14px; padding: 24px; margin-bottom: 24px; }
+        .forecast-item { padding: 10px 0; font-size: 13px; color: #3730a3; display: flex; gap: 10px; border-bottom: 1px solid rgba(199,210,254,0.5); }
+        .forecast-item:last-child { border-bottom: none; }
+
+        /* Meeting ROI */
+        .roi-card { background: #fff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 14px; display: flex; align-items: center; gap: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .roi-card:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .roi-rec { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 100px; flex-shrink: 0; }
+        .roi-rec.keep { background: #f0fdf4; color: #16a34a; }
+        .roi-rec.optimize { background: #fffbeb; color: #d97706; }
+        .roi-rec.cut { background: #fef2f2; color: #dc2626; }
+        .roi-rec.async { background: #eef2ff; color: #4f46e5; }
+
+        /* Chat Panel */
+        .chat-fab {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.35), 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chat-fab:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 24px rgba(79, 70, 229, 0.45), 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .chat-fab.open {
+            transform: rotate(90deg);
+            background: #18181b;
+        }
+        .chat-fab svg { pointer-events: none; }
+
+        .chat-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(2px);
+            z-index: 98;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chat-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .chat-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 420px;
+            height: 100vh;
+            background: #ffffff;
+            border-left: 1px solid #e4e4e7;
+            box-shadow: -8px 0 32px rgba(0,0,0,0.08);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .chat-panel.open {
+            transform: translateX(0);
+        }
+
+        .chat-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e4e4e7;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        .chat-header-bird {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .chat-header-info h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #18181b;
+            letter-spacing: -0.3px;
+        }
+        .chat-header-info p {
+            font-size: 11px;
+            color: #71717a;
+            margin-top: 2px;
+        }
+        .chat-header-close {
+            margin-left: auto;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a1a1aa;
+            transition: all 0.15s;
+        }
+        .chat-header-close:hover {
+            background: #f4f4f5;
+            color: #18181b;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .chat-msg {
+            max-width: 88%;
+            font-size: 14px;
+            line-height: 1.6;
+            animation: chatFadeIn 0.3s ease-out;
+        }
+        @keyframes chatFadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-msg.wren {
+            align-self: flex-start;
+            background: #f7f7f8;
+            border: 1px solid #e4e4e7;
+            border-radius: 2px 14px 14px 14px;
+            padding: 14px 18px;
+            color: #18181b;
+        }
+        .chat-msg.wren .chat-msg-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: #4f46e5;
+            margin-bottom: 6px;
+            letter-spacing: 0.2px;
+        }
+
+        .chat-msg.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #4f46e5, #4338ca);
+            border-radius: 14px 2px 14px 14px;
+            padding: 14px 18px;
+            color: #ffffff;
+        }
+
+        .chat-msg.wren strong { color: #4f46e5; font-weight: 600; }
+
+        .chat-typing {
+            align-self: flex-start;
+            display: flex;
+            gap: 4px;
+            padding: 14px 18px;
+            background: #f7f7f8;
+            border: 1px solid #e4e4e7;
+            border-radius: 2px 14px 14px 14px;
+        }
+        .chat-typing span {
+            width: 6px;
+            height: 6px;
+            background: #a1a1aa;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+        .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+        }
+
+        .chat-context-pills {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .chat-context-pill {
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 500;
+            background: #eef2ff;
+            color: #4f46e5;
+            border: 1px solid #c7d2fe;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .chat-context-pill:hover {
+            background: #4f46e5;
+            color: #fff;
+            border-color: #4f46e5;
+        }
+
+        .chat-memory-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            background: #f0fdf4;
+            color: #16a34a;
+            margin-top: 8px;
+        }
+
+        .chat-input-area {
+            padding: 16px 20px;
+            border-top: 1px solid #e4e4e7;
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            flex-shrink: 0;
+            background: #fafafa;
+        }
+        .chat-input {
+            flex: 1;
+            border: 1px solid #d4d4d8;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: none;
+            outline: none;
+            line-height: 1.5;
+            max-height: 120px;
+            background: #ffffff;
+            color: #18181b;
+            transition: border-color 0.15s;
+        }
+        .chat-input::placeholder { color: #a1a1aa; }
+        .chat-input:focus { border-color: #4f46e5; box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1); }
+        .chat-send {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #4f46e5;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.15s;
+        }
+        .chat-send:hover { background: #4338ca; transform: scale(1.05); }
+        .chat-send:disabled { background: #c7d2fe; cursor: not-allowed; transform: none; }
+
+        /* @HeyWren Mentions */
+        .mentions-feed { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.02); }
+        .mentions-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+        .mentions-title { font-size: 15px; font-weight: 700; color: #18181b; display: flex; align-items: center; gap: 8px; }
+        .mentions-tag { font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff; padding: 3px 10px; border-radius: 100px; letter-spacing: 0.02em; }
+        .mention-item { display: flex; gap: 14px; padding: 14px 0; border-top: 1px solid #f4f4f5; align-items: flex-start; }
+        .mention-item:first-child { border-top: none; padding-top: 0; }
+        .mention-source { flex-shrink: 0; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+        .mention-source.slack { background: #fef3c7; }
+        .mention-source.outlook { background: #dbeafe; }
+        .mention-source.teams { background: #ede9fe; }
+        .mention-content { flex: 1; }
+        .mention-who { font-size: 13px; font-weight: 600; color: #18181b; }
+        .mention-text { font-size: 13px; color: #52525b; line-height: 1.5; margin-top: 2px; }
+        .mention-text em { color: #4f46e5; font-weight: 600; font-style: normal; }
+        .mention-meta { font-size: 11px; color: #a1a1aa; margin-top: 4px; display: flex; gap: 8px; align-items: center; }
+        .mention-status { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 100px; }
+        .mention-status.captured { background: #f0fdf4; color: #16a34a; }
+        .mention-status.pending { background: #fffbeb; color: #d97706; }
+
+        /* Gamification — Momentum & Achievements */
+        .momentum-card { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.02); }
+        .momentum-row { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+        .momentum-streak { display: flex; align-items: center; gap: 10px; }
+        .streak-fire { width: 28px; height: 28px; }
+        .streak-count { font-size: 28px; font-weight: 800; color: #18181b; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
+        .streak-label { font-size: 12px; color: #71717a; font-weight: 500; }
+        .momentum-ring { position: relative; width: 56px; height: 56px; flex-shrink: 0; }
+        .momentum-pct { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 14px; font-weight: 700; color: #18181b; }
+        .sparkline { display: flex; align-items: flex-end; gap: 3px; height: 32px; }
+        .sparkline-bar { width: 8px; border-radius: 2px; background: #c7d2fe; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sparkline-bar.today { background: linear-gradient(180deg, #4f46e5, #7c3aed); }
+        .momentum-level { display: flex; align-items: center; gap: 8px; }
+        .level-badge { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; background: linear-gradient(135deg, #eef2ff, #ede9fe); color: #4f46e5; border: 1px solid #c7d2fe; }
+        .level-xp { font-size: 11px; color: #a1a1aa; }
+        .momentum-best { font-size: 12px; color: #71717a; margin-top: 14px; padding-top: 14px; border-top: 1px solid #f4f4f5; }
+        .momentum-best strong { color: #4f46e5; }
+
+        .achievement-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+        .achievement-card { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .achievement-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .achievement-card.unlocked { border-color: #c7d2fe; background: linear-gradient(180deg, #fefffe 0%, #eef2ff 100%); }
+        .achievement-card.locked { opacity: 0.5; filter: grayscale(0.3); }
+        .achievement-icon { width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .achievement-icon.unlocked { background: linear-gradient(135deg, #eef2ff, #ede9fe); }
+        .achievement-icon.locked { background: #f4f4f5; }
+        .achievement-name { font-size: 14px; font-weight: 700; color: #18181b; margin-bottom: 4px; }
+        .achievement-desc { font-size: 12px; color: #71717a; line-height: 1.4; margin-bottom: 8px; }
+        .achievement-date { font-size: 11px; color: #4f46e5; font-weight: 600; }
+        .achievement-progress { height: 4px; background: #f4f4f5; border-radius: 2px; margin-top: 8px; overflow: hidden; }
+        .achievement-progress-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #4f46e5, #7c3aed); }
+        .achievement-summary { display: flex; gap: 24px; margin-bottom: 28px; }
+        .achievement-stat { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 20px 24px; flex: 1; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
+        .achievement-stat-value { font-size: 28px; font-weight: 800; color: #4f46e5; letter-spacing: -0.5px; }
+        .achievement-stat-label { font-size: 12px; color: #71717a; margin-top: 2px; }
+
+        .leaderboard { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04); }
+        .leaderboard-title { font-size: 15px; font-weight: 700; color: #18181b; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+        .leaderboard-row { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 10px; margin-bottom: 6px; transition: background 0.2s; }
+        .leaderboard-row:hover { background: #fafafa; }
+        .leaderboard-row.you { background: linear-gradient(135deg, #eef2ff, #f5f3ff); border: 1px solid #c7d2fe; }
+        .leaderboard-rank { width: 24px; font-size: 14px; font-weight: 800; color: #a1a1aa; text-align: center; }
+        .leaderboard-row.you .leaderboard-rank { color: #4f46e5; }
+        .leaderboard-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
+        .leaderboard-info { flex: 1; }
+        .leaderboard-name { font-size: 14px; font-weight: 600; color: #18181b; }
+        .leaderboard-meta { font-size: 11px; color: #a1a1aa; }
+        .leaderboard-score { font-size: 18px; font-weight: 800; color: #18181b; }
+
+        /* Draft Queue */
+        .draft-card { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04); transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .draft-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .draft-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .draft-channel { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 100px; }
+        .draft-channel.slack { background: #fef3c7; color: #92400e; }
+        .draft-channel.email { background: #dbeafe; color: #1e40af; }
+        .draft-to { font-size: 14px; font-weight: 700; color: #18181b; }
+        .draft-context { font-size: 12px; color: #71717a; margin-bottom: 12px; padding: 10px 14px; background: #fafafa; border-radius: 8px; border-left: 3px solid #c7d2fe; }
+        .draft-body { background: #fafafa; border: 1px solid #e4e4e7; border-radius: 10px; padding: 16px; font-size: 13px; color: #27272a; line-height: 1.65; margin-bottom: 14px; white-space: pre-wrap; }
+        .draft-actions { display: flex; gap: 8px; align-items: center; }
+        .draft-btn { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; border: none; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .draft-btn.approve { background: #4f46e5; color: #fff; }
+        .draft-btn.approve:hover { background: #4338ca; }
+        .draft-btn.edit { background: #eef2ff; color: #4f46e5; }
+        .draft-btn.edit:hover { background: #e0e7ff; }
+        .draft-btn.dismiss { background: #f4f4f5; color: #71717a; }
+        .draft-btn.dismiss:hover { background: #e4e4e7; }
+        .draft-priority { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 100px; }
+        .draft-priority.high { background: #fef2f2; color: #dc2626; }
+        .draft-priority.medium { background: #fffbeb; color: #d97706; }
+        .draft-priority.low { background: #f0fdf4; color: #16a34a; }
+
+        /* Pre-Meeting Briefings */
+        .briefing-card { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04); }
+        .briefing-top { padding: 20px 24px; border-bottom: 1px solid #f4f4f5; display: flex; align-items: center; gap: 16px; }
+        .briefing-time { font-size: 24px; font-weight: 800; color: #4f46e5; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; min-width: 60px; }
+        .briefing-info { flex: 1; }
+        .briefing-name { font-size: 16px; font-weight: 700; color: #18181b; }
+        .briefing-meta { font-size: 12px; color: #71717a; margin-top: 2px; }
+        .briefing-prep-badge { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+        .briefing-prep-badge.ready { background: #f0fdf4; color: #16a34a; }
+        .briefing-prep-badge.needs-prep { background: #fffbeb; color: #d97706; }
+        .briefing-body { padding: 20px 24px; }
+        .briefing-section { margin-bottom: 16px; }
+        .briefing-section:last-child { margin-bottom: 0; }
+        .briefing-section-title { font-size: 12px; font-weight: 700; color: #a1a1aa; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+        .briefing-item { font-size: 13px; color: #3f3f46; line-height: 1.6; padding: 4px 0; }
+        .briefing-attendee { display: inline-flex; align-items: center; gap: 6px; background: #f4f4f5; padding: 3px 10px 3px 3px; border-radius: 100px; margin: 2px 4px 2px 0; font-size: 12px; }
+        .briefing-attendee-dot { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; }
+
+        /* PTO Handoff */
+        .handoff-card { background: #ffffff; border: 1px solid #e4e4e7; border-radius: 14px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.03), 0 4px 12px rgba(0,0,0,0.04); }
+        .handoff-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+        .handoff-avatar { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: #fff; flex-shrink: 0; }
+        .handoff-name { font-size: 16px; font-weight: 700; color: #18181b; }
+        .handoff-dates { font-size: 12px; color: #71717a; }
+        .handoff-status { font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 100px; }
+        .handoff-status.pending { background: #fffbeb; color: #d97706; }
+        .handoff-status.ready { background: #f0fdf4; color: #16a34a; }
+        .handoff-items { border-top: 1px solid #f4f4f5; padding-top: 16px; }
+        .handoff-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #f4f4f5; }
+        .handoff-item:last-child { border-bottom: none; }
+        .handoff-item-status { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 100px; flex-shrink: 0; margin-top: 2px; }
+        .handoff-item-status.transferred { background: #f0fdf4; color: #16a34a; }
+        .handoff-item-status.needs-owner { background: #fef2f2; color: #dc2626; }
+        .handoff-item-status.covered { background: #eef2ff; color: #4f46e5; }
+        .handoff-item-title { font-size: 14px; font-weight: 600; color: #18181b; }
+        .handoff-item-detail { font-size: 12px; color: #71717a; margin-top: 2px; }
+    </style>
+</head>
+<body>
+
+<div id="app"></div>
+<div id="toast" class="toast" style="display:none"></div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+var app = {
+    screen: 'onboarding', // 'onboarding' or 'main'
+    onboardStep: 1,
+    totalSteps: 6,
+    page: 'dashboard',
+
+    // Onboarding data
+    user: {
+        name: '',
+        email: '',
+        company: '',
+        title: '',
+        role: '',          // CEO, Sales Manager, Marketing, Engineering, CS, Ops
+        department: '',
+        teamSize: '',
+        reportsTo: '',
+        goals: []
+    },
+
+    selectedIntegrations: ['slack', 'outlook'],
+    annualPricing: true,
+    selectedPlan: 'team',
+
+    team: [
+        { name: '', role: '', email: '' }
+    ],
+
+    settings: { dailyDigest: true, urgentNudges: true, weeklyReview: true, coachInsights: true }
+};
+
+// ============================================================
+// ROLE DEFINITIONS — the core IP
+// ============================================================
+var ROLES = {
+    'CEO / Founder': {
+        icon: '👑',
+        coachTitle: 'Executive Coach',
+        coachIcon: '🧠',
+        coachBg: '#4f46e5',
+        focuses: ['Board & investor readiness', 'Delegation patterns & time allocation', 'Strategic vs operational ratio', 'Culture signal amplification', 'EBITDA & growth metrics'],
+        signals: ['Board prep gaps', 'Over-indexing on ops', 'Unresolved people issues', 'Commitment governance', 'Revenue protection'],
+        integrations: ['slack', 'outlook', 'calendar', 'jira'],
+        nudgeTypes: ['Strategic follow-through', 'Delegation opportunities', 'Board/investor prep', 'People development gaps', 'M&A execution']
+    },
+    'VP Sales / Sales Manager': {
+        icon: '🎯',
+        coachTitle: 'Revenue Coach',
+        coachIcon: '📈',
+        coachBg: '#2563eb',
+        focuses: ['Pipeline velocity & deal progression', 'Rep coaching moments', 'Forecast accuracy', 'Customer expansion signals', 'Competitive win/loss patterns'],
+        signals: ['Stalled deals', 'Unlogged activities', 'Missed follow-ups with prospects', 'Reps going dark', 'Renewal risk'],
+        integrations: ['slack', 'outlook', 'salesforce', 'gong', 'calendar'],
+        nudgeTypes: ['Deal follow-up', 'Rep coaching opportunity', 'Forecast risk', 'Expansion signal', 'Competitive intel']
+    },
+    'Marketing Leader': {
+        icon: '📣',
+        coachTitle: 'Growth Coach',
+        coachIcon: '🚀',
+        coachBg: '#7c3aed',
+        focuses: ['Campaign execution follow-through', 'Content pipeline velocity', 'Cross-functional alignment (Sales, Product)', 'Brand consistency', 'Budget & ROI tracking'],
+        signals: ['Stalled campaigns', 'Missed deadlines', 'Misaligned messaging', 'Unresponded agency/vendor threads', 'Launch checklist gaps'],
+        integrations: ['slack', 'outlook', 'calendar', 'jira'],
+        nudgeTypes: ['Campaign follow-up', 'Content deadline', 'Cross-team alignment', 'Vendor response needed', 'Launch blocker']
+    },
+    'Engineering Manager / VP Eng': {
+        icon: '⚙️',
+        coachTitle: 'Delivery Coach',
+        coachIcon: '🔧',
+        coachBg: '#059669',
+        focuses: ['Sprint execution & velocity', 'Tech debt management', 'Team health & retention', 'Cross-team dependency tracking', 'Incident follow-through'],
+        signals: ['Blocked PRs', 'Stalled sprints', 'Unaddressed tech debt', 'Team sentiment shifts', 'Incident post-mortem gaps'],
+        integrations: ['slack', 'jira', 'calendar', 'outlook'],
+        nudgeTypes: ['Sprint blocker', 'Tech debt reminder', 'Team check-in overdue', 'Dependency risk', 'Post-mortem action item']
+    },
+    'Customer Success / Account Mgr': {
+        icon: '🤝',
+        coachTitle: 'Retention Coach',
+        coachIcon: '🛡️',
+        coachBg: '#0891b2',
+        focuses: ['Renewal pipeline health', 'NPS & sentiment tracking', 'Expansion opportunity identification', 'Escalation follow-through', 'Onboarding completion rates'],
+        signals: ['At-risk accounts', 'Unanswered escalations', 'Stalled onboarding', 'Champion departure', 'Usage drop-off'],
+        integrations: ['slack', 'outlook', 'salesforce', 'calendar', 'gong'],
+        nudgeTypes: ['Renewal risk', 'Escalation follow-up', 'Onboarding milestone', 'Expansion signal', 'Champion change']
+    },
+    'Operations / Project Manager': {
+        icon: '📋',
+        coachTitle: 'Execution Coach',
+        coachIcon: '⚡',
+        coachBg: '#dc2626',
+        focuses: ['Cross-functional deliverable tracking', 'Process compliance', 'Resource allocation', 'Vendor management', 'Timeline adherence'],
+        signals: ['Missed deadlines', 'Resource conflicts', 'Vendor non-response', 'Process deviations', 'Stakeholder alignment gaps'],
+        integrations: ['slack', 'outlook', 'jira', 'calendar'],
+        nudgeTypes: ['Deliverable follow-up', 'Vendor response needed', 'Resource conflict', 'Timeline risk', 'Stakeholder alignment']
+    }
+};
+
+var INTEGRATIONS = {
+    slack:      { name: 'Slack',         icon: '💬', bg: '#4a154b', desc: 'Messages, DMs, channels, threads',        status: 'ready', category: 'communication' },
+    outlook:    { name: 'Microsoft 365',  icon: '📧', bg: '#0078d4', desc: 'Email, calendar, Teams messages',        status: 'ready', category: 'communication' },
+    google:     { name: 'Google Workspace',icon: '📬', bg: '#ea4335', desc: 'Gmail, Calendar, Meet, Drive',           status: 'ready', category: 'communication' },
+    salesforce: { name: 'Salesforce',     icon: '☁️', bg: '#00a1e0', desc: 'Deals, accounts, activities, forecasts', status: 'ready', category: 'crm' },
+    hubspot:    { name: 'HubSpot',        icon: '🟠', bg: '#ff7a59', desc: 'Contacts, deals, tickets, sequences',    status: 'ready', category: 'crm' },
+    jira:       { name: 'Jira',           icon: '📋', bg: '#0052cc', desc: 'Issues, sprints, boards, epics',          status: 'ready', category: 'project' },
+    asana:      { name: 'Asana',          icon: '🎯', bg: '#f06a6a', desc: 'Tasks, projects, timelines',              status: 'ready', category: 'project' },
+    linear:     { name: 'Linear',         icon: '🔷', bg: '#5e6ad2', desc: 'Issues, cycles, projects',                status: 'ready', category: 'project' },
+    gong:       { name: 'Gong',           icon: '🎙️', bg: '#7c3aed', desc: 'Call recordings, action items, insights', status: 'ready', category: 'calls' },
+    chorus:     { name: 'Chorus (ZoomInfo)', icon: '🔊', bg: '#6366f1', desc: 'Call transcripts, deal intelligence',  status: 'ready', category: 'calls' },
+    fireflies:  { name: 'Fireflies.ai',  icon: '🔥', bg: '#f97316', desc: 'Meeting notes, action items, summaries', status: 'ready', category: 'calls' },
+    zoom:       { name: 'Zoom',           icon: '📹', bg: '#2d8cff', desc: 'Meeting recordings, transcripts',         status: 'coming', category: 'calls' },
+    notion:     { name: 'Notion',         icon: '📝', bg: '#000000', desc: 'Docs, databases, wikis',                  status: 'coming', category: 'docs' },
+    confluence: { name: 'Confluence',     icon: '📖', bg: '#1868db', desc: 'Pages, spaces, comments',                 status: 'ready', category: 'docs' },
+    github:     { name: 'GitHub',         icon: '🐙', bg: '#24292e', desc: 'PRs, issues, reviews, commits',           status: 'coming', category: 'engineering' }
+};
+
+var PLANS = {
+    starter: { name: 'Starter', monthlyPrice: 12, annualPrice: 9, features: ['1 user', '3 integrations', 'Daily nudges', 'Basic coaching', 'Email support'] },
+    team:    { name: 'Team',    monthlyPrice: 29, annualPrice: 22, features: ['Up to 25 users', 'Unlimited integrations', 'Advanced coaching', 'Org Pulse dashboard', 'Weekly reviews', 'Slack support'], popular: true },
+    enterprise: { name: 'Enterprise', monthlyPrice: 0, annualPrice: 0, features: ['Unlimited users', 'SSO / SCIM', 'Custom coaching rules', 'API access', 'Dedicated CSM', 'SOC 2 compliant'], custom: true }
+};
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function $(id) { return document.getElementById(id); }
+function showToast(msg, type) {
+    var t = $('toast');
+    t.style.display = 'block';
+    t.className = 'toast ' + (type || 'info');
+    t.textContent = msg;
+    setTimeout(function(){ t.style.display = 'none'; }, 2500);
+}
+
+function getRoleConfig() {
+    return ROLES[app.user.role] || ROLES['CEO / Founder'];
+}
+
+function getIntegratedLogoSVG(width) {
+    var w = width || 240;
+    var h = Math.round(w / 370 * 80);
+    var color = '#4f46e5';
+    return '<svg width="' + w + '" height="' + h + '" viewBox="0 0 370 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">' +
+        '<g transform="translate(0, 4)">' +
+        '<ellipse cx="38" cy="42" rx="18" ry="14" stroke="' + color + '" stroke-width="2.2" fill="none"/>' +
+        '<circle cx="50" cy="30" r="9" stroke="' + color + '" stroke-width="2.2" fill="none"/>' +
+        '<circle cx="53" cy="28" r="2" fill="' + color + '"/>' +
+        '<path d="M 58 29 L 66 26 L 59 33" stroke="' + color + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<path d="M 28 39 C 34 33, 44 31, 50 35" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 26 45 C 34 39, 46 37, 52 41" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 20 38 C 14 32, 12 22, 15 15" stroke="' + color + '" stroke-width="2.2" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 22 40 C 16 36, 13 28, 16 21" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 56 36 C 58 42, 56 50, 50 55" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '</g>' +
+        '<path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="' + color + '" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<g stroke="' + color + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">' +
+        '<path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>' +
+        '<path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>' +
+        '<path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>' +
+        '</g>' +
+        '<g stroke="' + color + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">' +
+        '<path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>' +
+        '<path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>' +
+        '<path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>' +
+        '<path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>' +
+        '</g>' +
+        '</svg>';
+}
+
+function getSidebarLogoSVG() {
+    var color = '#4f46e5';
+    return '<svg width="148" height="32" viewBox="0 0 370 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">' +
+        '<g transform="translate(0, 4)">' +
+        '<ellipse cx="38" cy="42" rx="18" ry="14" stroke="' + color + '" stroke-width="2.2" fill="none"/>' +
+        '<circle cx="50" cy="30" r="9" stroke="' + color + '" stroke-width="2.2" fill="none"/>' +
+        '<circle cx="53" cy="28" r="2" fill="' + color + '"/>' +
+        '<path d="M 58 29 L 66 26 L 59 33" stroke="' + color + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<path d="M 28 39 C 34 33, 44 31, 50 35" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 26 45 C 34 39, 46 37, 52 41" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 20 38 C 14 32, 12 22, 15 15" stroke="' + color + '" stroke-width="2.2" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 22 40 C 16 36, 13 28, 16 21" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 56 36 C 58 42, 56 50, 50 55" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '<path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="' + color + '" stroke-width="1.8" stroke-linecap="round" fill="none"/>' +
+        '</g>' +
+        '<path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="' + color + '" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' +
+        '<g stroke="' + color + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">' +
+        '<path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>' +
+        '<path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>' +
+        '<path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>' +
+        '</g>' +
+        '<g stroke="' + color + '" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">' +
+        '<path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>' +
+        '<path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>' +
+        '<path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>' +
+        '<path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>' +
+        '</g>' +
+        '</svg>';
+}
+
+function getIntegrationIcon(name) {
+    var first = name.charAt(0).toUpperCase();
+    var colors = ['#4f46e5', '#818cf8', '#a78bfa', '#ddd6fe', '#e0e7ff', '#c7d2fe'];
+    var hash = name.charCodeAt(0);
+    var bg = colors[hash % colors.length];
+    return '<div style="width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:' + bg + ';color:#4f46e5;font-size:14px;font-weight:600;flex-shrink:0">' + first + '</div>';
+}
+
+// ============================================================
+// ONBOARDING RENDERER
+// ============================================================
+function renderOnboarding() {
+    var html = '<div class="onboard-wrap"><div class="onboard-card">';
+
+    // Integrated logo
+    html += '<div class="onboard-logo">' + getIntegratedLogoSVG(240) + '<div class="onboard-sub" style="margin-top:8px">Your follow-through assistant</div></div>';
+
+    // Step indicator
+    html += '<div class="onboard-step-indicator">';
+    for (var i = 1; i <= app.totalSteps; i++) {
+        var cls = i < app.onboardStep ? 'done' : i === app.onboardStep ? 'active' : '';
+        html += '<div class="step-dot ' + cls + '"></div>';
+    }
+    html += '</div>';
+
+    // Step content
+    if (app.onboardStep === 1) html += renderStep1();
+    else if (app.onboardStep === 2) html += renderStep2();
+    else if (app.onboardStep === 3) html += renderStep3();
+    else if (app.onboardStep === 4) html += renderStep4();
+    else if (app.onboardStep === 5) html += renderStep5();
+    else if (app.onboardStep === 6) html += renderStep6();
+
+    html += '</div></div>';
+    return html;
+}
+
+// Step 1: About You
+function renderStep1() {
+    var html = '';
+    html += '<div class="onboard-title">Tell us about you</div>';
+    html += '<div class="onboard-desc">This helps Wren personalize your coaching and insights to your exact role.</div>';
+
+    html += '<div class="form-group"><label class="form-label">Full Name</label>';
+    html += '<input class="form-input" id="inp-name" placeholder="Jeremy Collins" value="' + app.user.name + '" onchange="app.user.name=this.value"></div>';
+
+    html += '<div class="form-group"><label class="form-label">Work Email</label>';
+    html += '<input class="form-input" id="inp-email" type="email" placeholder="you@company.com" value="' + app.user.email + '" onchange="app.user.email=this.value"></div>';
+
+    html += '<div class="form-group"><label class="form-label">Company</label>';
+    html += '<input class="form-input" id="inp-company" placeholder="Routeware" value="' + app.user.company + '" onchange="app.user.company=this.value"></div>';
+
+    html += '<div class="form-group"><label class="form-label">Your Title</label>';
+    html += '<input class="form-input" id="inp-title" placeholder="CEO, VP of Sales, Engineering Manager..." value="' + app.user.title + '" onchange="app.user.title=this.value">';
+    html += '<div class="form-hint">Be specific — this shapes Wren\'s personality and focus areas</div></div>';
+
+    html += '<div class="btn-row"><div></div><button class="btn btn-primary" onclick="goStep(2)">Continue</button></div>';
+    return html;
+}
+
+// Step 2: Your Role
+function renderStep2() {
+    var html = '';
+    html += '<div class="onboard-title">What best describes your role?</div>';
+    html += '<div class="onboard-desc">Wren adapts its entire personality, metrics, and insights based on this. A CEO gets an Executive Coach focused on delegation and EBITDA. A Sales Manager gets a Revenue Coach focused on pipeline and reps.</div>';
+
+    html += '<div class="role-grid">';
+    Object.keys(ROLES).forEach(function(key) {
+        var r = ROLES[key];
+        var sel = app.user.role === key ? 'selected' : '';
+        html += '<div class="role-card ' + sel + '" onclick="selectRole(\'' + key + '\')">';
+        html += '<div class="role-title">' + key + '</div>';
+        html += '<div class="role-desc">' + r.coachTitle + '</div>';
+        html += '</div>';
+    });
+    html += '</div>';
+
+    // Coach preview
+    if (app.user.role) {
+        var rc = getRoleConfig();
+        html += '<div class="coach-preview">';
+        html += '<div class="coach-preview-header">';
+        html += '<div class="coach-preview-icon" style="background:' + rc.coachBg + ';color:#fff">' + rc.coachIcon + '</div>';
+        html += '<div><div class="coach-preview-title">Your ' + rc.coachTitle + '</div><div style="font-size:11px;color:#a1a1aa">Personalized for ' + app.user.role + '</div></div>';
+        html += '</div>';
+        html += '<div class="coach-preview-desc">Your coach will focus on:</div>';
+        html += '<div class="coach-focus-list">';
+        rc.focuses.forEach(function(f) { html += '<div class="coach-focus-item">' + f + '</div>'; });
+        html += '</div></div>';
+    }
+
+    html += '<div class="form-group" style="margin-top:14px"><label class="form-label">Who do you report to? (optional)</label>';
+    html += '<input class="form-input" placeholder="Board of Directors, VP Engineering, CRO..." value="' + app.user.reportsTo + '" onchange="app.user.reportsTo=this.value"></div>';
+
+    html += '<div class="form-group"><label class="form-label">Team size</label>';
+    html += '<select class="form-select" onchange="app.user.teamSize=this.value">';
+    html += '<option value="">Select...</option>';
+    ['Just me', '2-5', '6-15', '16-50', '50+'].forEach(function(s) {
+        html += '<option' + (app.user.teamSize === s ? ' selected' : '') + '>' + s + '</option>';
+    });
+    html += '</select></div>';
+
+    html += '<div class="btn-row"><button class="btn btn-ghost" onclick="goStep(1)">Back</button><button class="btn btn-primary" onclick="goStep(3)"' + (!app.user.role ? ' disabled' : '') + '>Continue</button></div>';
+    return html;
+}
+
+// Step 3: Connect Integrations
+function renderStep3() {
+    var html = '';
+    html += '<div class="onboard-title">Connect your tools</div>';
+    html += '<div class="onboard-desc">Wren reads your communication and work tools to find commitments, follow-ups, and patterns. We never store message content — only extracted signals.</div>';
+
+    var rc = getRoleConfig();
+    if (rc) {
+        html += '<div style="background:#f3f0ff;border:1px solid #e4e4e7;border-radius:8px;padding:12px;margin-bottom:18px;font-size:12px;color:#52525b">';
+        html += '<strong>Recommended for ' + app.user.role + ':</strong> ' + rc.integrations.map(function(k){ return INTEGRATIONS[k] ? INTEGRATIONS[k].name : k; }).join(', ');
+        html += '</div>';
+    }
+
+    // Group by category
+    var categories = { communication: 'Communication', crm: 'CRM & Sales', project: 'Project Management', calls: 'Call Recording & Notes', docs: 'Documentation', engineering: 'Engineering' };
+    Object.keys(categories).forEach(function(cat) {
+        var items = Object.keys(INTEGRATIONS).filter(function(k){ return INTEGRATIONS[k].category === cat; });
+        if (items.length === 0) return;
+        html += '<div style="font-size:12px;font-weight:600;color:#a1a1aa;margin:14px 0 8px;text-transform:none">' + categories[cat] + '</div>';
+        html += '<div class="integration-grid">';
+        items.forEach(function(key) {
+            var ig = INTEGRATIONS[key];
+            var isSel = app.selectedIntegrations.indexOf(key) >= 0;
+            var isRecommended = rc && rc.integrations.indexOf(key) >= 0;
+            html += '<div class="integ-card ' + (isSel ? 'selected' : '') + '" onclick="toggleIntegration(\'' + key + '\')">';
+            html += getIntegrationIcon(ig.name);
+            html += '<div class="integ-info"><div class="integ-name">' + ig.name + (isRecommended ? ' ★' : '') + '</div><div class="integ-desc">' + ig.desc + '</div></div>';
+            if (ig.status === 'coming') {
+                html += '<span class="integ-status">Coming</span>';
+            } else if (isSel) {
+                html += '<span class="integ-status">Selected</span>';
+            }
+            html += '</div>';
+        });
+        html += '</div>';
+    });
+
+    html += '<div style="background:#f3f0ff;border:1px solid #e4e4e7;border-radius:8px;padding:12px;margin-top:18px;margin-bottom:20px;font-size:12px;color:#52525b">';
+    html += '<strong>Pro tip:</strong> Your team can tag <span style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:1px 6px;border-radius:100px;font-size:11px;font-weight:700;display:inline">@HeyWren</span> in Slack or email to flag items for your follow-through. Wren captures them automatically.';
+    html += '</div>';
+
+    html += '<div class="btn-row"><button class="btn btn-ghost" onclick="goStep(2)">Back</button><button class="btn btn-primary" onclick="goStep(4)">Continue</button></div>';
+    return html;
+}
+
+// Step 4: Invite Team
+function renderStep4() {
+    var html = '';
+    html += '<div class="onboard-title">Invite your team (optional)</div>';
+    html += '<div class="onboard-desc">Each team member gets their own personalized coach based on their role. You\'ll see aggregate insights in Org Pulse — individual nudges are never exposed.</div>';
+
+    var colors = ['#4f46e5','#818cf8','#6366f1','#7c3aed','#a78bfa','#ddd6fe'];
+
+    app.team.forEach(function(m, i) {
+        html += '<div class="team-member">';
+        html += '<div class="team-avatar" style="background:' + colors[i % colors.length] + '">' + (m.name ? m.name.charAt(0).toUpperCase() : '?') + '</div>';
+        html += '<div class="team-info">';
+        html += '<input class="team-name-input" placeholder="Name" value="' + m.name + '" onchange="app.team[' + i + '].name=this.value;render()">';
+        html += '<input class="team-name-input" placeholder="email@company.com" value="' + m.email + '" onchange="app.team[' + i + '].email=this.value" style="font-size:12px;color:#a1a1aa;margin-top:2px">';
+        html += '</div>';
+        html += '<select class="team-role-select" onchange="app.team[' + i + '].role=this.value" style="width:130px;font-size:12px;border:1px solid #e4e4e7;border-radius:6px;padding:4px 6px;background:#fff">';
+        html += '<option value="">Role...</option>';
+        Object.keys(ROLES).forEach(function(r) { html += '<option' + (m.role === r ? ' selected' : '') + '>' + r + '</option>'; });
+        html += '</select>';
+        if (app.team.length > 1) html += '<div class="team-remove" onclick="removeTeamMember(' + i + ')">×</div>';
+        html += '</div>';
+    });
+
+    html += '<button class="btn btn-secondary" onclick="addTeamMember()" style="margin-top:8px">Add another</button>';
+
+    html += '<div style="background:#f3f0ff;border:1px solid #e4e4e7;border-radius:8px;padding:14px;margin-top:18px;font-size:12px;color:#52525b">';
+    html += '<strong>Privacy guarantee:</strong> Each person only sees their own nudges and coaching. Org Pulse shows aggregate patterns only (min team size: 5). No individual nudges are ever surfaced to managers.';
+    html += '</div>';
+
+    html += '<div class="btn-row"><button class="btn btn-ghost" onclick="goStep(3)">Back</button><button class="btn btn-primary" onclick="goStep(5)">Continue</button></div>';
+    return html;
+}
+
+// Step 5: Plan Selection
+function renderStep5() {
+    var html = '';
+    html += '<div class="onboard-title">Choose your plan</div>';
+    html += '<div class="onboard-desc">Start with a 14-day free trial. No credit card required.</div>';
+
+    html += '<div class="pricing-toggle">';
+    html += '<span class="pricing-label ' + (!app.annualPricing ? 'active' : '') + '" onclick="app.annualPricing=false;render()">Monthly</span>';
+    html += '<div class="pricing-switch ' + (app.annualPricing ? 'annual' : '') + '" onclick="app.annualPricing=!app.annualPricing;render()"><div class="pricing-switch-knob"></div></div>';
+    html += '<span class="pricing-label ' + (app.annualPricing ? 'active' : '') + '" onclick="app.annualPricing=true;render()">Annual <span style="color:#4f46e5;font-size:11px">Save 25%</span></span>';
+    html += '</div>';
+
+    html += '<div class="pricing-grid">';
+    Object.keys(PLANS).forEach(function(key) {
+        var p = PLANS[key];
+        var sel = app.selectedPlan === key ? 'selected' : '';
+        var pop = p.popular ? 'popular' : '';
+        html += '<div class="price-card ' + sel + ' ' + pop + '" onclick="app.selectedPlan=\'' + key + '\';render()">';
+        html += '<div class="price-name">' + p.name + '</div>';
+        if (p.custom) {
+            html += '<div class="price-amount">Custom</div>';
+            html += '<div class="price-period">Contact sales</div>';
+        } else {
+            var price = app.annualPricing ? p.annualPrice : p.monthlyPrice;
+            html += '<div class="price-amount">$' + price + '</div>';
+            html += '<div class="price-period">per user / month</div>';
+        }
+        html += '<div class="price-features">';
+        p.features.forEach(function(f) { html += '✓ ' + f + '<br>'; });
+        html += '</div></div>';
+    });
+    html += '</div>';
+
+    html += '<div class="btn-row"><button class="btn btn-ghost" onclick="goStep(4)">Back</button><button class="btn btn-primary" onclick="goStep(6)">Start Free Trial</button></div>';
+    return html;
+}
+
+// Step 6: Ready!
+function renderStep6() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="success-animation"><div class="success-check">' + rc.coachIcon + '</div></div>';
+    html += '<div class="onboard-title" style="text-align:center">You\'re all set!</div>';
+    html += '<div class="onboard-desc" style="text-align:center">Wren is now scanning your connected tools. Your first insights will appear in about 2 minutes.</div>';
+
+    html += '<div class="coach-preview" style="margin-top:18px">';
+    html += '<div class="coach-preview-header">';
+    html += '<div class="coach-preview-icon" style="background:' + rc.coachBg + ';color:#fff">' + rc.coachIcon + '</div>';
+    html += '<div><div class="coach-preview-title">' + rc.coachTitle + ' activated</div>';
+    html += '<div style="font-size:11px;color:#a1a1aa">Personalized for ' + (app.user.title || app.user.role) + ' at ' + (app.user.company || 'your company') + '</div></div>';
+    html += '</div>';
+    html += '<div class="coach-preview-desc">Your coach will watch for:</div>';
+    html += '<div class="coach-focus-list">';
+    rc.signals.forEach(function(s) { html += '<div class="coach-focus-item">' + s + '</div>'; });
+    html += '</div></div>';
+
+    html += '<div style="background:#f3f0ff;border:1px solid #e4e4e7;border-radius:8px;padding:14px;margin-bottom:18px">';
+    html += '<div style="font-size:13px;font-weight:600;margin-bottom:6px">What happens next:</div>';
+    html += '<div style="font-size:12px;color:#52525b;line-height:1.6">';
+    html += '1. Wren scans your last 30 days of ' + app.selectedIntegrations.map(function(k){ return INTEGRATIONS[k] ? INTEGRATIONS[k].name : k; }).join(', ') + '<br>';
+    html += '2. Your AI coach identifies commitments, follow-ups, and patterns<br>';
+    html += '3. You get your first personalized nudges in ~2 minutes<br>';
+    html += '4. Daily digest arrives in Slack every morning at 9am';
+    html += '</div></div>';
+
+    var teamCount = app.team.filter(function(m){ return m.name; }).length;
+    if (teamCount > 0) {
+        html += '<div style="font-size:12px;color:#a1a1aa;text-align:center;margin-bottom:14px">' + teamCount + ' team invite' + (teamCount > 1 ? 's' : '') + ' will be sent after you launch.</div>';
+    }
+
+    html += '<div style="text-align:center"><button class="btn btn-primary" style="padding:11px 32px;font-size:14px" onclick="launchApp()">Launch Wren</button></div>';
+    return html;
+}
+
+// ============================================================
+// COMMITMENTS PAGE
+// ============================================================
+var appCommitmentTab = 'traces';
+
+function renderAppCommitments() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Commitment Tracing</h1><p>Every promise tracked from origin to resolution across your connected tools</p></div>';
+
+    html += '<div class="trace-tabs">';
+    html += '<div class="trace-tab' + (appCommitmentTab === 'traces' ? ' active' : '') + '" onclick="appCommitmentTab=\'traces\';render()">Active Traces (4)</div>';
+    html += '<div class="trace-tab' + (appCommitmentTab === 'delegated' ? ' active' : '') + '" onclick="appCommitmentTab=\'delegated\';render()">Delegated (3)</div>';
+    html += '<div class="trace-tab' + (appCommitmentTab === 'mentioned' ? ' active' : '') + '" onclick="appCommitmentTab=\'mentioned\';render()">@HeyWren Mentions</div>';
+    html += '</div>';
+
+    if (appCommitmentTab === 'traces') {
+        var traces = [
+            {title: rc.nudgeTypes[0] + ' — Q1 Target', score: 88, status: 'at-risk', age: '18 days', customer: true,
+             events: [
+                {date: 'Mar 2', tool: 'Meeting', text: 'Committed to ' + rc.nudgeTypes[0].toLowerCase() + ' target in team sync'},
+                {date: 'Mar 8', tool: 'Slack', text: 'Discussed blockers in team channel'},
+                {date: 'Mar 15', tool: 'Email', text: 'Status update requested by leadership'},
+                {date: 'Mar 20', tool: 'Today', text: '11 days left in Q1. Progress at 67%. At risk.', current: true}
+            ]},
+            {title: rc.nudgeTypes[1] + ' Initiative', score: 72, status: 'active', age: '12 days',
+             events: [
+                {date: 'Mar 8', tool: 'Slack', text: 'Proposed initiative in team channel'},
+                {date: 'Mar 12', tool: 'Meeting', text: 'Got buy-in from stakeholders'},
+                {date: 'Mar 18', tool: 'Jira', text: '3 of 8 tasks created and assigned'},
+                {date: 'Mar 20', tool: 'Today', text: 'Active — 37% of tasks in progress', current: true}
+            ]},
+            {title: 'Cross-Team Alignment on ' + rc.nudgeTypes[2], score: 65, status: 'stalled', age: '21 days',
+             events: [
+                {date: 'Feb 27', tool: 'Meeting', text: 'Agreed to align with partner team'},
+                {date: 'Mar 5', tool: 'Slack', text: 'Shared proposal draft — no response'},
+                {date: 'Mar 20', tool: 'Today', text: 'No follow-up in 15 days. Stalled.', current: true}
+            ]},
+            {title: 'Team Process Improvement', score: 54, status: 'active', age: '8 days',
+             events: [
+                {date: 'Mar 12', tool: 'Meeting', text: 'Retro action item: improve ' + rc.nudgeTypes[3].toLowerCase() + ' process'},
+                {date: 'Mar 16', tool: 'Doc', text: 'Draft process doc shared with team'},
+                {date: 'Mar 20', tool: 'Today', text: 'Awaiting team feedback. Active.', current: true}
+            ]}
+        ];
+
+        traces.forEach(function(t) {
+            var scoreColor = t.score >= 85 ? '#dc2626' : t.score >= 70 ? '#d97706' : '#4f46e5';
+            html += '<div class="trace-card">';
+            html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px"><div>';
+            html += '<div class="trace-title">' + t.title + '</div>';
+            html += '<div class="trace-meta">';
+            html += '<div class="trace-score" style="background:' + (t.score >= 85 ? '#fef2f2' : t.score >= 70 ? '#fffbeb' : '#eef2ff') + ';color:' + scoreColor + '">Score: ' + t.score + '</div>';
+            html += '<div class="trace-status ' + t.status + '">' + t.status.replace('-', ' ') + '</div>';
+            if (t.customer) {
+                html += '<div style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:100px;background:#fdf4ff;color:#a21caf;border:1px solid #f0abfc">Customer Promise</div>';
+            }
+            html += '<span style="font-size:12px;color:#a1a1aa">' + t.age + '</span>';
+            html += '</div></div></div>';
+            html += '<div class="trace-timeline">';
+            t.events.forEach(function(ev) {
+                html += '<div class="trace-event' + (ev.current ? ' current' : '') + '">';
+                html += '<span class="trace-event-date">' + ev.date + '</span>';
+                html += '<span class="trace-event-tool">' + ev.tool + '</span>';
+                html += ev.text + '</div>';
+            });
+            html += '</div></div>';
+        });
+    } else if (appCommitmentTab === 'delegated') {
+        html += '<div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:14px;padding:20px 24px;margin-bottom:24px;font-size:13px;color:#3730a3">';
+        html += '<strong>Delegation tracking</strong> — Wren monitors whether things you\'ve asked others to do actually get done.</div>';
+
+        var delegations = [
+            {to: 'Team Member A', initials: 'TA', task: 'Complete ' + rc.nudgeTypes[0].toLowerCase() + ' report', daysAgo: 5, status: 'In progress', statusColor: '#16a34a'},
+            {to: 'Team Member B', initials: 'TB', task: 'Draft proposal for ' + rc.nudgeTypes[1].toLowerCase(), daysAgo: 12, status: 'No artifact detected', statusColor: '#dc2626'},
+            {to: 'Team Member C', initials: 'TC', task: 'Schedule cross-team alignment meeting', daysAgo: 8, status: 'Overdue — no calendar hold', statusColor: '#d97706'}
+        ];
+
+        delegations.forEach(function(d) {
+            html += '<div class="deleg-card">';
+            html += '<div style="width:40px;height:40px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff;flex-shrink:0">' + d.initials + '</div>';
+            html += '<div style="flex:1">';
+            html += '<div style="font-size:15px;font-weight:700;color:#18181b;margin-bottom:4px">' + d.task + '</div>';
+            html += '<div style="font-size:12px;color:#71717a">Delegated to <strong>' + d.to + '</strong> · ' + d.daysAgo + ' days ago</div>';
+            html += '<div style="font-size:13px;color:' + d.statusColor + ';font-weight:600;margin-top:6px">' + d.status + '</div>';
+            html += '</div></div>';
+        });
+    } else if (appCommitmentTab === 'mentioned') {
+        html += renderAppMentioned();
+    }
+    return html;
+}
+
+function renderAppMentioned() {
+    var rc = getRoleConfig();
+    var mentions = [
+        {who:'Sarah Chen', initials:'SC', color:'#4f46e5', source:'Slack', channel:'#product', time:'1 hour ago', text:'@HeyWren track that we need the competitive analysis done before the board meeting next Thursday.', action:'Created commitment trace', actionColor:'#16a34a'},
+        {who:'Mike Torres', initials:'MT', color:'#0369a1', source:'Outlook', channel:'Email', time:'Yesterday', text:'@HeyWren reminder — the Q1 report still needs final sign-off from finance before we can publish.', action:'Boosted priority on existing nudge', actionColor:'#4f46e5'},
+        {who:'Lisa Park', initials:'LP', color:'#7c3aed', source:'Slack', channel:'#team', time:'2 days ago', text:'@HeyWren the client follow-up from last week has not happened. Can we make sure this does not slip?', action:'Pending review — awaiting confirmation', actionColor:'#d97706'}
+    ];
+
+    var html = '';
+    html += '<div style="background:linear-gradient(135deg, #eef2ff, #f5f3ff);border:1px solid #c7d2fe;border-radius:14px;padding:20px 24px;margin-bottom:24px">';
+    html += '<div style="font-size:13px;color:#3730a3;line-height:1.6"><strong>@HeyWren mentions</strong> — Anyone on your team can tag <span style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;padding:2px 8px;border-radius:100px;font-size:11px;font-weight:700">@HeyWren</span> in Slack or include it in an Outlook email to flag items for your follow-through. Wren captures them automatically and routes them to your tracker.</div>';
+    html += '</div>';
+
+    mentions.forEach(function(m) {
+        html += '<div style="background:#fff;border:1px solid #e4e4e7;border-radius:14px;padding:20px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 1px 3px rgba(0,0,0,0.03);transition:all 0.2s cubic-bezier(0.4,0,0.2,1)">';
+        html += '<div style="width:36px;height:36px;border-radius:50%;background:' + m.color + ';color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">' + m.initials + '</div>';
+        html += '<div style="flex:1">';
+        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+        html += '<span style="font-size:15px;font-weight:700;color:#18181b">' + m.who + '</span>';
+        html += '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:100px;background:' + (m.source === 'Slack' ? '#fef3c7;color:#92400e' : '#dbeafe;color:#1e40af') + '">' + m.source + '</span>';
+        html += '</div>';
+        html += '<div style="font-size:13px;color:#52525b;line-height:1.5;margin-bottom:8px">"' + m.text + '"</div>';
+        html += '<div style="font-size:12px;color:#a1a1aa;margin-bottom:6px">' + m.channel + ' · ' + m.time + '</div>';
+        html += '<div style="font-size:12px;font-weight:600;color:' + m.actionColor + '">→ ' + m.action + '</div>';
+        html += '</div></div>';
+    });
+    return html;
+}
+
+// ============================================================
+// RELATIONSHIPS PAGE
+// ============================================================
+function renderAppRelationships() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Relationship Health</h1><p>How strong are your key relationships — based on interaction patterns and follow-through</p></div>';
+
+    html += '<div class="rel-alert">';
+    html += '<div style="font-size:16px;flex-shrink:0">⚠</div>';
+    html += '<div><strong>1 relationship needs attention:</strong> Team Member B — delegated item stalled, no 1:1 in 10 days</div>';
+    html += '</div>';
+
+    var relationships = [
+        {name: 'Direct Report 1', role: rc.nudgeTypes[0] + ' Lead', initials: 'D1', score: 85, trend: 'up'},
+        {name: 'Direct Report 2', role: rc.nudgeTypes[1] + ' Lead', initials: 'D2', score: 72, trend: 'flat'},
+        {name: 'Team Member B', role: rc.nudgeTypes[2] + ' Owner', initials: 'TB', score: 48, trend: 'down'},
+        {name: 'Stakeholder', role: 'Leadership', initials: 'SH', score: 78, trend: 'up'},
+        {name: 'Cross-Team Partner', role: 'Peer', initials: 'CP', score: 61, trend: 'down'},
+        {name: 'Skip-Level Report', role: 'IC', initials: 'SL', score: 67, trend: 'flat'}
+    ];
+
+    html += '<div class="rel-grid">';
+    relationships.forEach(function(r) {
+        var scoreColor = r.score >= 75 ? '#16a34a' : r.score >= 55 ? '#d97706' : '#dc2626';
+        var scoreBg = r.score >= 75 ? '#f0fdf4' : r.score >= 55 ? '#fffbeb' : '#fef2f2';
+        html += '<div class="rel-card">';
+        html += '<div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">';
+        html += '<div style="width:44px;height:44px;border-radius:50%;background:#4f46e5;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:#fff;flex-shrink:0">' + r.initials + '</div>';
+        html += '<div style="flex:1"><div style="font-size:15px;font-weight:700;color:#18181b">' + r.name + '</div><div style="font-size:12px;color:#71717a">' + r.role + '</div></div>';
+        html += '<div style="text-align:center"><div style="width:48px;height:48px;border-radius:50%;border:3px solid ' + scoreColor + ';display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:' + scoreColor + ';font-family:SF Mono,monospace;background:' + scoreBg + '">' + r.score + '</div>';
+        html += '<div style="font-size:11px;font-weight:600;color:' + (r.trend === 'up' ? '#16a34a' : r.trend === 'down' ? '#dc2626' : '#a1a1aa') + ';margin-top:2px">' + (r.trend === 'up' ? '▲' : r.trend === 'down' ? '▼' : '•') + '</div></div>';
+        html += '</div>';
+        html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:14px;border-top:1px solid #f4f4f5">';
+        html += '<div><div style="font-size:11px;color:#a1a1aa">Last 1:1</div><div style="font-size:13px;font-weight:600;color:#18181b;margin-top:2px">' + (Math.floor(Math.random() * 10) + 1) + ' days ago</div></div>';
+        html += '<div><div style="font-size:11px;color:#a1a1aa">This week</div><div style="font-size:13px;font-weight:600;color:#18181b;margin-top:2px">' + (Math.floor(Math.random() * 8) + 2) + ' interactions</div></div>';
+        html += '</div></div>';
+    });
+    html += '</div>';
+    return html;
+}
+
+// ============================================================
+// PLAYBOOKS PAGE
+// ============================================================
+function renderAppPlaybooks() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Playbooks</h1><p>Rules that automate how Wren handles your commitments — define once, enforce forever</p></div>';
+
+    html += '<div style="background:linear-gradient(135deg, #eef2ff, #f5f3ff);border:1px solid #c7d2fe;border-radius:14px;padding:24px;margin-bottom:28px">';
+    html += '<div style="font-size:15px;font-weight:700;color:#18181b;margin-bottom:8px">How playbooks work</div>';
+    html += '<div style="font-size:13px;color:#3730a3;line-height:1.6">Define a trigger and actions. When Wren detects the trigger, it automatically executes. Create playbooks by chatting with Wren — just say "When X happens, always do Y."</div>';
+    html += '</div>';
+
+    var playbooks = [
+        {name: 'Meeting Follow-Through', trigger: 'After any meeting with <strong>action items</strong>', actions: ['Create tracked commitment for each action item', 'Set deadline based on discussion context', 'Remind you in 48 hours if no progress'], lastTriggered: '2 hours ago', count: 34},
+        {name: rc.nudgeTypes[0] + ' Escalation', trigger: 'When a <strong>' + rc.nudgeTypes[0].toLowerCase() + '</strong> item is overdue > 48 hours', actions: ['Bump priority to urgent', 'Surface in daily briefing', 'Suggest follow-up message draft'], lastTriggered: 'Yesterday', count: 12},
+        {name: 'Delegation Accountability', trigger: 'When you delegate via <strong>"can you"</strong>, <strong>"please handle"</strong>, <strong>"I need you to"</strong>', actions: ['Create delegation tracker', 'Set 48-hour check-in', 'Scan tools for completion artifacts', 'Escalate if no artifact after 72 hours'], lastTriggered: '3 days ago', count: 23},
+        {name: 'Deep Work Protection', trigger: 'When calendar shows <strong>0 blocks > 45 min</strong> in a day', actions: ['Alert at start of day', 'Suggest meeting to cancel or shorten', 'Track deep work hours in coaching'], lastTriggered: 'Today', count: 8},
+        {name: 'Weekly Prep Automation', trigger: 'Every <strong>Sunday at 7pm</strong>', actions: ['Generate next-week brief from calendar + items', 'Flag meetings needing prep', 'Surface stalled commitments', 'Email summary'], lastTriggered: 'Sunday', count: 4}
+    ];
+
+    playbooks.forEach(function(p) {
+        html += '<div class="playbook-card">';
+        html += '<div class="playbook-active">Active</div>';
+        html += '<div style="font-size:16px;font-weight:700;color:#18181b;margin-bottom:4px;padding-right:80px">' + p.name + '</div>';
+        html += '<div class="playbook-trigger"><strong>Trigger:</strong> ' + p.trigger + '</div>';
+        p.actions.forEach(function(a, i) {
+            html += '<div class="playbook-action-item"><div class="playbook-action-num">' + (i + 1) + '</div><div>' + a + '</div></div>';
+        });
+        html += '<div style="font-size:12px;color:#71717a;margin-top:12px">Last: ' + p.lastTriggered + ' · ' + p.count + ' times total</div>';
+        html += '</div>';
+    });
+
+    html += '<div style="text-align:center;padding:24px">';
+    html += '<button class="btn btn-primary" style="padding:12px 24px;font-size:14px;border-radius:10px" onclick="toggleChat()">Create playbook with Wren →</button>';
+    html += '</div>';
+    return html;
+}
+
+function renderAppAchievements() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Achievements</h1><p>Milestones earned through consistent follow-through</p></div>';
+
+    html += '<div class="achievement-summary">';
+    html += '<div class="achievement-stat"><div class="achievement-stat-value">5</div><div class="achievement-stat-label">Unlocked</div></div>';
+    html += '<div class="achievement-stat"><div class="achievement-stat-value">8</div><div class="achievement-stat-label">Day streak</div></div>';
+    html += '<div class="achievement-stat"><div class="achievement-stat-value">1,280</div><div class="achievement-stat-label">Total XP</div></div>';
+    html += '<div class="achievement-stat"><div class="achievement-stat-value">Consistent</div><div class="achievement-stat-label">Current level</div></div>';
+    html += '</div>';
+
+    var achievements = [
+        {icon:'🔥', name:'First Spark', desc:'Complete your first nudge', unlocked:true, date:'Day 1', xp:50},
+        {icon:'⚡', name:'Momentum Builder', desc:'5-day follow-through streak', unlocked:true, date:'Day 6', xp:150},
+        {icon:'🎯', name:'Sharpshooter', desc:'Clear 3 urgent items in one day', unlocked:true, date:'Day 8', xp:200},
+        {icon:'🔗', name:'Connector', desc:'Follow through on 5 relationship commitments', unlocked:true, date:'Day 10', xp:200},
+        {icon:'💬', name:'Wren Whisperer', desc:'Teach Wren 10 things via chat context', unlocked:true, date:'Day 12', xp:150},
+        {icon:'📋', name:'Delegate Master', desc:'100% delegation check-in rate for a week', unlocked:false, progress:70, target:100, xp:300},
+        {icon:'🏔️', name:'Summit Week', desc:'90%+ follow-through for a full week', unlocked:false, progress:76, target:90, xp:500},
+        {icon:'🔥', name:'Streak Legend', desc:'30-day consecutive streak', unlocked:false, progress:8, target:30, xp:750},
+        {icon:'👥', name:'Team Player', desc:'All relationships above 70 health score', unlocked:false, progress:3, target:5, xp:500},
+        {icon:'⚡', name:'Unstoppable', desc:'Reach Unstoppable level (5,000 XP)', unlocked:false, progress:1280, target:5000, xp:0}
+    ];
+
+    html += '<h2 style="font-size:15px;font-weight:600;margin-bottom:16px;color:#18181b">Unlocked</h2>';
+    html += '<div class="achievement-grid" style="margin-bottom:32px">';
+    achievements.filter(function(a){ return a.unlocked; }).forEach(function(a) {
+        html += '<div class="achievement-card unlocked">';
+        html += '<div class="achievement-icon unlocked">' + a.icon + '</div>';
+        html += '<div class="achievement-name">' + a.name + '</div>';
+        html += '<div class="achievement-desc">' + a.desc + '</div>';
+        html += '<div class="achievement-date">Earned ' + a.date + ' · +' + a.xp + ' XP</div>';
+        html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<h2 style="font-size:15px;font-weight:600;margin-bottom:16px;color:#18181b">In Progress</h2>';
+    html += '<div class="achievement-grid">';
+    achievements.filter(function(a){ return !a.unlocked; }).forEach(function(a) {
+        var pctVal = a.target > 0 ? Math.round((a.progress / a.target) * 100) : 0;
+        html += '<div class="achievement-card locked">';
+        html += '<div class="achievement-icon locked">' + a.icon + '</div>';
+        html += '<div class="achievement-name">' + a.name + '</div>';
+        html += '<div class="achievement-desc">' + a.desc + '</div>';
+        if (a.target > 0) {
+            html += '<div class="achievement-progress"><div class="achievement-progress-fill" style="width:' + pctVal + '%"></div></div>';
+            html += '<div style="font-size:11px;color:#a1a1aa;margin-top:4px">' + a.progress + ' / ' + a.target + '</div>';
+        }
+        html += '</div>';
+    });
+    html += '</div>';
+
+    // Level progression
+    html += '<div style="margin-top:32px;background:linear-gradient(135deg,#eef2ff,#f5f3ff);border:1px solid #c7d2fe;border-radius:14px;padding:24px">';
+    html += '<div style="font-size:15px;font-weight:700;color:#18181b;margin-bottom:16px">Level Progression</div>';
+    var levels = [{name:"Aware",xp:0,reached:true},{name:"Responsive",xp:500,reached:true},{name:"Consistent",xp:1000,reached:true},{name:"Relentless",xp:2000,reached:false},{name:"Unstoppable",xp:5000,reached:false}];
+    html += '<div style="display:flex;align-items:center;gap:0;margin-bottom:12px">';
+    levels.forEach(function(l, i) {
+        var isCurrent = l.reached && (i === levels.length - 1 || !levels[i+1].reached);
+        html += '<div style="flex:1;text-align:center">';
+        html += '<div style="font-size:11px;font-weight:' + (isCurrent ? '700' : '500') + ';color:' + (l.reached ? '#4f46e5' : '#a1a1aa') + ';margin-bottom:4px">' + l.name + '</div>';
+        html += '<div style="height:4px;background:' + (l.reached ? 'linear-gradient(90deg,#4f46e5,#7c3aed)' : '#e4e4e7') + ';border-radius:2px"></div>';
+        html += '<div style="font-size:10px;color:#a1a1aa;margin-top:2px">' + l.xp.toLocaleString() + ' XP</div>';
+        html += '</div>';
+    });
+    html += '</div>';
+    html += '<div style="font-size:12px;color:#3730a3">Current: <strong>1,280 XP</strong> · 720 XP to Relentless</div>';
+    html += '</div>';
+
+    return html;
+}
+
+// ============================================================
+// DRAFT QUEUE PAGE
+// ============================================================
+function renderAppDraftQueue() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Draft Queue</h1><p>Wren pre-writes your follow-ups based on open commitments. Review, edit, and send when ready.</p></div>';
+
+    html += '<div style="background:linear-gradient(135deg, #eef2ff, #f5f3ff);border:1px solid #c7d2fe;border-radius:14px;padding:20px 24px;margin-bottom:24px">';
+    html += '<div style="display:flex;align-items:center;gap:10px;font-size:13px;color:#3730a3;line-height:1.6">';
+    html += '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v6l3 3" stroke="#4f46e5" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="8" r="7" stroke="#4f46e5" stroke-width="1.5" fill="none"/></svg>';
+    html += '<span><strong>Wren never sends on your behalf.</strong> Every draft requires your review and explicit approval. Edit freely — Wren learns your style over time.</span>';
+    html += '</div></div>';
+
+    var drafts = [
+        {
+            id: 1,
+            channel: 'slack',
+            channelLabel: 'Slack DM',
+            to: 'Team Member A',
+            priority: 'high',
+            context: rc.nudgeTypes[0] + ' follow-up is 5 days overdue with no artifact detected.',
+            body: 'Hey — following up on the ' + rc.nudgeTypes[0].toLowerCase() + ' deliverable we discussed. Want to make sure this stays on track. Can you share a status update or let me know if you need anything from me to unblock?',
+            generatedAgo: '2 hours ago'
+        },
+        {
+            id: 2,
+            channel: 'email',
+            channelLabel: 'Email',
+            to: 'Stakeholder',
+            priority: 'high',
+            context: rc.nudgeTypes[1] + ' initiative has stalled — no update in 12 days.',
+            body: 'Hi,\\n\\nI wanted to check in on the ' + rc.nudgeTypes[1].toLowerCase() + ' initiative. We committed to a timeline during our last sync and I want to make sure we are still on track.\\n\\nCan you send over a quick status update? Happy to jump on a call if that is easier.\\n\\nThanks',
+            generatedAgo: '1 hour ago'
+        },
+        {
+            id: 3,
+            channel: 'slack',
+            channelLabel: 'Slack',
+            to: '#team-channel',
+            priority: 'medium',
+            context: 'Cross-team alignment on ' + rc.nudgeTypes[2].toLowerCase() + ' has had no response in 15 days.',
+            body: 'Team — quick check-in on the ' + rc.nudgeTypes[2].toLowerCase() + ' alignment we discussed. I shared the proposal a couple weeks ago but have not heard back. Can someone confirm they have reviewed it or flag any concerns?',
+            generatedAgo: '3 hours ago'
+        }
+    ];
+
+    html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">';
+    html += '<div style="font-size:14px;font-weight:700;color:#18181b">' + drafts.length + ' drafts ready for review</div>';
+    html += '<div style="font-size:12px;color:#a1a1aa">Sorted by priority</div>';
+    html += '</div>';
+
+    drafts.forEach(function(d) {
+        html += '<div class="draft-card" id="app-draft-' + d.id + '">';
+        html += '<div class="draft-header">';
+        html += '<span class="draft-channel ' + d.channel + '">' + d.channelLabel + '</span>';
+        html += '<span class="draft-to">To: ' + d.to + '</span>';
+        html += '<span class="draft-priority ' + d.priority + '">' + d.priority + '</span>';
+        html += '<span style="font-size:11px;color:#4f46e5;font-weight:600;margin-left:auto">Generated ' + d.generatedAgo + '</span>';
+        html += '</div>';
+        html += '<div class="draft-context">' + d.context + '</div>';
+        html += '<div class="draft-body">' + d.body + '</div>';
+        html += '<div class="draft-actions">';
+        html += '<button class="draft-btn approve" onclick="appApproveDraft(' + d.id + ')">Copy to ' + d.channelLabel + '</button>';
+        html += '<button class="draft-btn edit" onclick="appEditDraft(' + d.id + ')">Edit Draft</button>';
+        html += '<button class="draft-btn dismiss" onclick="appDismissDraft(' + d.id + ')">Dismiss</button>';
+        html += '</div>';
+        html += '</div>';
+    });
+
+    return html;
+}
+
+function appApproveDraft(id) {
+    var card = document.getElementById('app-draft-' + id);
+    if (card) {
+        card.style.opacity = '0.5';
+        card.style.borderColor = '#c7d2fe';
+        var actions = card.querySelector('.draft-actions');
+        if (actions) actions.innerHTML = '<span style="font-size:13px;font-weight:600;color:#16a34a">Copied — ready to send</span>';
+    }
+}
+
+function appEditDraft(id) {
+    var card = document.getElementById('app-draft-' + id);
+    if (card) {
+        var body = card.querySelector('.draft-body');
+        if (body) {
+            body.setAttribute('contenteditable', 'true');
+            body.style.border = '2px solid #4f46e5';
+            body.style.background = '#ffffff';
+            body.focus();
+        }
+    }
+}
+
+function appDismissDraft(id) {
+    var card = document.getElementById('app-draft-' + id);
+    if (card) {
+        card.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        card.style.opacity = '0';
+        card.style.maxHeight = '0';
+        card.style.overflow = 'hidden';
+        card.style.marginBottom = '0';
+        card.style.padding = '0';
+        setTimeout(function() { if (card.parentNode) card.parentNode.removeChild(card); }, 300);
+    }
+}
+
+// ============================================================
+// PRE-MEETING BRIEFINGS PAGE
+// ============================================================
+function renderAppBriefings() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Pre-Meeting Briefings</h1><p>Wren prepares context cards for every meeting — open commitments, relationships, and talking points</p></div>';
+
+    var meetings = [
+        {
+            time: '10:00',
+            name: rc.nudgeTypes[0] + ' Review',
+            when: 'Monday',
+            duration: '60 min',
+            attendees: [{name:'Team Lead', initials:'TL', color:'#4f46e5'}, {name:'Stakeholder', initials:'SH', color:'#0369a1'}],
+            prepStatus: 'needs-prep',
+            prepLabel: 'Needs prep',
+            openItems: ['Q1 target at risk — 67% progress with 11 days left', 'Staffing gap flagged but no resolution'],
+            relationships: [{name: 'Team Lead', score: 78, trend: 'up'}, {name: 'Stakeholder', score: 65, trend: 'flat'}],
+            talkingPoints: ['Address Q1 target gap — what needs to change to hit 100%?', 'Staffing: confirm if approved or needs escalation', 'Review dependency on ' + rc.nudgeTypes[2].toLowerCase() + ' alignment'],
+            wrenNote: 'This meeting has 2 open commitments that are both trending behind. Come prepared with a realistic updated timeline.'
+        },
+        {
+            time: '2:00',
+            name: 'Weekly Team Sync',
+            when: 'Monday',
+            duration: '30 min',
+            attendees: [{name:'Direct Report A', initials:'DA', color:'#16a34a'}, {name:'Direct Report B', initials:'DB', color:'#7c3aed'}, {name:'Direct Report C', initials:'DC', color:'#d97706'}],
+            prepStatus: 'ready',
+            prepLabel: 'Ready',
+            openItems: ['Delegation to Team Member B has stalled (12 days, no artifact)', 'Process improvement doc awaiting feedback'],
+            relationships: [{name: 'Report A', score: 82, trend: 'up'}, {name: 'Report B', score: 55, trend: 'down'}, {name: 'Report C', score: 71, trend: 'flat'}],
+            talkingPoints: ['Check in with Report B — relationship trending down, stalled deliverable', 'Get feedback status on process improvement doc', 'Celebrate wins: Report A relationship trending up'],
+            wrenNote: 'Report B has a declining relationship score. This is a good moment to understand if they are blocked or if expectations need resetting.'
+        },
+        {
+            time: '11:00',
+            name: 'Cross-Functional Alignment',
+            when: 'Wednesday',
+            duration: '45 min',
+            attendees: [{name:'Partner Team', initials:'PT', color:'#dc2626'}],
+            prepStatus: 'needs-prep',
+            prepLabel: 'Needs prep',
+            openItems: ['Proposal shared 15 days ago with no response', 'Alignment on ' + rc.nudgeTypes[2].toLowerCase() + ' still unresolved'],
+            relationships: [{name: 'Partner Team', score: 58, trend: 'down'}],
+            talkingPoints: ['Directly ask for feedback on proposal — silence is a signal', 'Understand their priorities and blockers', 'Propose a smaller first step if full alignment is too heavy'],
+            wrenNote: 'Partner team relationship is below 60 and declining. The 15-day silence on your proposal suggests either misalignment or deprioritization on their end.'
+        }
+    ];
+
+    meetings.forEach(function(m) {
+        html += '<div class="briefing-card">';
+        html += '<div class="briefing-top">';
+        html += '<div class="briefing-time">' + m.time + '</div>';
+        html += '<div class="briefing-info">';
+        html += '<div class="briefing-name">' + m.name + '</div>';
+        html += '<div class="briefing-meta">' + m.when + ' · ' + m.duration + ' · ';
+        m.attendees.forEach(function(a) {
+            html += '<span class="briefing-attendee"><span class="briefing-attendee-dot" style="background:' + a.color + '">' + a.initials + '</span>' + a.name + '</span>';
+        });
+        html += '</div></div>';
+        html += '<span class="briefing-prep-badge ' + m.prepStatus + '">' + m.prepLabel + '</span>';
+        html += '</div>';
+        html += '<div class="briefing-body">';
+
+        html += '<div class="briefing-section">';
+        html += '<div class="briefing-section-title">Open commitments with attendees</div>';
+        m.openItems.forEach(function(item) {
+            html += '<div class="briefing-item">&#8226; ' + item + '</div>';
+        });
+        html += '</div>';
+
+        html += '<div class="briefing-section">';
+        html += '<div class="briefing-section-title">Relationship health</div>';
+        html += '<div style="display:flex;gap:16px;flex-wrap:wrap">';
+        m.relationships.forEach(function(r) {
+            var color = r.score >= 70 ? '#16a34a' : r.score >= 55 ? '#d97706' : '#dc2626';
+            var arrow = r.trend === 'up' ? '↑' : r.trend === 'down' ? '↓' : '→';
+            html += '<div style="font-size:13px"><strong>' + r.name + '</strong>: <span style="color:' + color + ';font-weight:700">' + r.score + '</span> <span style="color:' + color + '">' + arrow + '</span></div>';
+        });
+        html += '</div></div>';
+
+        html += '<div class="briefing-section">';
+        html += '<div class="briefing-section-title">Suggested talking points</div>';
+        m.talkingPoints.forEach(function(tp) {
+            html += '<div class="briefing-item">&#8226; ' + tp + '</div>';
+        });
+        html += '</div>';
+
+        html += '<div style="background:linear-gradient(135deg,#eef2ff,#f5f3ff);border-radius:10px;padding:14px 16px;font-size:13px;color:#3730a3;line-height:1.6">';
+        html += '<strong>Wren says:</strong> ' + m.wrenNote;
+        html += '</div>';
+
+        html += '</div></div>';
+    });
+
+    return html;
+}
+
+// ============================================================
+// PTO HANDOFF PROTOCOL PAGE
+// ============================================================
+function renderAppHandoff() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>PTO Handoff Protocol</h1><p>When someone goes OOO, Wren surfaces every open commitment and ensures clean transfers</p></div>';
+
+    html += '<div style="background:linear-gradient(135deg, #eef2ff, #f5f3ff);border:1px solid #c7d2fe;border-radius:14px;padding:20px 24px;margin-bottom:24px">';
+    html += '<div style="font-size:13px;color:#3730a3;line-height:1.6"><strong>How it works:</strong> When someone marks OOO in their calendar, Wren automatically surfaces all their open commitments, delegated tasks, and pending items. Each item gets assigned a backup owner or flagged for review. When they return, Wren provides a re-onboarding summary.</div>';
+    html += '</div>';
+
+    // Upcoming OOO
+    html += '<div style="font-size:14px;font-weight:700;color:#18181b;margin-bottom:14px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#d97706;display:inline-block"></span> Upcoming OOO</div>';
+
+    html += '<div class="handoff-card">';
+    html += '<div class="handoff-header">';
+    html += '<div class="handoff-avatar" style="background:#7c3aed">TB</div>';
+    html += '<div style="flex:1"><div class="handoff-name">Team Member B</div>';
+    html += '<div class="handoff-dates">OOO: Next Monday – Friday</div></div>';
+    html += '<span class="handoff-status pending">2 items need owners</span>';
+    html += '</div>';
+    html += '<div class="handoff-items">';
+    html += '<div class="handoff-item"><span class="handoff-item-status needs-owner">Needs owner</span><div><div class="handoff-item-title">' + rc.nudgeTypes[1] + ' proposal draft</div><div class="handoff-item-detail">12 days overdue — no artifact detected</div></div></div>';
+    html += '<div class="handoff-item"><span class="handoff-item-status needs-owner">Needs owner</span><div><div class="handoff-item-title">Cross-team alignment response</div><div class="handoff-item-detail">15 days waiting — partner team needs answer before Thursday</div></div></div>';
+    html += '<div class="handoff-item"><span class="handoff-item-status covered">Auto-covered</span><div><div class="handoff-item-title">Weekly standup facilitation</div><div class="handoff-item-detail">Auto-transferred to Team Member A for the week</div></div></div>';
+    html += '</div>';
+    html += '<div style="padding:16px 0 0;display:flex;gap:8px">';
+    html += '<button class="draft-btn approve" onclick="appApproveDraft(0)">Send Handoff Plan</button>';
+    html += '<button class="draft-btn edit">Assign Owners</button>';
+    html += '</div></div>';
+
+    // Your OOO
+    html += '<div style="font-size:14px;font-weight:700;color:#18181b;margin:28px 0 14px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#4f46e5;display:inline-block"></span> Your Next OOO</div>';
+
+    html += '<div class="handoff-card">';
+    html += '<div class="handoff-header">';
+    html += '<div class="handoff-avatar" style="background:#4f46e5">ME</div>';
+    html += '<div style="flex:1"><div class="handoff-name">You</div>';
+    html += '<div class="handoff-dates">OOO: Apr 7 – Apr 11</div></div>';
+    html += '<span class="handoff-status pending">4 items to hand off</span>';
+    html += '</div>';
+    html += '<div class="handoff-items">';
+    html += '<div class="handoff-item"><span class="handoff-item-status needs-owner">Needs owner</span><div><div class="handoff-item-title">' + rc.nudgeTypes[0] + ' Q1 follow-through</div><div class="handoff-item-detail">High priority — no obvious delegate</div></div></div>';
+    html += '<div class="handoff-item"><span class="handoff-item-status transferred">Transferred</span><div><div class="handoff-item-title">' + rc.nudgeTypes[1] + ' initiative oversight</div><div class="handoff-item-detail">Transferred to Team Lead</div></div></div>';
+    html += '<div class="handoff-item"><span class="handoff-item-status transferred">Transferred</span><div><div class="handoff-item-title">Weekly team sync facilitation</div><div class="handoff-item-detail">Transferred to Team Member A</div></div></div>';
+    html += '<div class="handoff-item"><span class="handoff-item-status covered">Auto-covered</span><div><div class="handoff-item-title">Daily standup check-ins</div><div class="handoff-item-detail">Automated via Wren bot during OOO</div></div></div>';
+    html += '</div>';
+    html += '<div style="padding:16px 0 0;display:flex;gap:8px">';
+    html += '<button class="draft-btn approve" onclick="appApproveDraft(0)">Generate Handoff Brief</button>';
+    html += '<button class="draft-btn edit">Assign Remaining Items</button>';
+    html += '</div></div>';
+
+    // Past handoff
+    html += '<div style="font-size:14px;font-weight:700;color:#18181b;margin:28px 0 14px;display:flex;align-items:center;gap:8px"><span style="width:8px;height:8px;border-radius:50%;background:#16a34a;display:inline-block"></span> Past Handoffs</div>';
+
+    html += '<div class="handoff-card" style="opacity:0.7">';
+    html += '<div class="handoff-header">';
+    html += '<div class="handoff-avatar" style="background:#0369a1">TA</div>';
+    html += '<div style="flex:1"><div class="handoff-name">Team Member A</div>';
+    html += '<div class="handoff-dates">Was OOO: Mar 10 – Mar 14 — Completed</div></div>';
+    html += '<span class="handoff-status ready">All items returned</span>';
+    html += '</div>';
+    html += '<div style="font-size:13px;color:#71717a;padding-top:8px">3 items handed off — 2 completed during OOO — 1 returned. Re-onboarding summary delivered.</div>';
+    html += '</div>';
+
+    return html;
+}
+
+// ============================================================
+// MAIN APP RENDERER (post-onboarding)
+// ============================================================
+function renderMainApp() {
+    var rc = getRoleConfig();
+    var html = '';
+
+    // Sidebar
+    html += '<div class="sidebar">';
+    html += '<div class="sidebar-logo"><div>' + getSidebarLogoSVG() + '</div><div class="live-badge">Live</div></div>';
+    html += '<nav class="sidebar-nav">';
+    var pages = [
+        {id:'dashboard', label:'Dashboard'},
+        {id:'commitments', label:'Commitments'},
+        {id:'relationships', label:'Relationships'},
+        {id:'coach', label: rc.coachTitle},
+        {id:'weekly', label:'Weekly Review'},
+        {id:'playbooks', label:'Playbooks'},
+        {id:'drafts', label:'Draft Queue'},
+        {id:'briefings', label:'Briefings'},
+        {id:'handoff', label:'Handoff'},
+        {id:'achievements', label:'Achievements'},
+        {id:'integrations', label:'Integrations'},
+        {id:'settings', label:'Settings'}
+    ];
+    pages.forEach(function(p) {
+        html += '<div class="nav-item' + (app.page === p.id ? ' active' : '') + '" onclick="navigateTo(\'' + p.id + '\')">' + p.label + '</div>';
+    });
+    html += '</nav>';
+    html += '<div class="sidebar-user" style="display:flex;align-items:center;gap:10px">';
+    html += '<div class="avatar">' + (app.user.name ? app.user.name.split(' ').map(function(w){return w[0]}).join('') : 'U') + '</div>';;
+    html += '<div><div style="font-size:12px;font-weight:600;color:#18181b">' + (app.user.name || 'User') + '</div>';
+    html += '<div style="font-size:11px;color:#a1a1aa">' + (app.user.title || app.user.role) + '</div></div>';
+    html += '</div></div>';
+
+    // Main content
+    html += '<div class="main" id="main-area">';
+    if (app.page === 'dashboard') html += renderAppDashboard();
+    else if (app.page === 'commitments') html += renderAppCommitments();
+    else if (app.page === 'relationships') html += renderAppRelationships();
+    else if (app.page === 'coach') html += renderAppCoach();
+    else if (app.page === 'weekly') html += renderAppWeekly();
+    else if (app.page === 'playbooks') html += renderAppPlaybooks();
+    else if (app.page === 'drafts') html += renderAppDraftQueue();
+    else if (app.page === 'briefings') html += renderAppBriefings();
+    else if (app.page === 'handoff') html += renderAppHandoff();
+    else if (app.page === 'achievements') html += renderAppAchievements();
+    else if (app.page === 'integrations') html += renderAppIntegrations();
+    else if (app.page === 'settings') html += renderAppSettings();
+    html += '</div>';
+
+    // Chat with Wren panel
+    html += '<div class="chat-overlay" id="chat-overlay" onclick="toggleChat()"></div>';
+    html += '<div class="chat-panel" id="chat-panel">';
+    html += '<div class="chat-header">';
+    html += '<div class="chat-header-bird"><svg width="20" height="20" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="16" ry="12" stroke="#4f46e5" stroke-width="2" fill="none"/><circle cx="48" cy="32" r="8" stroke="#4f46e5" stroke-width="2" fill="none"/><circle cx="51" cy="30" r="2" fill="#4f46e5"/><path d="M 55 31 L 62 28 L 56 35" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>';
+    html += '<div class="chat-header-info"><h3>Hey Wren</h3><p>Your ' + getRoleConfig().coachTitle.toLowerCase() + '</p></div>';
+    html += '<button class="chat-header-close" onclick="toggleChat()"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M12 4L4 12M4 4l8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>';
+    html += '</div>';
+    html += '<div class="chat-messages" id="chat-messages"></div>';
+    html += '<div class="chat-input-area">';
+    html += '<textarea class="chat-input" id="chat-input" placeholder="Ask Wren anything..." rows="1" onkeydown="handleChatKey(event)" oninput="autoResizeChat()"></textarea>';
+    html += '<button class="chat-send" id="chat-send" onclick="sendChatMessage()" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+    html += '</div></div>';
+    html += '<button class="chat-fab" id="chat-fab" onclick="toggleChat()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>';
+
+    return html;
+}
+
+function renderAppDashboard() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Here\'s what Wren found<span class="live-badge">Live</span></h1>';
+    html += '<p>' + app.selectedIntegrations.length + ' connected tools watching for ' + app.user.role + '</p></div>';
+
+    // Momentum & Streak
+    html += '<div class="momentum-card">';
+    html += '<div class="momentum-row">';
+    html += '<div class="momentum-streak">';
+    html += '<svg class="streak-fire" viewBox="0 0 24 24" fill="none"><path d="M12 2C10 6 6 8 6 13a6 6 0 0 0 12 0c0-3-1.5-5-3-7-0.5 2-2 3-3 3s-1.5-2.5 0-7z" fill="url(#appFireGrad)" stroke="none"/><defs><linearGradient id="appFireGrad" x1="12" y1="2" x2="12" y2="19" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f59e0b"/><stop offset="100%" stop-color="#ef4444"/></linearGradient></defs></svg>';
+    html += '<div><div class="streak-count">8</div><div class="streak-label">day streak</div></div>';
+    html += '</div>';
+    html += '<div class="momentum-ring">';
+    var pct = 76;
+    var circ = Math.round(2 * Math.PI * 24);
+    var dash = Math.round(circ * pct / 100);
+    html += '<svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" fill="none" stroke="#f4f4f5" stroke-width="4"/><circle cx="28" cy="28" r="24" fill="none" stroke="#4f46e5" stroke-width="4" stroke-linecap="round" stroke-dasharray="' + dash + ' ' + circ + '" transform="rotate(-90 28 28)"/></svg>';
+    html += '<div class="momentum-pct">' + pct + '%</div>';
+    html += '</div>';
+    html += '<div><div style="font-size:12px;font-weight:600;color:#18181b">Follow-through</div><div style="font-size:11px;color:#a1a1aa">This week</div></div>';
+    html += '<div style="text-align:center"><div class="sparkline">';
+    var spark = [60, 70, 65, 80, 75, 85, 76];
+    spark.forEach(function(v, i) {
+        html += '<div class="sparkline-bar' + (i === 6 ? ' today' : '') + '" style="height:' + Math.round(v * 0.32) + 'px"></div>';
+    });
+    html += '</div><div style="font-size:10px;color:#a1a1aa;margin-top:4px">7-day trend</div></div>';
+    html += '<div class="momentum-level"><span class="level-badge">Consistent</span><span class="level-xp">1,280 XP</span></div>';
+    html += '</div>';
+    html += '<div class="momentum-best">Personal best: <strong>82%</strong> follow-through — last week. Keep pushing!</div>';
+    html += '<div style="display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:#71717a"><span style="background:linear-gradient(135deg,#eef2ff,#ede9fe);padding:3px 8px;border-radius:100px;font-size:11px">⚡ Momentum Builder</span> Earned 3 days ago · +150 XP</div>';
+    html += '</div>';
+
+    html += '<div class="stat-grid">';
+    html += '<div class="stat-card" style="background:linear-gradient(180deg, #eef2ff 0%, #ffffff 30%)"><div class="stat-value" style="color:#4f46e5">7</div><div class="stat-label">Active Items</div></div>';
+    html += '<div class="stat-card" style="background:linear-gradient(180deg, #fef2f2 0%, #ffffff 30%)"><div class="stat-value" style="color:#dc2626">2</div><div class="stat-label">Urgent</div></div>';
+    html += '<div class="stat-card" style="background:linear-gradient(180deg, #fffbeb 0%, #ffffff 30%)"><div class="stat-value" style="color:#d97706">3</div><div class="stat-label">Overdue</div></div>';
+    html += '<div class="stat-card" style="background:linear-gradient(180deg, #eef2ff 0%, #ffffff 30%)"><div class="stat-value" style="color:#4f46e5">74</div><div class="stat-label">Avg Score</div></div>';
+    html += '</div>';
+
+    // Anomaly Alert Bar
+    html += '<div class="anomaly-bar">';
+    html += '<div class="anomaly-title"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1l7 13H1L8 1z" stroke="#dc2626" stroke-width="1.5" fill="none"/><path d="M8 6v3M8 11.5v.5" stroke="#dc2626" stroke-width="1.5" stroke-linecap="round"/></svg> 2 anomalies detected</div>';
+    html += '<div class="anomaly-item"><strong>Response gap:</strong> 3 messages from direct reports unanswered for 6+ hours (your average: 2 hours)</div>';
+    html += '<div class="anomaly-item"><strong>Meeting overload:</strong> Tomorrow has 7 back-to-back meetings with zero breaks. Consider moving one async.</div>';
+    html += '</div>';
+
+    // Energy & Capacity
+    html += '<div class="energy-grid">';
+    html += '<div class="energy-card"><div class="energy-value" style="color:#d97706">22h</div><div class="energy-label">Meeting load</div><div class="energy-indicator" style="background:#fffbeb;color:#d97706">Medium</div></div>';
+    html += '<div class="energy-card"><div class="energy-value" style="color:#4f46e5">31</div><div class="energy-label">Context switches</div><div class="energy-indicator" style="background:#eef2ff;color:#4f46e5">Normal</div></div>';
+    html += '<div class="energy-card"><div class="energy-value" style="color:#dc2626">1</div><div class="energy-label">Deep work blocks</div><div class="energy-indicator" style="background:#fef2f2;color:#dc2626">Low</div></div>';
+    html += '<div class="energy-card"><div class="energy-value" style="color:#16a34a">0.5h</div><div class="energy-label">After-hours</div><div class="energy-indicator" style="background:#f0fdf4;color:#16a34a">Healthy</div></div>';
+    html += '</div>';
+
+    // Forecast
+    html += '<div class="forecast-card">';
+    html += '<div style="font-size:14px;font-weight:700;color:#18181b;margin-bottom:14px">Wren\'s Forecast</div>';
+    html += '<div class="forecast-item"><div style="flex-shrink:0"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 12L6 8l3 3 5-7" stroke="#4f46e5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>At current pace, backlog clears by <strong>next Wednesday</strong></div>';
+    html += '<div class="forecast-item"><div style="flex-shrink:0"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l7 13H1L8 1z" stroke="#dc2626" stroke-width="1.5" fill="none"/></svg></div><strong style="color:#dc2626">1 item will breach SLO by Tuesday</strong> if not addressed</div>';
+    html += '<div class="forecast-item"><div style="flex-shrink:0"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="1" stroke="#4f46e5" stroke-width="1.5" fill="none"/><path d="M2 7h12" stroke="#4f46e5" stroke-width="1.5"/></svg></div>2 meetings need prep this week (~2 hours)</div>';
+    html += '</div>';
+
+    // @HeyWren Mentions Feed
+    var rc = getRoleConfig();
+    html += '<div class="mentions-feed">';
+    html += '<div class="mentions-header">';
+    html += '<div class="mentions-title"><span class="mentions-tag">@HeyWren</span> Recent Mentions</div>';
+    html += '<div style="font-size:12px;color:#a1a1aa">3 captured this week</div>';
+    html += '</div>';
+
+    var mentionData = [
+        {source:'slack', icon:'💬', who:'Sarah Chen', channel:'#product', time:'1 hour ago', text:'<em>@HeyWren</em> track that we need the competitive analysis done before the board meeting next Thursday.', status:'captured', statusLabel:'Captured → Commitment Trace'},
+        {source:'outlook', icon:'📧', who:'Mike Torres', channel:'Email', time:'Yesterday', text:'<em>@HeyWren</em> reminder — the Q1 report still needs final sign-off from finance before we can publish.', status:'captured', statusLabel:'Captured → Nudge'},
+        {source:'slack', icon:'💬', who:'Lisa Park', channel:'#' + rc.coachTitle.toLowerCase().replace(/ /g,'-'), time:'2 days ago', text:'<em>@HeyWren</em> the client follow-up from last week still has not happened. Can we make sure this does not slip?', status:'pending', statusLabel:'Pending review'}
+    ];
+
+    mentionData.forEach(function(m) {
+        html += '<div class="mention-item">';
+        html += '<div class="mention-source ' + m.source + '">' + m.icon + '</div>';
+        html += '<div class="mention-content">';
+        html += '<div class="mention-who">' + m.who + '</div>';
+        html += '<div class="mention-text">' + m.text + '</div>';
+        html += '<div class="mention-meta">';
+        html += '<span>' + m.channel + '</span><span>·</span><span>' + m.time + '</span><span>·</span>';
+        html += '<span class="mention-status ' + m.status + '">' + m.statusLabel + '</span>';
+        html += '</div></div></div>';
+    });
+    html += '</div>';
+
+    // Team Leaderboard
+    html += '<div class="leaderboard">';
+    html += '<div class="leaderboard-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 21h8M12 17v4M7 4h10l-1 8H8L7 4zM5 4h14M9 4V2M15 4V2" stroke="#4f46e5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Weekly Leaderboard</div>';
+    var leaders = [
+        {rank:1, name:'You', initials:'ME', color:'#4f46e5', score:76, streak:8, trend:'+4', you:true},
+        {rank:2, name:'Sarah Chen', initials:'SC', color:'#0369a1', score:73, streak:6, trend:'+8', you:false},
+        {rank:3, name:'Mike Torres', initials:'MT', color:'#16a34a', score:71, streak:4, trend:'+2', you:false},
+        {rank:4, name:'Lisa Park', initials:'LP', color:'#7c3aed', score:68, streak:3, trend:'-1', you:false},
+        {rank:5, name:'David Kim', initials:'DK', color:'#d97706', score:64, streak:0, trend:'+5', you:false}
+    ];
+    leaders.forEach(function(l) {
+        html += '<div class="leaderboard-row' + (l.you ? ' you' : '') + '">';
+        html += '<div class="leaderboard-rank">' + l.rank + '</div>';
+        html += '<div class="leaderboard-avatar" style="background:' + l.color + '">' + l.initials + '</div>';
+        html += '<div class="leaderboard-info">';
+        html += '<div class="leaderboard-name">' + l.name + (l.you ? ' <span style="font-size:11px;color:#4f46e5;font-weight:700">(You)</span>' : '') + '</div>';
+        html += '<div class="leaderboard-meta">' + (l.streak > 0 ? '<svg style="display:inline-flex;vertical-align:middle" width="12" height="12" viewBox="0 0 24 24"><path d="M12 2C10 6 6 8 6 13a6 6 0 0 0 12 0c0-3-1.5-5-3-7-0.5 2-2 3-3 3s-1.5-2.5 0-7z" fill="#f59e0b"/></svg> ' + l.streak + '-day streak · ' : '') + '<span style="color:' + (l.trend.charAt(0) === '+' ? '#16a34a' : '#dc2626') + '">' + l.trend + '%</span> vs last week</div>';
+        html += '</div>';
+        html += '<div class="leaderboard-score">' + l.score + '%</div>';
+        html += '</div>';
+    });
+    html += '</div>';
+
+    // Sample nudges based on role
+    var sampleNudges = rc.nudgeTypes.slice(0, 4).map(function(type, i) {
+        var urgency = i < 1 ? 'urgent' : i < 3 ? 'gentle' : 'digest';
+        var score = 95 - (i * 12);
+        return { type: type, urgency: urgency, score: score };
+    });
+
+    sampleNudges.forEach(function(n) {
+        html += '<div class="nudge-card ' + n.urgency + '">';
+        html += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap">';
+        html += '<span class="badge">' + n.urgency.toUpperCase() + '</span>';
+        html += '<span class="badge">Score: ' + n.score + '</span>';
+        var src = app.selectedIntegrations[Math.floor(Math.random() * app.selectedIntegrations.length)] || 'slack';
+        html += '<span class="source-tag">' + (INTEGRATIONS[src] ? INTEGRATIONS[src].name : src).toUpperCase() + '</span>';
+        html += '</div>';
+        html += '<div class="nudge-title">[' + n.type + '] Example nudge for ' + app.user.role + '</div>';
+        html += '<div class="nudge-why">This is a placeholder showing the type of nudge Wren will surface. Real nudges appear after Wren scans your connected tools (~2 min).</div>';
+        html += '<div class="nudge-actions">';
+        html += '<button class="nudge-btn done">Done</button>';
+        html += '<button class="nudge-btn snooze">Snooze</button>';
+        html += '<button class="nudge-btn dismiss">Dismiss</button>';
+        html += '<button class="nudge-btn open">Open Source</button>';
+        html += '</div></div>';
+    });
+
+    return html;
+}
+
+function renderAppCoach() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>' + rc.coachTitle + '</h1>';
+    html += '<p>Personalized for ' + (app.user.title || app.user.role) + ' at ' + (app.user.company || 'your company') + '</p></div>';
+
+    html += '<div class="coach-card">';
+    html += '<div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;position:relative;z-index:1">';
+    html += '<div style="width:48px;height:48px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;background:' + rc.coachBg + ';color:#fff">' + rc.coachIcon + '</div>';
+    html += '<div><div style="font-size:15px;font-weight:600;color:#18181b">' + rc.coachTitle + '</div>';
+    html += '<div style="font-size:12px;color:#a1a1aa">Watching for: ' + rc.signals.slice(0, 3).join(' • ') + '</div></div>';
+    html += '</div>';
+    html += '<div style="font-size:13px;color:#52525b;line-height:1.6;position:relative;z-index:1">Wren analyzes every message, email, meeting, and task across your connected tools to surface coaching insights specific to your role as ' + app.user.role + '. Insights update weekly based on real behavioral patterns.</div>';
+    html += '</div>';
+
+    // Sample insights based on role
+    var priorities = ['Critical', 'High', 'Medium', 'Growth'];
+    var priClasses = { 'Critical': 'badge-error', 'High': 'badge-warning', 'Medium': 'badge-info', 'Growth': 'badge-success' };
+    rc.focuses.forEach(function(focus, i) {
+        html += '<div class="insight-card">';
+        var pri = priorities[Math.min(i, 3)];
+        html += '<span class="insight-priority badge ' + (priClasses[pri] || 'badge') + '">' + pri.toUpperCase() + '</span>';
+        html += '<div class="insight-title">' + focus + '</div>';
+        html += '<div class="insight-body">Wren\'s ' + rc.coachTitle + ' will analyze your communication patterns, calendar, and tool activity to provide data-driven coaching insights here. Real insights appear after the first week of data collection.</div>';
+        html += '<div class="insight-action"><strong>Action:</strong> Specific, actionable recommendations will appear here — backed by evidence from your own messages and activity patterns.</div>';
+        html += '</div>';
+    });
+
+    // Personal SLOs
+    html += '<div class="card" style="margin-top:28px">';
+    html += '<div style="font-size:15px;font-weight:700;color:#18181b;margin-bottom:16px">Your Personal SLOs</div>';
+    var slos = [
+        {name: 'Direct Report Response Time', target: '< 4 hours', actual: 82, status: 'healthy', color: '#16a34a'},
+        {name: 'Meeting Action Item Follow-Through', target: '< 48 hours', actual: 68, status: 'warning', color: '#d97706'},
+        {name: 'Delegation Check-In', target: '< 72 hours', actual: 55, status: 'breached', color: '#dc2626'}
+    ];
+    slos.forEach(function(s) {
+        html += '<div class="slo-card">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">';
+        html += '<div style="font-size:15px;font-weight:700;color:#18181b">' + s.name + '</div>';
+        html += '<div class="slo-status ' + s.status + '">' + (s.status === 'healthy' ? 'On Track' : s.status === 'warning' ? 'At Risk' : 'Breached') + '</div></div>';
+        html += '<div style="font-size:12px;color:#71717a;display:flex;justify-content:space-between"><span>Target: ' + s.target + '</span><span style="font-weight:600;color:' + s.color + '">' + s.actual + '%</span></div>';
+        html += '<div class="slo-bar-bg"><div class="slo-bar-fill" style="width:' + s.actual + '%;background:' + s.color + '"></div></div>';
+        html += '</div>';
+    });
+    html += '</div>';
+
+    return html;
+}
+
+function renderAppWeekly() {
+    var html = '';
+    html += '<div class="page-header"><h1>Weekly Review</h1><p>Your personal pulse check — what got done, what moved forward, where to focus next</p></div>';
+    html += '<div class="card"><div class="empty-state"><div class="empty-state-content">Your first weekly review will generate this Friday.<br><br>It will include accomplishments, calendar heatmap, activity metrics, and a preview of next week — all personalized for your ' + app.user.role + ' role.</div></div></div>';
+
+    // Meeting ROI
+    html += '<div style="font-size:15px;font-weight:700;color:#18181b;margin-top:28px;margin-bottom:16px">Meeting ROI This Week</div>';
+    var meetings = [
+        {name: 'Team Standup', score: 76, actions: 2.5, ft: 80, rec: 'keep', label: 'Keep'},
+        {name: 'Leadership Sync', score: 82, actions: 3, ft: 85, rec: 'keep', label: 'Keep'},
+        {name: '1:1 Block', score: 88, actions: 4, ft: 90, rec: 'keep', label: 'Keep'},
+        {name: 'All-Hands', score: 31, actions: 0.3, ft: 15, rec: 'async', label: 'Go Async'},
+        {name: 'Planning Session', score: 65, actions: 2, ft: 72, rec: 'optimize', label: 'Optimize'}
+    ];
+    meetings.forEach(function(m) {
+        var sc = m.score >= 70 ? '#16a34a' : m.score >= 50 ? '#d97706' : '#dc2626';
+        html += '<div class="roi-card">';
+        html += '<div style="width:56px;height:56px;flex-shrink:0"><svg width="56" height="56" viewBox="0 0 56 56"><circle cx="28" cy="28" r="24" stroke="#f4f4f5" stroke-width="4" fill="none"/><circle cx="28" cy="28" r="24" stroke="' + sc + '" stroke-width="4" fill="none" stroke-dasharray="' + (150.8 * m.score / 100) + ' 150.8" transform="rotate(-90 28 28)" stroke-linecap="round"/><text x="28" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="' + sc + '" font-family="SF Mono, monospace">' + m.score + '</text></svg></div>';
+        html += '<div style="flex:1"><div style="font-size:15px;font-weight:700;color:#18181b">' + m.name + '</div>';
+        html += '<div style="font-size:12px;color:#71717a;margin-top:4px">' + m.actions + ' action items/week · ' + m.ft + '% follow-through</div></div>';
+        html += '<div class="roi-rec ' + m.rec + '">' + m.label + '</div>';
+        html += '</div>';
+    });
+
+    return html;
+}
+
+function renderAppIntegrations() {
+    var rc = getRoleConfig();
+    var html = '';
+    html += '<div class="page-header"><h1>Integrations</h1><p>Manage connected tools — add more sources to improve nudge quality</p></div>';
+
+    var categories = { communication: 'Communication', crm: 'CRM & Sales', project: 'Project Management', calls: 'Call Recording & Notes', docs: 'Documentation', engineering: 'Engineering' };
+    Object.keys(categories).forEach(function(cat) {
+        var items = Object.keys(INTEGRATIONS).filter(function(k){ return INTEGRATIONS[k].category === cat; });
+        if (items.length === 0) return;
+        html += '<div style="font-size:13px;font-weight:600;color:#18181b;margin:20px 0 10px">' + categories[cat] + '</div>';
+        items.forEach(function(key) {
+            var ig = INTEGRATIONS[key];
+            var isConnected = app.selectedIntegrations.indexOf(key) >= 0;
+            var isRecommended = rc && rc.integrations.indexOf(key) >= 0;
+            html += '<div class="card" style="display:flex;align-items:center;gap:12px;padding:14px;margin-bottom:8px">';
+            html += getIntegrationIcon(ig.name);
+            html += '<div style="flex:1"><div style="font-size:13px;font-weight:600;color:#18181b">' + ig.name + (isRecommended ? ' ★' : '') + '</div>';
+            html += '<div style="font-size:12px;color:#a1a1aa;margin-top:2px">' + ig.desc + '</div></div>';
+            if (ig.status === 'coming') {
+                html += '<span class="badge">Coming Soon</span>';
+            } else if (isConnected) {
+                html += '<span class="badge badge-success">Connected</span>';
+            } else {
+                html += '<button class="btn btn-primary" style="padding:6px 12px;font-size:12px" onclick="connectIntegration(\'' + key + '\')">Connect</button>';
+            }
+            html += '</div>';
+        });
+    });
+
+    html += '<div style="margin-top:32px">';
+    html += '<h2 style="font-size:15px;font-weight:600;margin-bottom:16px;letter-spacing:-0.3px;color:#18181b">@HeyWren Bot</h2>';
+    html += '<div class="card" style="padding:24px">';
+    html += '<div style="background:linear-gradient(135deg,#eef2ff,#f5f3ff);border-radius:10px;padding:16px;margin-bottom:16px">';
+    html += '<div style="font-size:13px;color:#3730a3;line-height:1.6">Anyone in your workspace can tag <strong>@HeyWren</strong> in Slack or email to flag items for your follow-through. Wren captures these mentions automatically.</div>';
+    html += '</div>';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div><div style="font-weight:600;color:#18181b;font-size:14px">Slack @HeyWren Bot</div><div style="font-size:12px;color:#a1a1aa">Listens for @HeyWren mentions across channels</div></div><span style="font-size:13px;font-weight:600;color:#16a34a">Active</span></div>';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid #f4f4f5"><div><div style="font-weight:600;color:#18181b;font-size:14px">Outlook @HeyWren Rule</div><div style="font-size:12px;color:#a1a1aa">Catches emails with @HeyWren in subject or body</div></div><span style="font-size:13px;font-weight:600;color:#16a34a">Active</span></div>';
+    html += '<div style="border-top:1px solid #f4f4f5;padding-top:12px;margin-top:4px"><div style="font-size:12px;color:#71717a"><strong>Stats:</strong> 14 mentions captured this month · 11 auto-matched · 3 new items created</div></div>';
+    html += '</div></div>';
+
+    html += '<div style="background:#f3f0ff;border:1px solid #e4e4e7;border-radius:8px;padding:14px;margin-top:20px;font-size:12px;color:#52525b">';
+    html += '<strong>Privacy first:</strong> Wren uses read-only OAuth scopes. We never send messages, modify data, or store raw content. Only extracted signals (commitments, follow-ups, tone patterns) are retained.';
+    html += '</div>';
+
+    return html;
+}
+
+function renderAppSettings() {
+    var html = '';
+    html += '<div class="page-header"><h1>Settings</h1><p>Manage your profile, notifications, and privacy</p></div>';
+
+    html += '<div class="settings-section"><div class="settings-title">Your Profile</div>';
+    html += '<div class="card">';
+    html += '<div class="form-group"><label class="form-label">Name</label><input class="form-input" value="' + app.user.name + '" onchange="app.user.name=this.value"></div>';
+    html += '<div class="form-group"><label class="form-label">Title</label><input class="form-input" value="' + app.user.title + '" onchange="app.user.title=this.value"></div>';
+    html += '<div class="form-group"><label class="form-label">Role</label>';
+    html += '<select class="form-select" onchange="app.user.role=this.value;render()">';
+    Object.keys(ROLES).forEach(function(r) { html += '<option' + (app.user.role === r ? ' selected' : '') + '>' + r + '</option>'; });
+    html += '</select><div class="form-hint">Changing your role will reconfigure your AI coach</div></div>';
+    html += '</div></div>';
+
+    html += '<div class="settings-section"><div class="settings-title">Notifications</div>';
+    html += '<div class="card">';
+    var notifs = [
+        { key: 'dailyDigest', title: 'Daily Digest', desc: 'Morning summary of your nudges via Slack DM' },
+        { key: 'urgentNudges', title: 'Urgent Alerts', desc: 'Real-time notification for score 80+ nudges' },
+        { key: 'weeklyReview', title: 'Weekly Review', desc: 'Friday afternoon recap of accomplishments' },
+        { key: 'coachInsights', title: 'Coach Insights', desc: 'New coaching observations as they surface' }
+    ];
+    notifs.forEach(function(n) {
+        html += '<div class="setting-row">';
+        html += '<div class="setting-info"><h3>' + n.title + '</h3><p>' + n.desc + '</p></div>';
+        html += '<div class="toggle ' + (app.settings[n.key] ? 'on' : 'off') + '" onclick="app.settings[\'' + n.key + '\']=!app.settings[\'' + n.key + '\'];render()"><div class="toggle-knob"></div></div>';
+        html += '</div>';
+    });
+    html += '</div></div>';
+
+    html += '<div class="settings-section"><div class="settings-title">Privacy</div>';
+    html += '<div class="card">';
+    html += '<div style="font-size:13px;color:#52525b;line-height:1.8">';
+    html += '<strong>Read-only access</strong> — Wren never sends messages or modifies data on your behalf<br><br>';
+    html += '<strong>No content storage</strong> — Raw messages are processed in-memory and discarded. Only signals are retained<br><br>';
+    html += '<strong>Your data, your eyes</strong> — Only you see your nudges and coaching. Org Pulse shows aggregates only (min 5 team members)<br><br>';
+    html += '<strong>Right to delete</strong> — Remove all your data instantly from Settings at any time';
+    html += '</div></div></div>';
+
+    return html;
+}
+
+// ============================================================
+// ACTIONS
+// ============================================================
+function goStep(n) {
+    if (n === 2 && app.onboardStep === 1) {
+        var nameEl = $('inp-name');
+        if (nameEl) app.user.name = nameEl.value;
+        var emailEl = $('inp-email');
+        if (emailEl) app.user.email = emailEl.value;
+        var compEl = $('inp-company');
+        if (compEl) app.user.company = compEl.value;
+        var titleEl = $('inp-title');
+        if (titleEl) app.user.title = titleEl.value;
+    }
+    app.onboardStep = n;
+    render();
+    window.scrollTo(0, 0);
+}
+
+function selectRole(r) {
+    app.user.role = r;
+    render();
+}
+
+function toggleIntegration(key) {
+    if (INTEGRATIONS[key].status === 'coming') {
+        showToast(INTEGRATIONS[key].name + ' is coming soon', 'info');
+        return;
+    }
+    var idx = app.selectedIntegrations.indexOf(key);
+    if (idx >= 0) app.selectedIntegrations.splice(idx, 1);
+    else app.selectedIntegrations.push(key);
+    render();
+}
+
+function connectIntegration(key) {
+    app.selectedIntegrations.push(key);
+    showToast(INTEGRATIONS[key].name + ' connected', 'success');
+    render();
+}
+
+function addTeamMember() {
+    app.team.push({ name: '', role: '', email: '' });
+    render();
+}
+
+function removeTeamMember(i) {
+    app.team.splice(i, 1);
+    render();
+}
+
+function navigateTo(page) {
+    app.page = page;
+    render();
+}
+
+function launchApp() {
+    app.screen = 'main';
+    app.page = 'dashboard';
+    render();
+}
+
+// ============================================================
+// MAIN RENDER
+// ============================================================
+function render() {
+    var el = $('app');
+    if (app.screen === 'onboarding') {
+        el.innerHTML = renderOnboarding();
+    } else {
+        el.innerHTML = renderMainApp();
+    }
+}
+
+// ============================================================
+// DEMO MODE — skip onboarding via query params
+// ============================================================
+(function() {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get('demo') === '1') {
+        var roleMap = {
+            'ceo': 'CEO / Founder',
+            'sales': 'VP Sales / Sales Manager',
+            'marketing': 'Marketing Leader',
+            'engineering': 'Engineering Manager / VP Eng',
+            'cs': 'Customer Success / Account Mgr',
+            'ops': 'Operations / Project Manager'
+        };
+        var role = roleMap[params.get('role')] || 'CEO / Founder';
+        var company = decodeURIComponent(params.get('company') || 'Acme Corp');
+        var companyType = decodeURIComponent(params.get('companyType') || 'SaaS / Software');
+        var teamSize = params.get('teamSize') || '11-50';
+
+        app.user.name = 'Demo User';
+        app.user.email = 'demo@' + company.toLowerCase().replace(/[^a-z0-9]/g, '') + '.com';
+        app.user.company = company;
+        app.user.title = role.split(' / ')[0];
+        app.user.role = role;
+        app.user.department = role;
+        app.user.teamSize = teamSize;
+        app.screen = 'main';
+        app.selectedIntegrations = ['slack', 'outlook', 'calendar', 'jira'];
+        app.selectedPlan = 'pro';
+
+        // Add a persistent demo banner at the top
+        var demoStyle = document.createElement('style');
+        demoStyle.textContent = '.demo-banner{position:fixed;top:0;left:0;right:0;height:40px;background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);color:#fff;display:flex;align-items:center;justify-content:center;gap:16px;font-size:13px;font-weight:500;z-index:10000;font-family:-apple-system,BlinkMacSystemFont,Inter,sans-serif;letter-spacing:0;}.demo-banner a{color:#fff;text-decoration:underline;font-weight:600;}.demo-banner-close{cursor:pointer;opacity:0.7;font-size:16px;position:absolute;right:16px;}.demo-banner-close:hover{opacity:1;}.demo-banner ~ #app .sidebar{top:40px;height:calc(100vh - 40px);}.demo-banner ~ #app .topbar{top:40px;left:240px;}.demo-banner ~ #app .main-content{margin-top:40px;}';
+        document.head.appendChild(demoStyle);
+
+        var banner = document.createElement('div');
+        banner.className = 'demo-banner';
+        banner.innerHTML = '<a href="demo.html" style="color:#c7d2fe;text-decoration:none;margin-right:8px;">← Back</a> Viewing demo as <strong>' + role + '</strong> at <strong>' + company + '</strong> &nbsp;·&nbsp; <a href="/">Start your free trial</a> to connect your real tools';
+        document.body.insertBefore(banner, document.body.firstChild);
+    }
+})();
+
+render();
+
+// ============================================================
+// CHAT WITH WREN
+// ============================================================
+var chatState = {
+    open: false,
+    messages: [],
+    memory: { priorities: [], patterns: [], context: [] },
+    initialized: false
+};
+
+function toggleChat() {
+    chatState.open = !chatState.open;
+    var panel = document.getElementById('chat-panel');
+    var overlay = document.getElementById('chat-overlay');
+    var fab = document.getElementById('chat-fab');
+    if (panel) panel.classList.toggle('open', chatState.open);
+    if (overlay) overlay.classList.toggle('open', chatState.open);
+    if (fab) fab.classList.toggle('open', chatState.open);
+    if (chatState.open && !chatState.initialized) {
+        initChat();
+        chatState.initialized = true;
+    }
+    if (chatState.open) {
+        setTimeout(function() { var inp = document.getElementById('chat-input'); if (inp) inp.focus(); }, 350);
+    }
+}
+
+function initChat() {
+    var rc = getRoleConfig();
+    var userName = app.user.name ? app.user.name.split(' ')[0] : 'there';
+
+    addWrenMessage('Hey ' + userName + ' — I\'m Wren, your ' + rc.coachTitle.toLowerCase() + '. I\'m connected to <strong>' + app.selectedIntegrations.length + ' tools</strong> and already learning how you work.');
+
+    setTimeout(function() {
+        addWrenMessage('I can see <strong>7 active items</strong> across your integrations. The more you tell me about your priorities and context, the better I get at knowing what actually matters to you. What\'s top of mind right now?');
+        var pills = rc.nudgeTypes.slice(0, 2).map(function(t) { return 'Tell me about ' + t.toLowerCase(); });
+        pills.push('What should I focus on today?');
+        pills.push('Show me my patterns');
+        addContextPills(pills);
+    }, 1200);
+}
+
+function addWrenMessage(text) {
+    chatState.messages.push({ from: 'wren', text: text, time: Date.now() });
+    renderChatMessages();
+}
+
+function addUserMessage(text) {
+    chatState.messages.push({ from: 'user', text: text, time: Date.now() });
+    renderChatMessages();
+}
+
+function addContextPills(pills) {
+    chatState.messages.push({ from: 'pills', items: pills });
+    renderChatMessages();
+}
+
+function renderChatMessages() {
+    var el = document.getElementById('chat-messages');
+    if (!el) return;
+    var html = '';
+    chatState.messages.forEach(function(msg) {
+        if (msg.from === 'wren') {
+            html += '<div class="chat-msg wren"><div class="chat-msg-name">Wren</div>' + msg.text + '</div>';
+        } else if (msg.from === 'user') {
+            html += '<div class="chat-msg user">' + msg.text + '</div>';
+        } else if (msg.from === 'pills') {
+            html += '<div class="chat-context-pills">';
+            msg.items.forEach(function(pill) {
+                html += '<div class="chat-context-pill" onclick="handlePill(\'' + pill.replace(/'/g, "\\'") + '\')">' + pill + '</div>';
+            });
+            html += '</div>';
+        } else if (msg.from === 'typing') {
+            html += '<div class="chat-typing"><span></span><span></span><span></span></div>';
+        } else if (msg.from === 'memory') {
+            html += '<div class="chat-memory-badge"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M14 8A6 6 0 1 1 2 8a6 6 0 0 1 12 0z" stroke="#16a34a" stroke-width="1.5"/><path d="M6 8l2 2 3-4" stroke="#16a34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' + msg.text + '</div>';
+        }
+    });
+    el.innerHTML = html;
+    el.scrollTop = el.scrollHeight;
+}
+
+function handlePill(text) {
+    chatState.messages = chatState.messages.filter(function(m) { return m.from !== 'pills'; });
+    addUserMessage(text);
+    showTyping();
+    setTimeout(function() {
+        removeTyping();
+        respondToMessage(text);
+    }, 800 + Math.random() * 800);
+}
+
+function handleChatKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChatMessage();
+    }
+}
+
+function autoResizeChat() {
+    var el = document.getElementById('chat-input');
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+    var btn = document.getElementById('chat-send');
+    if (btn) btn.disabled = !el.value.trim();
+}
+
+function sendChatMessage() {
+    var el = document.getElementById('chat-input');
+    if (!el) return;
+    var text = el.value.trim();
+    if (!text) return;
+    chatState.messages = chatState.messages.filter(function(m) { return m.from !== 'pills'; });
+    addUserMessage(text);
+    el.value = '';
+    el.style.height = 'auto';
+    var btn = document.getElementById('chat-send');
+    if (btn) btn.disabled = true;
+    showTyping();
+    setTimeout(function() {
+        removeTyping();
+        respondToMessage(text);
+    }, 800 + Math.random() * 1200);
+}
+
+function showTyping() {
+    chatState.messages.push({ from: 'typing' });
+    renderChatMessages();
+}
+
+function removeTyping() {
+    chatState.messages = chatState.messages.filter(function(m) { return m.from !== 'typing'; });
+}
+
+function respondToMessage(text) {
+    var lower = text.toLowerCase();
+    var rc = getRoleConfig();
+    var roleName = app.user.role || 'your role';
+
+    if (lower.includes('focus') || lower.includes('priorit') || lower.includes('today')) {
+        addWrenMessage('Based on your <strong>' + roleName + '</strong> role and connected tools, here\'s what I\'d prioritize today:<br><br><strong>1. The 2 urgent items</strong> — both have been flagged for over 48 hours. Clearing these first removes cognitive overhead.<br><br><strong>2. The 3 overdue follow-ups</strong> — I\'ve noticed these are ' + rc.nudgeTypes[0].toLowerCase() + ' related. They compound the longer they wait.<br><br><strong>3. Prep for upcoming commitments</strong> — you have meetings this week where these items will come up. Being ahead > being reactive.');
+        setTimeout(function() {
+            chatState.messages.push({ from: 'memory', text: 'Remembered: ' + (app.user.name || 'User') + ' prefers prioritized daily focus lists' });
+            renderChatMessages();
+            addContextPills(['Clear my urgent items', 'What meetings need prep?', 'Show me my patterns']);
+        }, 500);
+    }
+    else if (lower.includes('pattern') || lower.includes('habit') || lower.includes('trend')) {
+        addWrenMessage('Here\'s what I\'m learning about how you work as a <strong>' + roleName + '</strong>:<br><br><strong>Strengths:</strong><br>• You\'re responsive to direct requests — average response time under 2 hours<br>• ' + rc.nudgeTypes[0] + ' items get handled quickly<br><br><strong>Growth areas:</strong><br>• ' + rc.nudgeTypes[rc.nudgeTypes.length - 1] + ' items tend to slip — avg 5 days overdue before action<br>• You commit to things in meetings but don\'t always create a follow-up artifact<br><br><strong>Pattern:</strong> Your most productive days are Tuesdays and Wednesdays. Mondays tend to be reactive. I\'d suggest protecting Tuesday mornings for deep work.');
+        setTimeout(function() {
+            chatState.messages.push({ from: 'memory', text: 'Pattern analysis shared — tracking for improvement over time' });
+            renderChatMessages();
+            addContextPills(['How do I improve?', 'Set up a weekly review', 'What\'s my score trend?']);
+        }, 500);
+    }
+    else if (lower.includes('tell me about') || lower.includes('context') || lower.includes('explain')) {
+        addWrenMessage('I\'d love more context from you — the more you share, the smarter I get. Here are the kinds of things that help me most:<br><br>• <strong>Priority signals:</strong> "The board meeting next month is more important than anything else"<br>• <strong>Relationship context:</strong> "Sarah is a key stakeholder — always loop her in"<br>• <strong>Working style:</strong> "I prefer async over meetings for updates"<br>• <strong>Blind spots:</strong> "I know I drop the ball on documentation"<br><br>Everything you tell me persists and compounds. I\'ll weave it into how I prioritize your nudges, frame coaching, and prep you for meetings.');
+        setTimeout(function() {
+            chatState.messages.push({ from: 'memory', text: 'Wren is ready to learn — share context anytime' });
+            renderChatMessages();
+            addContextPills(['Here\'s my biggest challenge', 'My team dynamics', 'What I\'m measured on']);
+        }, 400);
+    }
+    else if (lower.includes('challenge') || lower.includes('struggle') || lower.includes('problem')) {
+        addWrenMessage('Thanks for being open about that. Understanding your challenges is one of the most valuable things you can share with me.<br><br>I\'ll factor this into:<br>• <strong>How I score nudges</strong> — items related to your challenge get weighted higher<br>• <strong>Coaching framing</strong> — I\'ll proactively surface insights that address this<br>• <strong>Weekly reviews</strong> — I\'ll track progress against this specific area<br><br>You can always come back and update me. Priorities shift — I adapt with you.');
+        setTimeout(function() {
+            chatState.messages.push({ from: 'memory', text: 'Challenge context saved — nudge scoring adjusted' });
+            renderChatMessages();
+            addContextPills(['What else should I tell you?', 'Show my dashboard', 'How are you scoring my items?']);
+        }, 400);
+    }
+    else if (lower.includes('score') || lower.includes('how') && lower.includes('work')) {
+        addWrenMessage('Great question. Here\'s how I think about your items:<br><br>Each nudge gets a <strong>commitment score (0-100)</strong> based on 9 signals:<br>• <strong>Explicit promise</strong> — did you say "I will" or "let\'s do"? (+25)<br>• <strong>Audience weight</strong> — board > team > peer (+20)<br>• <strong>Time decay</strong> — older = more urgent (+15)<br>• <strong>Repetition</strong> — mentioned multiple times? (+10)<br>• <strong>Strategic alignment</strong> — matches your stated priorities (+10)<br>• Plus: sentiment, recency, stakeholder, and cross-reference signals<br><br>The more context you give me about your priorities, the better the <em>strategic alignment</em> signal gets. That\'s where you make me smarter.');
+        addContextPills(['Adjust my priorities', 'What\'s my highest-scored item?', 'Show the weekly trend']);
+    }
+    else if (lower.indexOf('mention') >= 0 || lower.indexOf('@heywren') >= 0 || lower.indexOf('tag') >= 0) {
+        msg = '<strong>@HeyWren Mentions</strong><br><br>';
+        msg += 'You\'ve received <strong>3 mentions</strong> this week from your team.<br><br>';
+        msg += '• <strong>Sarah</strong> flagged competitive analysis deadline (auto-captured)<br>';
+        msg += '• <strong>Mike</strong> reminded about Q1 report sign-off (boosted existing nudge)<br>';
+        msg += '• <strong>Lisa</strong> flagged a stalled client follow-up (pending your review)<br><br>';
+        msg += '<em>2 out of 3 were auto-matched to existing items. Your team is using @HeyWren to hold themselves accountable.</em>';
+        addWrenMessage(msg);
+        return;
+    }
+    else if (lower.indexOf('streak') >= 0 || lower.indexOf('achievement') >= 0 || lower.indexOf('xp') >= 0 || lower.indexOf('level') >= 0 || lower.indexOf('badge') >= 0) {
+        msg = '<strong>Your Momentum</strong><br><br>';
+        msg += '🔥 <strong>8-day streak</strong> — keep it going! Your best so far is 8, so every day from here is a new personal record.<br><br>';
+        msg += '<strong>76% follow-through</strong> this week. Last week you hit 82%. The gap is mostly a few delegation items that haven\'t been checked on.<br><br>';
+        msg += 'Next badge up: <strong>Delegate Master</strong> — check in on all your delegated items this week to unlock it.';
+        addWrenMessage(msg);
+        return;
+    }
+    else {
+        addWrenMessage('Got it — I\'m saving this context and it\'ll shape how I work for you going forward.<br><br>The beautiful thing is: the more conversations we have, the less noise you\'ll see in your dashboard. I learn what matters to you as a <strong>' + roleName + '</strong> and filter accordingly.<br><br>Anything else on your mind?');
+        setTimeout(function() {
+            chatState.messages.push({ from: 'memory', text: 'New context integrated — learning in progress' });
+            renderChatMessages();
+            addContextPills(['What do you know about me?', 'Show my priorities', 'Help me plan my day']);
+        }, 400);
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        if (app.screen === 'main') toggleChat();
+    }
+    if (e.key === 'Escape' && chatState.open) toggleChat();
+});
+</script>
+</body>
+</html>

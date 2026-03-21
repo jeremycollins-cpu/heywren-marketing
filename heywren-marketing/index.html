@@ -1,0 +1,2388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nothing falls through the cracks. Ever again. HeyWren watches your Slack, email, and calendar to ensure every commitment gets completed on time.">
+    <meta name="keywords" content="follow through software, commitment tracking, AI productivity, team accountability, action item completion, work observability">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="author" content="HeyWren">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://heywren.ai">
+    <meta property="og:title" content="HeyWren — Nothing Falls Through The Cracks">
+    <meta property="og:description" content="AI-powered follow-through for teams that actually want to get things done.">
+    <meta property="og:image" content="https://heywren.ai/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://heywren.ai">
+    <meta name="twitter:title" content="HeyWren — Nothing Falls Through The Cracks">
+    <meta name="twitter:description" content="AI-powered follow-through for teams that actually want to get things done.">
+    <meta name="twitter:image" content="https://heywren.ai/og-image.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://heywren.ai">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%234f46e5'/><text x='50' y='65' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='sans-serif'>W</text></svg>">
+
+    <title>HeyWren — Nothing Falls Through The Cracks</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #fafbfc;
+            color: #52525b;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: transparent;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo {
+            width: 140px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #52525b;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 13px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            font-size: 24px;
+            color: #4f46e5;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            background: linear-gradient(135deg, #fafbfc 0%, #f3f0ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #18181b;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            color: #52525b;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 14px 32px;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 15px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4f46e5;
+            padding: 14px 32px;
+            font-weight: 600;
+            border-radius: 8px;
+            font-size: 15px;
+            border: 2px solid #e4e4e7;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: #4f46e5;
+            background: #f3f0ff;
+            transform: translateY(-2px);
+        }
+
+        .hero-trust {
+            font-size: 13px;
+            color: #71717a;
+            line-height: 1.8;
+        }
+
+        .hero-trust strong {
+            color: #4f46e5;
+            font-weight: 600;
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dashboard Mockup */
+        .dashboard-mockup {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            border: 1px solid #e4e4e7;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            padding: 16px 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .dashboard-body {
+            padding: 24px;
+        }
+
+        .momentum-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .momentum-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .momentum-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 4px;
+        }
+
+        .momentum-subtitle {
+            font-size: 13px;
+            color: #52525b;
+        }
+
+        .nudge-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .nudge-item {
+            background: #f4f4f5;
+            border-left: 3px solid #4f46e5;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .nudge-title {
+            font-weight: 600;
+            color: #18181b;
+            margin-bottom: 4px;
+        }
+
+        .nudge-desc {
+            color: #71717a;
+            font-size: 12px;
+        }
+
+        /* Decorative Bird - Hero */
+        .bird-hero {
+            position: absolute;
+            top: -30px;
+            right: -40px;
+            width: 200px;
+            height: 200px;
+            opacity: 0.3;
+        }
+
+        /* ===== SOCIAL PROOF ===== */
+        .social-proof {
+            background: white;
+            border-top: 1px solid #e4e4e7;
+            border-bottom: 1px solid #e4e4e7;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .social-proof-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .social-proof-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #71717a;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .logo-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-placeholder {
+            width: 120px;
+            height: 50px;
+            background: linear-gradient(135deg, #e4e4e7 0%, #d4d4d8 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #71717a;
+            font-weight: 600;
+        }
+
+        .stat-highlight {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4f46e5;
+        }
+
+        /* ===== PROBLEM SECTION ===== */
+        .problem {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #7c3aed;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            line-height: 1.2;
+            max-width: 600px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%);
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: #4f46e5;
+            margin-bottom: 12px;
+            line-height: 1;
+        }
+
+        .stat-text {
+            font-size: 16px;
+            color: #52525b;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .stat-source {
+            font-size: 11px;
+            color: #a1a1a6;
+            font-weight: 500;
+        }
+
+        .bird-problem {
+            position: absolute;
+            bottom: 40px;
+            right: 80px;
+            width: 180px;
+            height: 180px;
+            opacity: 0.25;
+        }
+
+        /* ===== SOLUTION SECTION ===== */
+        .solution {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%);
+        }
+
+        .solution-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .solution-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .solution-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .solution-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #4f46e5;
+        }
+
+        .solution-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, #f3f0ff 0%, #e9d5ff 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .solution-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #18181b;
+            margin-bottom: 16px;
+        }
+
+        .solution-card p {
+            font-size: 15px;
+            color: #52525b;
+            line-height: 1.7;
+        }
+
+        /* ===== PRODUCT SHOWCASE ===== */
+        .showcase {
+            padding: 100px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .showcase-tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #e4e4e7;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 14px;
+            font-weight: 600;
+            color: #71717a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .tab-button.active {
+            color: #4f46e5;
+            border-bottom-color: #4f46e5;
+        }
+
+        .tab-button:hover {
+            color: #4f46e5;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tab-showcase {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .tab-visual {
+            background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%);
+            border-radius: 12px;
+            padding: 20px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #71717a;
+            text-align: center;
+        }
+
+        .tab-description h4 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #18181b;
+            margin-bottom: 16px;
+        }
+
+        .tab-description p {
+            font-size: 15px;
+            color: #52525b;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        /* ===== FEATURES GRID ===== */
+        .features {
+            padding: 100px 40px;
+            background: white;
+        }
+
+        .features-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .feature-card {
+            background: #fafbfc;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(79, 70, 229, 0.1);
+            border-color: #4f46e5;
+            background: white;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #18181b;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #52525b;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .feature-link {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4f46e5;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s ease;
+        }
+
+        .feature-link:hover {
+            gap: 10px;
+        }
+
+        /* ===== ROI CALCULATOR ===== */
+        .roi {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%);
+        }
+
+        .roi-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .roi-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .roi-calculator {
+            background: white;
+            border-radius: 12px;
+            padding: 48px;
+            border: 1px solid #e4e4e7;
+        }
+
+        .input-group {
+            margin-bottom: 32px;
+        }
+
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .input-label label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #18181b;
+        }
+
+        .input-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4f46e5;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(to right, #4f46e5, #7c3aed);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.4);
+        }
+
+        .roi-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid #e4e4e7;
+        }
+
+        .result-box {
+            background: #fafbfc;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+        }
+
+        .result-box.highlight {
+            background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+            border-color: #c7d2fe;
+        }
+
+        .result-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #71717a;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+        }
+
+        .result-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #18181b;
+        }
+
+        .result-detail {
+            font-size: 12px;
+            color: #71717a;
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .roi-bottom-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .roi-headline {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            border-radius: 12px;
+            padding: 28px;
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .roi-headline-value {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .roi-headline-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 4px;
+        }
+
+        .roi-payback {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #71717a;
+        }
+
+        .roi-payback strong {
+            color: #4f46e5;
+        }
+
+        @media (max-width: 768px) {
+            .roi-results { grid-template-columns: 1fr; }
+            .roi-bottom-row { grid-template-columns: 1fr; }
+            .roi-payback { flex-direction: column; gap: 8px; text-align: center; }
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 100px 40px;
+            background: white;
+        }
+
+        .how-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .how-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .step {
+            position: relative;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.2);
+        }
+
+        .step h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #18181b;
+            margin-bottom: 12px;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: #52525b;
+            line-height: 1.7;
+        }
+
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 100%;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, #4f46e5 0%, transparent 100%);
+        }
+
+        .step:last-child::after {
+            display: none;
+        }
+
+        .bird-success {
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            opacity: 0.2;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%);
+        }
+
+        .testimonials-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        .testimonial-quote {
+            font-size: 15px;
+            color: #52525b;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: #18181b;
+        }
+
+        .testimonial-role {
+            font-size: 12px;
+            color: #71717a;
+            font-weight: 500;
+        }
+
+        /* ===== PRICING ===== */
+        .pricing {
+            padding: 100px 40px;
+            background: white;
+        }
+
+        .pricing-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .pricing-card {
+            background: #fafbfc;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #e4e4e7;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            transform: translateY(-12px);
+            box-shadow: 0 20px 60px rgba(79, 70, 229, 0.2);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #f59e0b;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pricing-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .pricing-desc {
+            font-size: 13px;
+            opacity: 0.8;
+            margin-bottom: 24px;
+        }
+
+        .pricing-amount {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .pricing-period {
+            font-size: 13px;
+            opacity: 0.7;
+            margin-bottom: 24px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 32px;
+            font-size: 13px;
+            line-height: 2;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: #4f46e5;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .pricing-card.featured .pricing-features li::before {
+            color: #fef3c7;
+        }
+
+        .pricing-cta {
+            width: 100%;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:not(.featured) .pricing-cta {
+            background: white;
+            color: #4f46e5;
+            border: 2px solid #4f46e5;
+        }
+
+        .pricing-card:not(.featured) .pricing-cta:hover {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: white;
+            color: #4f46e5;
+        }
+
+        .pricing-card.featured .pricing-cta:hover {
+            background: #f3f0ff;
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            padding: 100px 40px;
+            background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%);
+        }
+
+        .faq-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            font-size: 44px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid #e4e4e7;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active {
+            border-color: #4f46e5;
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.1);
+        }
+
+        .faq-question {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #18181b;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover .faq-question {
+            color: #4f46e5;
+        }
+
+        .faq-toggle {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #4f46e5;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 20px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 20px 20px 20px;
+        }
+
+        .faq-answer p {
+            color: #52525b;
+            font-size: 14px;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 80px 40px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-title {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .cta-subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-form {
+            display: flex;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .cta-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        .cta-input::placeholder {
+            color: #a1a1a6;
+        }
+
+        .cta-button {
+            background: white;
+            color: #4f46e5;
+            padding: 12px 28px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-notice {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #18181b;
+            color: #a1a1a6;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .footer-col a {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: #4f46e5;
+        }
+
+        .footer-logo {
+            width: 120px;
+            height: 40px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #3f3f46;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .footer-credit {
+            color: #71717a;
+        }
+
+        .footer-bottom a {
+            margin-left: 20px;
+            color: #71717a;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: #4f46e5;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid,
+            .solution-grid,
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step::after {
+                display: none;
+            }
+
+            .tab-showcase {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .hero {
+                padding-top: 120px;
+                padding-bottom: 60px;
+            }
+
+            .hero-text h1 {
+                font-size: 36px;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+            }
+
+            .section-title,
+            .solution-title,
+            .features-title,
+            .showcase-title,
+            .how-title,
+            .testimonials-title,
+            .pricing-title,
+            .faq-title,
+            .roi-title,
+            .cta-title {
+                font-size: 32px;
+            }
+
+            .problem,
+            .solution,
+            .showcase,
+            .features,
+            .how-it-works,
+            .testimonials,
+            .pricing,
+            .faq,
+            .roi,
+            .cta-section {
+                padding: 60px 20px;
+            }
+
+            .stats-grid,
+            .solution-grid,
+            .features-grid,
+            .testimonials-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+
+            .footer-bottom a {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+
+            .cta-form {
+                flex-direction: column;
+            }
+
+            .logo-grid {
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 28px;
+            }
+
+            .section-title,
+            .solution-title,
+            .features-title,
+            .showcase-title,
+            .how-title,
+            .testimonials-title,
+            .pricing-title,
+            .faq-title,
+            .roi-title,
+            .cta-title {
+                font-size: 24px;
+            }
+
+            .stat-number {
+                font-size: 32px;
+            }
+
+            .pricing-amount {
+                font-size: 32px;
+            }
+
+            .result-value {
+                font-size: 24px;
+            }
+
+            .roi-results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <a href="#" class="nav-logo">
+            <svg viewBox="0 0 370 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g transform="translate(0, 4)">
+                    <ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+                    <circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+                    <circle cx="53" cy="28" r="2" fill="#4f46e5"/>
+                    <path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    <path d="M 26 45 C 34 39, 46 37, 52 41" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    <path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                    <path d="M 22 40 C 16 36, 13 28, 16 21" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    <path d="M 56 36 C 58 42, 56 50, 50 55" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    <path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                </g>
+                <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                    <path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>
+                    <path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>
+                    <path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>
+                </g>
+                <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                    <path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>
+                    <path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>
+                    <path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>
+                    <path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>
+                </g>
+            </svg>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="blog/">Blog</a></li>
+            <li><a href="glossary.html">Glossary</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+        </ul>
+
+        <button class="nav-cta">Start 7-Day Free Trial</button>
+        <button class="mobile-menu-btn">☰</button>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <svg class="bird-hero" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="80" cy="100" rx="35" ry="28" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+            <circle cx="110" cy="80" r="16" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+            <circle cx="116" cy="76" r="3" fill="#4f46e5"/>
+            <path d="M 130 80 L 155 72 L 130 90" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M 60 95 C 75 85, 105 82, 120 92" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M 55 105 C 75 92, 105 88, 125 100" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M 40 90 C 28 78, 24 50, 32 30" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="M 45 98 C 32 88, 28 65, 38 40" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M 130 105 C 135 120, 130 155, 115 170" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            <path d="M 80 165 L 75 190 M 100 162 L 95 185" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        </svg>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Nothing falls through the cracks. Ever again.</h1>
+                <p>Every team has commitments scattered across Slack, email, meetings, and docs. Things slip. Wren watches everything and makes sure they don't. When follow-through becomes automatic, your team moves faster and your customers stay happier.</p>
+
+                <div class="hero-ctas">
+                    <button class="btn-primary">Start 7-Day Free Trial</button>
+                    <a href="demo.html" class="btn-secondary" style="display:inline-block;text-align:center;">See Interactive Demo</a>
+                </div>
+
+                <div class="hero-trust">
+                    <strong>7-day free trial with full Pro access</strong> · No credit card required · Connects in 2 minutes
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="dashboard-mockup">
+                    <div class="dashboard-header">
+                        <span>Your Momentum</span>
+                        <span>↑ 73%</span>
+                    </div>
+                    <div class="dashboard-body">
+                        <div class="momentum-card">
+                            <div class="momentum-label">Follow-Through Score</div>
+                            <div class="momentum-value">87</div>
+                            <div class="momentum-subtitle">Your commitments are on track</div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <div style="font-size: 12px; font-weight: 600; color: #52525b; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Active Nudges</div>
+                            <div class="nudge-cards">
+                                <div class="nudge-item">
+                                    <div class="nudge-title">⏰ Design review followup due today</div>
+                                    <div class="nudge-desc">From your 3pm with Sarah</div>
+                                </div>
+                                <div class="nudge-item">
+                                    <div class="nudge-title">📞 Send proposal to Acme Corp</div>
+                                    <div class="nudge-desc">Promised in Wed standup</div>
+                                </div>
+                                <div class="nudge-item">
+                                    <div class="nudge-title">✅ Streak: 12 days perfect follow-through</div>
+                                    <div class="nudge-desc">Keep it going!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="social-proof">
+        <div class="social-proof-content">
+            <div class="social-proof-label">Trusted by teams at</div>
+            <div class="logo-grid">
+                <div class="logo-placeholder">Acme</div>
+                <div class="logo-placeholder">Stripe</div>
+                <div class="logo-placeholder">Notion</div>
+                <div class="logo-placeholder">Figma</div>
+                <div class="logo-placeholder">Linear</div>
+                <div class="logo-placeholder">Slack</div>
+            </div>
+            <div><span class="stat-highlight">Teams using Wren complete 73% more action items</span> and report 62% fewer missed deadlines</div>
+        </div>
+    </section>
+
+    <!-- PROBLEM SECTION -->
+    <section class="problem" id="problem">
+        <span class="section-label">The Challenge</span>
+        <h2 class="section-title">The Follow-Through Crisis</h2>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">$8.9T</div>
+                <div class="stat-text">Lost globally to disengagement and poor follow-through</div>
+                <div class="stat-source">Gallup Global Engagement Index</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">44%</div>
+                <div class="stat-text">Of meeting action items never get completed</div>
+                <div class="stat-source">MIT Work Management Study</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-number">71%</div>
+                <div class="stat-text">Of meetings fail their objectives due to poor follow-through</div>
+                <div class="stat-source">Harvard Business Review</div>
+            </div>
+        </div>
+
+        <svg class="bird-problem" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="80" cy="100" rx="35" ry="28" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+            <circle cx="110" cy="80" r="16" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+            <circle cx="116" cy="76" r="3" fill="#4f46e5"/>
+            <circle cx="110" cy="130" r="8" fill="#4f46e5"/>
+            <path d="M 130 80 L 155 72 L 130 90" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <path d="M 60 95 C 75 85, 105 82, 120 92" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <path d="M 40 90 C 28 78, 24 50, 32 30" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="M 130 105 C 135 120, 130 155, 115 170" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+        </svg>
+    </section>
+
+    <!-- SOLUTION SECTION -->
+    <section class="solution">
+        <div class="solution-content">
+            <h2 class="solution-title">Meet Wren: Your AI Follow-Through Engine</h2>
+
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">👁️</div>
+                    <h3>Wren Watches</h3>
+                    <p>Connects to Slack, email, and calendar. Reads your commitments automatically so you don't have to track them manually.</p>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-icon">🎯</div>
+                    <h3>Wren Scores</h3>
+                    <p>Every commitment gets a priority score (0-100) based on urgency, stakeholder importance, and deadline proximity.</p>
+                </div>
+
+                <div class="solution-card">
+                    <div class="solution-icon">✨</div>
+                    <h3>Wren Acts</h3>
+                    <p>Pre-written follow-ups, meeting briefings, and coaching to help you execute flawlessly every single time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT SHOWCASE -->
+    <section class="showcase" id="product">
+        <h2 class="showcase-title">See Wren In Action</h2>
+
+        <div class="showcase-tabs">
+            <button class="tab-button active" onclick="switchTab(event, 'dashboard')">Dashboard</button>
+            <button class="tab-button" onclick="switchTab(event, 'drafts')">Draft Queue</button>
+            <button class="tab-button" onclick="switchTab(event, 'briefings')">Pre-Meeting Briefings</button>
+            <button class="tab-button" onclick="switchTab(event, 'tracing')">Commitment Tracing</button>
+            <button class="tab-button" onclick="switchTab(event, 'streaks')">Achievements & Streaks</button>
+        </div>
+
+        <div class="tab-content active" id="dashboard">
+            <div class="tab-showcase">
+                <div class="tab-visual">
+                    <div style="text-align: left; width: 100%;">
+                        <div style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; padding: 12px; border-radius: 6px; margin-bottom: 12px; font-weight: 600;">Follow-Through Score: 87</div>
+                        <div style="background: #fef3c7; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 3px solid #f59e0b; font-size: 12px;">📍 Action Items Due Today (3)</div>
+                        <div style="background: #f4f4f5; padding: 10px; border-radius: 6px; margin-bottom: 8px; border-left: 3px solid #4f46e5; font-size: 12px;">This Week (8) | Next Week (12)</div>
+                        <div style="background: #f4f4f5; padding: 10px; border-radius: 6px; font-size: 12px;">⭐ Streak: 12 days perfect</div>
+                    </div>
+                </div>
+                <div class="tab-description">
+                    <h4>Your Command Center</h4>
+                    <p>See all your commitments at a glance. Track your follow-through score, active nudges, and achievement streaks. Wren surfaces what matters most, when it matters most.</p>
+                    <p style="margin-top: 16px;">No more scattered action items. No more surprises.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="drafts">
+            <div class="tab-showcase">
+                <div class="tab-visual">
+                    <div style="text-align: left; width: 100%; font-size: 12px; line-height: 1.8;">
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px; border-left: 3px solid #10b981;">✓ Send design files to Sarah</div>
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px; border-left: 3px solid #10b981;">✓ Book Acme Corp follow-up call</div>
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px; border-left: 3px solid #3b82f6;">◷ Schedule Q3 planning (due Fri)</div>
+                        <div style="padding: 8px; background: #f4f4f5; border-radius: 4px; border-left: 3px solid #f59e0b;">⚠ Review contract from legal (due today)</div>
+                    </div>
+                </div>
+                <div class="tab-description">
+                    <h4>One-Click Follow-Through</h4>
+                    <p>Wren pre-writes your follow-ups. Every message is personalized, contextual, and ready to send in one click. Never worry about what to say again.</p>
+                    <p style="margin-top: 16px;">Go from commitment to completion in seconds.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="briefings">
+            <div class="tab-showcase">
+                <div class="tab-visual">
+                    <div style="text-align: left; width: 100%; font-size: 12px; line-height: 1.8;">
+                        <div style="margin-bottom: 12px; font-weight: 600; color: #4f46e5;">Meeting Prep: Design Review with Sarah</div>
+                        <div style="margin-bottom: 8px; padding: 8px; background: #f4f4f5; border-radius: 4px;">Last promise: Send designs by Friday</div>
+                        <div style="margin-bottom: 8px; padding: 8px; background: #f4f4f5; border-radius: 4px;">Status: ✓ Sent on time</div>
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px;">Today: Discuss feedback & next steps</div>
+                        <div style="padding: 10px; background: #def7ff; border-radius: 4px; border-left: 3px solid #0ea5e9;">Suggested: Confirm next review date before leaving</div>
+                    </div>
+                </div>
+                <div class="tab-description">
+                    <h4>Walk Into Every Meeting Prepared</h4>
+                    <p>Before each meeting, Wren prepares a briefing with your previous commitments, current status, and what to cover today. Never miss a promise again.</p>
+                    <p style="margin-top: 16px;">Stay accountable. Stay ahead.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="tracing">
+            <div class="tab-showcase">
+                <div class="tab-visual">
+                    <div style="text-align: left; width: 100%; font-size: 12px; line-height: 1.8;">
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px;">📅 Promised: Wed 2pm standup</div>
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px;">📝 Referenced in: "Will send proposal by Friday"</div>
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px;">👤 To: Jordan @ Acme Corp</div>
+                        <div style="margin-bottom: 12px; padding: 8px; background: #f4f4f5; border-radius: 4px;">⏰ Due: Friday 5pm (3 days)</div>
+                        <div style="padding: 10px; background: #dcfce7; border-radius: 4px; border-left: 3px solid #10b981;">✓ Delivered: Friday 3:45pm</div>
+                    </div>
+                </div>
+                <div class="tab-description">
+                    <h4>Full Commitment History</h4>
+                    <p>Wren traces every commitment: when you made it, what you promised, who it was to, and whether you delivered on time. Built-in accountability that feels natural.</p>
+                    <p style="margin-top: 16px;">Trust is built on follow-through.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="streaks">
+            <div class="tab-showcase">
+                <div class="tab-visual">
+                    <div style="text-align: left; width: 100%; font-size: 13px;">
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 48px; font-weight: 800; color: #f59e0b;">🔥</div>
+                            <div style="font-size: 28px; font-weight: 800; color: #18181b; margin-bottom: 4px;">12 Days</div>
+                            <div style="color: #52525b;">Perfect Follow-Through</div>
+                        </div>
+                        <div style="padding: 12px; background: #f4f4f5; border-radius: 6px; margin-bottom: 12px; border-left: 3px solid #10b981;">
+                            ✓ 47 commitments completed on time
+                        </div>
+                        <div style="padding: 12px; background: #f4f4f5; border-radius: 6px;">
+                            📈 Consistency: 100% this week
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-description">
+                    <h4>Celebrate Your Momentum</h4>
+                    <p>Build streaks of perfect follow-through. Wren gamifies accountability—making it fun to stay committed and motivating you to keep the streak alive.</p>
+                    <p style="margin-top: 16px;">Consistency compounds. Results follow.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES GRID -->
+    <section class="features" id="features">
+        <div class="features-content">
+            <h2 class="features-title">Powerful Features Built For Real Teams</h2>
+
+            <div class="features-grid">
+                <div class="feature-card" onclick="window.location.href='/features/ai-nudges-scoring'">
+                    <div class="feature-icon">🎯</div>
+                    <h4>AI Nudges & Scoring</h4>
+                    <p>Smart reminders and priority scores keep your most important commitments front and center.</p>
+                    <a href="/features/ai-nudges-scoring" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/draft-queue'">
+                    <div class="feature-icon">✏️</div>
+                    <h4>Draft Queue</h4>
+                    <p>Pre-written, one-click follow-ups so you never have to worry about what to say.</p>
+                    <a href="/features/draft-queue" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/pre-meeting-briefings'">
+                    <div class="feature-icon">📋</div>
+                    <h4>Pre-Meeting Briefings</h4>
+                    <p>Walk into every meeting prepared with your history, status, and suggested topics.</p>
+                    <a href="/features/pre-meeting-briefings" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/commitment-tracing'">
+                    <div class="feature-icon">🔍</div>
+                    <h4>Commitment Tracing</h4>
+                    <p>Full audit trail of every promise: when, what, to whom, and delivery status.</p>
+                    <a href="/features/commitment-tracing" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/relationship-health'">
+                    <div class="feature-icon">💝</div>
+                    <h4>Relationship Health</h4>
+                    <p>See which relationships are strongest based on follow-through consistency.</p>
+                    <a href="/features/relationship-health" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/achievements-streaks'">
+                    <div class="feature-icon">🔥</div>
+                    <h4>Achievements & Streaks</h4>
+                    <p>Gamified accountability that makes staying on top of commitments fun and motivating.</p>
+                    <a href="/features/achievements-streaks" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/playbooks-automation'">
+                    <div class="feature-icon">⚙️</div>
+                    <h4>Playbooks & Automation</h4>
+                    <p>Set up workflows for recurring commitment types—sales cycles, project handoffs, hiring.</p>
+                    <a href="/features/playbooks-automation" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/pto-handoff'">
+                    <div class="feature-icon">🏖️</div>
+                    <h4>PTO Handoff Protocol</h4>
+                    <p>Automatically transfer commitments and ensure nothing slips while you're away.</p>
+                    <a href="/features/pto-handoff" class="feature-link">Learn more →</a>
+                </div>
+
+                <div class="feature-card" onclick="window.location.href='/features/heywren-mentions'">
+                    <div class="feature-icon">@</div>
+                    <h4>@HeyWren Mentions</h4>
+                    <p>Tag Wren in Slack to capture commitments in real-time—no logging in required.</p>
+                    <a href="/features/heywren-mentions" class="feature-link">Learn more →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI CALCULATOR -->
+    <section class="roi">
+        <div class="roi-content">
+            <h2 class="roi-title">How Much Is Poor Follow-Through Costing Your Business?</h2>
+            <p style="text-align:center;font-size:16px;color:#71717a;margin-top:-32px;margin-bottom:40px">Research shows 44% of action items never get completed and 20% of work time is lost to unfocused execution. Enter your numbers below.</p>
+
+            <div class="roi-calculator">
+                <div class="input-group">
+                    <div class="input-label">
+                        <label>Annual Revenue</label>
+                        <span class="input-value">$<span id="revenueDisplay">10,000,000</span></span>
+                    </div>
+                    <input type="range" id="revenue" min="500000" max="500000000" step="500000" value="10000000" oninput="updateROI()">
+                </div>
+
+                <div class="input-group">
+                    <div class="input-label">
+                        <label>Team Size</label>
+                        <span class="input-value"><span id="teamSizeDisplay">50</span> people</span>
+                    </div>
+                    <input type="range" id="teamSize" min="1" max="1000" value="50" oninput="updateROI()">
+                </div>
+
+                <div class="input-group">
+                    <div class="input-label">
+                        <label>Average Salary</label>
+                        <span class="input-value">$<span id="salaryDisplay">85,000</span>/year</span>
+                    </div>
+                    <input type="range" id="salary" min="30000" max="300000" step="5000" value="85000" oninput="updateROI()">
+                </div>
+
+                <div class="input-group">
+                    <div class="input-label">
+                        <label>Meetings Per Week (avg per person)</label>
+                        <span class="input-value"><span id="meetingsDisplay">8</span> meetings</span>
+                    </div>
+                    <input type="range" id="meetings" min="1" max="40" value="8" oninput="updateROI()">
+                </div>
+
+                <div class="roi-results">
+                    <div class="result-box">
+                        <div class="result-label">Revenue Lost to Poor Execution</div>
+                        <div class="result-value" style="color:#dc2626">$<span id="revenueLost">0</span></div>
+                        <div class="result-detail">Delayed deals, missed deadlines, and customer promises broken — based on 44% of commitments dropping</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">Wasted Payroll (Unfocused Time)</div>
+                        <div class="result-value" style="color:#dc2626">$<span id="payrollWaste">0</span></div>
+                        <div class="result-detail">20% of work time lost to context switching, rework from dropped items, and meeting follow-up that never happens</div>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-label">Hiring You Could Avoid</div>
+                        <div class="result-value" style="color:#d97706"><span id="hiresAvoided">0</span> hires</div>
+                        <div class="result-detail">When every person operates at full capacity, you need fewer people to hit the same targets</div>
+                    </div>
+                </div>
+
+                <div class="roi-bottom-row">
+                    <div class="result-box">
+                        <div class="result-label">Total Annual Cost of Poor Follow-Through</div>
+                        <div class="result-value" style="color:#dc2626">$<span id="totalCost">0</span></div>
+                        <div class="result-detail">Revenue loss + payroll waste + cost of unnecessary hires</div>
+                    </div>
+
+                    <div class="result-box highlight">
+                        <div class="result-label">Wren Cost For Your Team</div>
+                        <div class="result-value" style="color:#4f46e5">$<span id="wrenCost">0</span><span style="font-size:14px;font-weight:600">/year</span></div>
+                        <div class="result-detail">That's <strong id="costPerDay">$0</strong> per person per day</div>
+                    </div>
+                </div>
+
+                <div class="roi-headline">
+                    <div class="roi-headline-value"><span id="roiMultiple">0</span>x ROI</div>
+                    <div class="roi-headline-label">Wren pays for itself <strong id="paybackDays">0</strong> — then keeps saving you money every single day</div>
+                </div>
+
+                <div class="roi-payback">
+                    <span>Recovery rate: <strong id="recoveryValue">$0</strong> saved per year</span>
+                    <span>Net impact: <strong id="netImpact">$0</strong> back in your business</span>
+                    <span>Revenue per employee: <strong id="revPerEmployee">$0</strong> → <strong id="revPerEmployeeAfter">$0</strong></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="how-content">
+            <h2 class="how-title">How It Works</h2>
+
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Connect Your Tools</h3>
+                    <p>2-minute setup. Connect Slack, email, and calendar. Wren reads everything with read-only OAuth—your data is always safe.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Wren Learns Your Patterns</h3>
+                    <p>First week, Wren learns how you communicate, what you prioritize, and how your team works. The more you use it, the smarter it gets.</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Nothing Slips Again</h3>
+                    <p>From day one, get smart nudges, pre-written follow-ups, and meeting prep. Your follow-through score goes up. Your relationships deepen.</p>
+                    <svg class="bird-success" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <ellipse cx="80" cy="100" rx="35" ry="28" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+                        <circle cx="110" cy="80" r="16" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+                        <circle cx="116" cy="76" r="3" fill="#4f46e5"/>
+                        <path d="M 60 110 L 75 125 L 115 75" stroke="#10b981" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M 130 80 L 155 72 L 130 90" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M 60 95 C 75 85, 105 82, 120 92" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="testimonials-content">
+            <h2 class="testimonials-title">Loved By Teams</h2>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"I used to drop 3 or 4 commitments a week without even realizing it. Wren made me realize how much I was forgetting. Now my team trusts me completely."</div>
+                    <div class="testimonial-author">Alex Chen</div>
+                    <div class="testimonial-role">CEO, Tech Startup</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"We almost lost a $500K account because of a dropped promise. Wren would have caught it. Now we have zero missed commitments to customers."</div>
+                    <div class="testimonial-author">Jordan Walsh</div>
+                    <div class="testimonial-role">VP of Sales</div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">"My team's follow-through rate went from 56% to 91% in the first month. Wren didn't just change how we work—it changed how we see ourselves."</div>
+                    <div class="testimonial-author">Morgan Patel</div>
+                    <div class="testimonial-role">Engineering Manager</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-content">
+            <h2 class="pricing-title">Simple, Transparent Pricing</h2>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-name">Basic</div>
+                    <div class="pricing-desc">For individuals getting started</div>
+                    <div class="pricing-amount">$5</div>
+                    <div class="pricing-period">per month, billed monthly</div>
+                    <ul class="pricing-features">
+                        <li>Slack & email monitoring</li>
+                        <li>Basic nudges</li>
+                        <li>Up to 50 commitments</li>
+                        <li>Email support</li>
+                    </ul>
+                    <button class="pricing-cta">Start 7-Day Free Trial</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-name">Pro</div>
+                    <div class="pricing-desc">For professionals & small teams</div>
+                    <div class="pricing-amount">$10</div>
+                    <div class="pricing-period">per month, billed monthly</div>
+                    <ul class="pricing-features">
+                        <li>Slack, email & calendar</li>
+                        <li>AI nudges & scoring</li>
+                        <li>Draft queue</li>
+                        <li>Pre-meeting briefings</li>
+                        <li>Unlimited commitments</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="pricing-cta">Start 7-Day Free Trial</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-name">Team</div>
+                    <div class="pricing-desc">For scaling teams</div>
+                    <div class="pricing-amount">$20</div>
+                    <div class="pricing-period">per user per month</div>
+                    <ul class="pricing-features">
+                        <li>Everything in Pro</li>
+                        <li>Team dashboards</li>
+                        <li>Playbooks & automation</li>
+                        <li>PTO handoff protocol</li>
+                        <li>Admin controls</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                    <button class="pricing-cta">Start 7-Day Free Trial</button>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 60px; color: #52525b; font-size: 14px;">
+                All plans include 7-day free trial with full access. No credit card required. Cancel anytime.
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="faq-content">
+            <h2 class="faq-title">Questions? We Have Answers.</h2>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>Is my data safe? How does Wren access my information?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Wren uses read-only OAuth to connect to your Slack and email. We never store your messages—only analyze them to extract commitments. Your data is encrypted in transit and at rest. We're SOC 2 compliant and never sell your data.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>How is Wren different from project management tools?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Project management tools require you to log commitments manually. Wren watches where you already work—Slack, email, meetings—and automatically captures everything you promise. It's designed for natural conversation, not rigid task workflows.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>What tools does Wren connect to?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Currently, Wren connects to Slack, Gmail, Outlook, and Google Calendar. We're building integrations with Microsoft Teams, Linear, Jira, and more. Let us know what you need.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>How long does setup take?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>2 minutes. Sign up, authorize your tools with OAuth, and you're done. Wren starts learning immediately. You'll see your first nudges within the hour.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>Can my team see my nudges and commitments?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Your personal nudges are private by default. With Team plans, admins can set up shared dashboards to see team-wide follow-through metrics. Commitment details are never shared without your permission.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>What happens after the free trial?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>At the end of your 7-day trial, you choose to upgrade to a paid plan or downgrade to Basic (free, limited features). We never charge without your explicit approval. Cancel anytime—no questions asked.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">
+                    <span>Can Wren help with team accountability?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. Team plans include team dashboards showing who's hitting their commitments, relationship health scores, and team-wide follow-through metrics. It's accountability without the micromanagement—people want to be reliable, Wren just makes it easy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <h2 class="cta-title">Ready to Never Drop a Commitment Again?</h2>
+        <p class="cta-subtitle">Join teams that are already achieving 73% higher completion rates. Try Wren free for 7 days.</p>
+
+        <form class="cta-form" onsubmit="handleSignup(event)">
+            <input type="email" class="cta-input" placeholder="you@company.com" required>
+            <button type="submit" class="cta-button">Get Started Free</button>
+        </form>
+
+        <p class="cta-notice">✓ 7-day free trial · Full Pro access · No credit card required · Cancel anytime</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-logo">
+                    <svg viewBox="0 0 370 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(0, 4)">
+                            <ellipse cx="38" cy="42" rx="18" ry="14" stroke="#7c3aed" stroke-width="2.2" fill="none"/>
+                            <circle cx="50" cy="30" r="9" stroke="#7c3aed" stroke-width="2.2" fill="none"/>
+                            <circle cx="53" cy="28" r="2" fill="#7c3aed"/>
+                            <path d="M 58 29 L 66 26 L 59 33" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                            <path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                            <path d="M 26 45 C 34 39, 46 37, 52 41" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                            <path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                            <path d="M 22 40 C 16 36, 13 28, 16 21" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                            <path d="M 56 36 C 58 42, 56 50, 50 55" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                            <path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                        </g>
+                        <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <g stroke="#7c3aed" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                            <path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>
+                            <path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>
+                            <path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>
+                        </g>
+                        <g stroke="#7c3aed" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                            <path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>
+                            <path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>
+                            <path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>
+                            <path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>
+                        </g>
+                    </svg>
+                </div>
+                <p style="font-size: 13px; margin-top: 12px;">AI-powered follow-through for teams that actually want to get things done.</p>
+            </div>
+
+            <div>
+                <h4>Product</h4>
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="demo.html">Interactive Demo</a>
+                <a href="blog/">Blog</a>
+                <a href="glossary.html">Glossary</a>
+            </div>
+
+            <div>
+                <h4>Resources</h4>
+                <a href="faq.html">FAQ</a>
+                <a href="/">Home</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div>
+                <h4>Legal</h4>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/dpa">Data Processing</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="footer-credit">© 2026 HeyWren</div>
+            <div>
+                <a href="https://twitter.com">Twitter</a>
+                <a href="https://linkedin.com">LinkedIn</a>
+                <a href="https://github.com">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Tab switching
+        function switchTab(e, tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-button');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            e.target.classList.add('active');
+        }
+
+        // FAQ toggle
+        function toggleFAQ(element) {
+            element.classList.toggle('active');
+        }
+
+        // ROI Calculator
+        function updateROI() {
+            var revenue = parseInt(document.getElementById('revenue').value);
+            var teamSize = parseInt(document.getElementById('teamSize').value);
+            var salary = parseInt(document.getElementById('salary').value);
+            var meetings = parseInt(document.getElementById('meetings').value);
+
+            // Update displays
+            document.getElementById('revenueDisplay').textContent = revenue.toLocaleString();
+            document.getElementById('teamSizeDisplay').textContent = teamSize.toLocaleString();
+            document.getElementById('salaryDisplay').textContent = salary.toLocaleString();
+            document.getElementById('meetingsDisplay').textContent = meetings;
+
+            // --- REVENUE IMPACT ---
+            // 44% of action items never completed (Fellow.app research)
+            // Each person generates ~3 commitments per meeting
+            // Revenue at risk: proportional to commitment drop rate
+            var commitmentDropRate = 0.44;
+            var revenueAtRisk = revenue * 0.15 * commitmentDropRate; // 15% of revenue touches follow-through dependent activities
+
+            // --- PAYROLL WASTE ---
+            // 20% of time unfocused (context switching, rework, forgotten items)
+            var totalPayroll = teamSize * salary;
+            var wasteRate = 0.20;
+            var payrollWaste = totalPayroll * wasteRate;
+
+            // Meeting-specific waste: avg meeting generates 3 action items, 44% dropped
+            var meetingWasteHours = teamSize * meetings * 0.44 * 0.5 * 52; // 30 min rework per dropped item per week
+            var hourlyRate = salary / 2080;
+            var meetingWasteCost = meetingWasteHours * hourlyRate;
+            payrollWaste = payrollWaste + meetingWasteCost;
+
+            // --- HIRING AVOIDANCE ---
+            // If 20% of time is recovered, that is equivalent to avoiding hiring
+            var effectiveCapacityGain = teamSize * 0.15; // conservative: 15% recovery (not full 20%)
+            var hiresAvoided = Math.max(1, Math.round(effectiveCapacityGain));
+            var hiringSavings = hiresAvoided * (salary * 1.3); // 1.3x for benefits + recruiting
+
+            // --- TOTALS ---
+            var totalCost = revenueAtRisk + payrollWaste + hiringSavings;
+
+            // --- WREN COST ---
+            // Pro plan at $10/user/month
+            var wrenAnnualCost = teamSize * 10 * 12;
+            var wrenPerDayPerPerson = (10 * 12) / 365;
+
+            // --- ROI ---
+            var improvementRate = 0.65; // conservative: Wren recovers 65% of the loss
+            var recoverableValue = totalCost * improvementRate;
+            var netImpact = recoverableValue - wrenAnnualCost;
+            var roiMultiple = Math.round(recoverableValue / wrenAnnualCost);
+
+            // Payback period
+            var dailySavings = recoverableValue / 365;
+            var paybackDays = Math.max(1, Math.round(wrenAnnualCost / dailySavings));
+
+            // Revenue per employee improvement
+            var revPerEmp = revenue / teamSize;
+            var revPerEmpAfter = (revenue + (revenueAtRisk * improvementRate)) / (teamSize - Math.floor(effectiveCapacityGain * 0.5));
+
+            // --- UPDATE DOM ---
+            document.getElementById('revenueLost').textContent = Math.round(revenueAtRisk).toLocaleString();
+            document.getElementById('payrollWaste').textContent = Math.round(payrollWaste).toLocaleString();
+            document.getElementById('hiresAvoided').textContent = hiresAvoided.toLocaleString();
+            document.getElementById('totalCost').textContent = Math.round(totalCost).toLocaleString();
+            document.getElementById('wrenCost').textContent = Math.round(wrenAnnualCost).toLocaleString();
+            document.getElementById('costPerDay').textContent = '$' + wrenPerDayPerPerson.toFixed(2);
+            document.getElementById('roiMultiple').textContent = roiMultiple.toLocaleString();
+            document.getElementById('paybackDays').textContent = paybackDays <= 1 ? 'on day one' : 'in ' + paybackDays + ' days';
+            document.getElementById('recoveryValue').textContent = '$' + Math.round(recoverableValue).toLocaleString();
+            document.getElementById('netImpact').textContent = '$' + Math.round(netImpact).toLocaleString();
+            document.getElementById('revPerEmployee').textContent = '$' + Math.round(revPerEmp).toLocaleString();
+            document.getElementById('revPerEmployeeAfter').textContent = '$' + Math.round(revPerEmpAfter).toLocaleString();
+        }
+
+        // Form handling
+        function handleSignup(e) {
+            e.preventDefault();
+            const email = e.target.querySelector('input[type="email"]').value;
+            alert('Signup coming soon! We\'ll email ' + email + ' when we\'re ready.');
+        }
+
+        // Initialize ROI on load
+        updateROI();
+    </script>
+</body>
+</html>

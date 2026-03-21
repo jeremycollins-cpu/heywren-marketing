@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use AI to Prepare for Every Meeting in 30 Seconds</title>
+    <meta name="description" content="Use AI to prepare for meetings instantly. Learn how to leverage meeting prep tools and come fully prepared in seconds, not hours.">
+    <meta name="keywords" content="AI meeting prep, meeting preparation tool, prepare for meetings, meeting prep AI">
+    <meta property="og:title" content="How to Use AI to Prepare for Every Meeting in 30 Seconds">
+    <meta property="og:description" content="Use AI to prepare for any meeting in 30 seconds. Come fully prepared without the prep work.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+            padding: 80px 2rem 72px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .article-header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -60px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .header-bird {
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+        .article-header h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .article-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            align-items: center;
+        }
+        .article-meta-divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        .category-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            color: #c7d2fe;
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+        }
+        .author-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 14px 4px 4px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-body {
+            padding: 2rem 0;
+            font-size: 18px;
+        }
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            color: #111827;
+        }
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem 0;
+            color: #1f2937;
+        }
+        .article-body p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        .article-body ul, .article-body ol {
+            margin: 1.5rem 0 1.5rem 1.5rem;
+            line-height: 1.8;
+        }
+        .article-body li {
+            margin-bottom: 0.75rem;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        .cta-box h3 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+        .cta-box p {
+            margin-bottom: 1.5rem;
+            color: #f0f0f0;
+        }
+        .cta-button-white {
+            background: white;
+            color: #4f46e5;
+            padding: 0.875rem 2rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            font-size: 16px;
+        }
+        .cta-button-white:hover {
+            transform: translateY(-2px);
+        }
+        .related-posts {
+            margin: 4rem 0;
+            padding-top: 3rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        .related-posts h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .post-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .post-card:hover {
+            border-color: #4f46e5;
+        }
+        .post-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .post-card a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .post-card a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        footer a {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .article-header h1 {
+                font-size: 28px;
+            }
+            .article-header {
+                padding: 60px 1.5rem 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <nav>
+        <a href="/" class="logo" style="display:flex;align-items:center"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+        <ul class="nav-links">
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="../demo.html">Demo</a></li>
+                    <li><a href="./">Blog</a></li>
+            <li><a href="../glossary.html">Glossary</a></li>
+            <li><a href="../faq.html">FAQ</a></li>
+        </ul>
+        <a href="#" class="cta-button">Start 7-Day Free Trial</a>
+    </nav>
+
+    <div class="article-header">
+        <div class="header-inner">
+            <svg class="header-bird" width="48" height="48" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="50" cy="30" r="9" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="53" cy="28" r="2" fill="rgba(255,255,255,0.2)"/><path d="M 58 29 L 66 26 L 59 33" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            <span class="category-tag">MEETINGS</span>
+            <h1>How to Use AI to Prepare for Every Meeting in 30 Seconds</h1>
+            <p class="article-subtitle">Walk into every meeting knowing exactly what matters and what to say.</p>
+            <div class="article-meta">
+                <span class="author-badge"><span class="author-avatar"><svg width="14" height="14" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="14" ry="10" stroke="#fff" stroke-width="2" fill="none"/><circle cx="48" cy="32" r="7" stroke="#fff" stroke-width="2" fill="none"/></svg></span>The Wren Team</span>
+                <span class="article-meta-divider"></span>
+                <span>March 21, 2026</span>
+                <span class="article-meta-divider"></span>
+                <span>6 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="article-body">
+            <p>You have a meeting in 5 minutes.</p>
+
+            <p>Normally you'd spend the next 20 minutes digging through emails, searching for context, reviewing notes, preparing talking points. If you're unprepared, you wing it and waste everyone's time.</p>
+
+            <p>With AI, you can be fully prepared in 30 seconds.</p>
+
+            <h2>The Meeting Prep Problem</h2>
+
+            <p>Most people go into meetings unprepared because prep takes forever.</p>
+
+            <p>For an important meeting, real prep involves:</p>
+
+            <ul>
+                <li>Finding all relevant emails (10 minutes)</li>
+                <li>Reviewing previous meeting notes (5 minutes)</li>
+                <li>Checking the current project status (5 minutes)</li>
+                <li>Identifying key questions and talking points (10 minutes)</li>
+            </ul>
+
+            <p>That's 30 minutes of prep for a 60-minute meeting. And most people don't have that time.</p>
+
+            <p>So they go in unprepared, waste the first 10 minutes getting oriented, and the meeting's value drops 30%.</p>
+
+            <h2>How AI Changes This</h2>
+
+            <p><strong>Automatic Context Gathering</strong></p>
+
+            <p>AI tools can automatically pull together all the information related to a meeting:</p>
+
+            <ul>
+                <li>Previous relevant emails</li>
+                <li>Earlier meeting notes with the same people</li>
+                <li>Documents shared in the last week</li>
+                <li>Slack conversations about the topic</li>
+                <li>Relevant project status</li>
+            </ul>
+
+            <p>This happens automatically, without you doing anything.</p>
+
+            <p><strong>Intelligent Summarization</strong></p>
+
+            <p>Instead of reading 50 emails, AI reads them and gives you a one-paragraph summary of the context.</p>
+
+            <p>Instead of scrolling through the last three meeting notes, AI identifies the key decisions, blockers, and action items from all of them.</p>
+
+            <p><strong>Question Generation</strong></p>
+
+            <p>AI can suggest the key questions you should ask in the meeting based on the context.</p>
+
+            <p>Example: You have a meeting with the product team about a delayed feature. AI analyzes the relevant emails and notes, then suggests: "Key questions: What's blocking the dev work? When will it be unblocked? What's the impact on Q2 roadmap?"</p>
+
+            <div class="cta-box">
+                <h3>Prepared Meetings Lead to Better Outcomes</h3>
+                <p>Come to every meeting fully prepared. HeyWren ensures you capture and act on commitments made in those meetings.</p>
+                <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+            </div>
+
+            <h2>Tools That Do This Right Now</h2>
+
+            <p><strong>Copilot Pro (Microsoft 365)</strong></p>
+
+            <p>If you're in the Microsoft ecosystem, Copilot can scan your emails and calendar, then generate a pre-meeting brief. It's built in and it's pretty good.</p>
+
+            <p><strong>Slack + AI</strong></p>
+
+            <p>Some teams use Slack bots that summarize relevant channel conversations before a meeting. The bot reads the channel, extracts key points, and posts a summary.</p>
+
+            <p><strong>Meeting-Specific Tools</strong></p>
+
+            <p>Tools like Otter.ai or Fathom transcribe meetings and create summaries. These are more for post-meeting, but some have prep features too.</p>
+
+            <p><strong>Email + AI</strong></p>
+
+            <p>Gmail's Magic Compose can draft meeting prep emails. You tell Claude or ChatGPT "summarize all emails about Project X from the last week" and it does. Paste it into a prep doc.</p>
+
+            <h2>The 30-Second Workflow</h2>
+
+            <p><strong>Step 1: Meeting Alert</strong></p>
+
+            <p>Your calendar reminds you: "Meeting in 5 minutes." AI prep tool automatically pulls context.</p>
+
+            <p><strong>Step 2: Read Prep Brief</strong></p>
+
+            <p>You spend 20 seconds reading a 3-paragraph summary of context. Previous decisions, current status, key questions.</p>
+
+            <p><strong>Step 3: Open Supporting Docs</strong></p>
+
+            <p>You take 10 seconds to open the 1-2 key documents AI flagged as most relevant.</p>
+
+            <p><strong>Step 4: Join Meeting Prepared</strong></p>
+
+            <p>You join the meeting informed, with questions ready, and context clear. Meeting runs efficiently. You extract action items clearly.</p>
+
+            <h2>The Real Impact</h2>
+
+            <p>Here's what happens when you do this:</p>
+
+            <ul>
+                <li>You ask better questions because you're informed</li>
+                <li>You avoid re-explaining things that were already decided</li>
+                <li>You identify blockers faster</li>
+                <li>You make faster decisions</li>
+                <li>The meeting ends 15% faster than it would have otherwise</li>
+            </ul>
+
+            <p>Across 20 meetings per week, that's 1 hour of time saved just from being prepared. And the meetings are better quality.</p>
+
+            <h2>The Next Step: Action Item Capture</h2>
+
+            <p>Here's the missing piece most meeting prep tools don't handle: what happens with the commitments made in the meeting?</p>
+
+            <p>Prep is great. But execution is everything. That's where tools like HeyWren come in—capturing action items from the meeting, tracking them, and ensuring follow-through.</p>
+
+            <p>The winning combo: AI prep for every meeting + automated action item tracking across all meetings.</p>
+
+            <h2>Starting Today</h2>
+
+            <p>Pick one important meeting this week. Before it starts, spend 30 seconds asking ChatGPT or Claude: "Summarize all emails about [topic] from the last week. What are the key questions I should ask?"</p>
+
+            <p>Notice how much better you perform when you're prepared. That's the baseline for meetings going forward.</p>
+
+            <p>Now automate it so you do this for every meeting, not just the ones you think to prep for.</p>
+        </div>
+
+        <div class="related-posts">
+            <h3>Related Posts</h3>
+            <div class="posts-grid">
+                <div class="post-card">
+                    <h4>How to Cut Your Meetings in Half Without Losing Alignment</h4>
+                    <p><a href="reduce-meetings.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>The Ultimate Guide to Meeting Action Items That Actually Get Done</h4>
+                    <p><a href="meeting-action-items-guide.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>Drowning in Slack and Email? How AI Can Rescue Your Workday</h4>
+                    <p><a href="slack-email-overload.html">Read article →</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box" style="margin: 4rem 0 2rem 0;">
+            <h3>Be Prepared for Every Meeting</h3>
+            <p>AI prep in 30 seconds. Automatic action item capture and tracking. Never miss a commitment again.</p>
+            <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+        </div>
+    </div>
+
+        <footer>
+        <p>&copy; 2026 HeyWren | <a href="/">Home</a> | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+    </footer>
+</body>
+</html>

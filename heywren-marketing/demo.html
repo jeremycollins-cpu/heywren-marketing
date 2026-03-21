@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Try HeyWren's interactive demo personalized to your role. No signup required. See how AI-powered follow-through works for CEOs, sales leaders, marketers, and more.">
+    <meta name="keywords" content="demo, interactive, HeyWren, follow-through software, AI productivity">
+    <meta name="theme-color" content="#4f46e5">
+    <meta name="author" content="HeyWren">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://heywren.ai/demo">
+    <meta property="og:title" content="Interactive Demo — See HeyWren In Action | HeyWren">
+    <meta property="og:description" content="Try HeyWren's interactive demo personalized to your role. No signup required. See how AI-powered follow-through works.">
+    <meta property="og:image" content="https://heywren.ai/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://heywren.ai/demo">
+    <meta name="twitter:title" content="Interactive Demo — See HeyWren In Action | HeyWren">
+    <meta name="twitter:description" content="Try HeyWren's interactive demo personalized to your role. No signup required.">
+    <meta name="twitter:image" content="https://heywren.ai/og-image.png">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://heywren.ai/demo">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%234f46e5'/><text x='50' y='65' font-size='60' font-weight='bold' fill='white' text-anchor='middle' font-family='sans-serif'>W</text></svg>">
+
+    <title>Interactive Demo — See HeyWren In Action | HeyWren</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #fafbfc;
+            color: #52525b;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+            background: transparent;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-logo {
+            width: 140px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #52525b;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 13px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            font-size: 24px;
+            color: #4f46e5;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding-top: 140px;
+            padding-bottom: 80px;
+            background: linear-gradient(135deg, #fafbfc 0%, #f3f0ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-bird-watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            opacity: 0.04;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 370 80"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="%234f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="%234f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="%234f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="%234f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="%234f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 26 45 C 34 39, 46 37, 52 41" stroke="%234f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="%234f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 22 40 C 16 36, 13 28, 16 21" stroke="%234f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 56 36 C 58 42, 56 50, 50 55" stroke="%234f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="%234f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g></svg>');
+            background-repeat: repeat;
+            background-size: 400px 400px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            color: #18181b;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #52525b;
+            margin-bottom: 40px;
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-ctas {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .hero-trust {
+            font-size: 13px;
+            color: #52525b;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== PROFILER SECTION ===== */
+        .profiler {
+            padding: 80px 40px;
+            background: #fafbfc;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profiler-card {
+            background: white;
+            border-radius: 24px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 48px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 48px;
+        }
+
+        .step-dot {
+            height: 3px;
+            flex: 1;
+            border-radius: 1.5px;
+            background: #e4e4e7;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .step-dot.active {
+            background: #4f46e5;
+        }
+
+        .step-dot.done {
+            background: #4f46e5;
+        }
+
+        .profiler-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #18181b;
+            letter-spacing: -0.3px;
+        }
+
+        .profiler-desc {
+            font-size: 14px;
+            color: #52525b;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .role-card {
+            border: 1px solid #e4e4e7;
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+
+        .role-card.selected {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            box-shadow: 0 0 0 2px #4f46e5;
+        }
+
+        .role-emoji {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .role-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #18181b;
+            margin-bottom: 4px;
+        }
+
+        .role-desc {
+            font-size: 12px;
+            color: #a1a1aa;
+            margin-top: 4px;
+            font-weight: 400;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #18181b;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d4d4d8;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            color: #18181b;
+        }
+
+        .form-input::placeholder {
+            color: #a1a1aa;
+        }
+
+        .form-input:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid #d4d4d8;
+            border-radius: 10px;
+            font-size: 14px;
+            background: #ffffff;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: #18181b;
+        }
+
+        .form-select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        .chips-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .chip {
+            border: 1px solid #d4d4d8;
+            border-radius: 10px;
+            padding: 12px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            color: #52525b;
+        }
+
+        .chip:hover {
+            border-color: #4f46e5;
+            background: #eef2ff;
+        }
+
+        .chip.selected {
+            border-color: #4f46e5;
+            background: #eef2ff;
+            box-shadow: 0 0 0 2px #4f46e5;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            background: white;
+            border: 1px solid #d4d4d8;
+            color: #52525b;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            margin-top: 12px;
+        }
+
+        .btn-secondary:hover {
+            border-color: #4f46e5;
+            color: #4f46e5;
+        }
+
+        .btn-continue {
+            width: 100%;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 12px 20px;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            margin-top: 24px;
+        }
+
+        .btn-continue:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-continue:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        .loading-screen {
+            text-align: center;
+        }
+
+        .loading-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #18181b;
+            margin-bottom: 40px;
+        }
+
+        .loading-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .loading-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #52525b;
+            padding: 16px;
+            background: #f4f4f5;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .loading-step.done {
+            background: #eef2ff;
+            color: #4f46e5;
+        }
+
+        .step-check {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .step-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d4d4d8;
+            border-top-color: #4f46e5;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 60px 40px;
+            background: #fafbfc;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #18181b;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            color: #52525b;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .social-proof {
+            font-size: 14px;
+            color: #a1a1aa;
+            font-style: italic;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #1e1b4b;
+            color: #c7d2fe;
+            padding: 60px 40px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            width: 180px;
+            height: 50px;
+        }
+
+        .footer-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        footer h4 {
+            color: white;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        footer a {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #c7d2fe;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 30px;
+            border-top: 1px solid rgba(199, 210, 254, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom a {
+            display: inline;
+            margin-left: 20px;
+            font-size: 13px;
+        }
+
+        .footer-credit {
+            font-size: 13px;
+        }
+
+        /* ===== APP IFRAME ===== */
+        .app-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .app-container.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #app-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .exit-demo-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 8px;
+            z-index: 2001;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .exit-demo-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .exit-demo-btn:hover {
+            background: rgba(0, 0, 0, 0.95);
+            transform: translateY(-2px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-cta {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .profiler-card {
+                padding: 32px;
+            }
+
+            .role-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chips-group {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .footer-bottom a {
+                margin-left: 0;
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav id="navbar">
+    <a href="/" class="nav-logo">
+        <svg viewBox="0 0 370 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(0, 4)">
+                <ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+                <circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
+                <circle cx="53" cy="28" r="2" fill="#4f46e5"/>
+                <path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                <path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                <path d="M 26 45 C 34 39, 46 37, 52 41" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                <path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                <path d="M 22 40 C 16 36, 13 28, 16 21" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                <path d="M 56 36 C 58 42, 56 50, 50 55" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                <path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+            </g>
+            <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>
+                <path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>
+                <path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>
+            </g>
+            <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                <path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>
+                <path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>
+                <path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>
+                <path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>
+            </g>
+        </svg>
+    </a>
+
+    <ul class="nav-links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="demo.html" style="color:#4f46e5;font-weight:600;">Demo</a></li>
+        <li><a href="blog/">Blog</a></li>
+        <li><a href="glossary.html">Glossary</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+    </ul>
+
+    <button class="nav-cta">Start 7-Day Free Trial</button>
+    <button class="mobile-menu-btn">☰</button>
+</nav>
+
+<div class="hero" id="hero">
+    <div class="hero-bird-watermark"></div>
+    <div class="hero-content">
+        <h1>See HeyWren In Action — Personalized to Your Role</h1>
+        <p>No sales call. No waiting. Answer 3 quick questions and explore a fully interactive demo built for how you actually work.</p>
+        <div class="hero-ctas">
+            <button class="btn-primary" id="hero-cta">Start My Personalized Demo →</button>
+        </div>
+        <div class="hero-trust">No signup required · Full interactive product · Takes 30 seconds</div>
+    </div>
+</div>
+
+<div class="profiler" id="profiler">
+    <div class="profiler-card">
+        <!-- Step 1: Role Selection -->
+        <div id="step1" class="step-content">
+            <div class="step-indicator">
+                <div class="step-dot active"></div>
+                <div class="step-dot"></div>
+                <div class="step-dot"></div>
+            </div>
+            <h2 class="profiler-title">What's Your Role?</h2>
+            <p class="profiler-desc">We'll personalize the demo to show you exactly how HeyWren helps with your specific responsibilities.</p>
+            <div class="role-grid">
+                <div class="role-card" data-role="ceo">
+                    <div class="role-emoji">👑</div>
+                    <div class="role-title">CEO / Founder</div>
+                    <div class="role-desc">Running the company, making sure nothing slips</div>
+                </div>
+                <div class="role-card" data-role="sales">
+                    <div class="role-emoji">🎯</div>
+                    <div class="role-title">VP / Director of Sales</div>
+                    <div class="role-desc">Closing deals, managing pipeline, leading a team</div>
+                </div>
+                <div class="role-card" data-role="marketing">
+                    <div class="role-emoji">📣</div>
+                    <div class="role-title">Marketing Leader</div>
+                    <div class="role-desc">Campaigns, launches, cross-functional coordination</div>
+                </div>
+                <div class="role-card" data-role="engineering">
+                    <div class="role-emoji">⚙️</div>
+                    <div class="role-title">Engineering Leader</div>
+                    <div class="role-desc">Shipping code, managing sprints, technical decisions</div>
+                </div>
+                <div class="role-card" data-role="cs">
+                    <div class="role-emoji">🤝</div>
+                    <div class="role-title">Customer Success</div>
+                    <div class="role-desc">Renewals, onboarding, keeping customers happy</div>
+                </div>
+                <div class="role-card" data-role="ops">
+                    <div class="role-emoji">📊</div>
+                    <div class="role-title">Operations / PM</div>
+                    <div class="role-desc">Keeping everything and everyone on track</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Company Details -->
+        <div id="step2" class="step-content" style="display: none;">
+            <div class="step-indicator">
+                <div class="step-dot done"></div>
+                <div class="step-dot active"></div>
+                <div class="step-dot"></div>
+            </div>
+            <h2 class="profiler-title">Tell Us About Your Company</h2>
+            <p class="profiler-desc">This helps us populate realistic data for your demo.</p>
+
+            <div class="form-group">
+                <label class="form-label">Company Name (optional)</label>
+                <input type="text" class="form-input" id="companyName" placeholder="Acme Corp">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Company Type</label>
+                <select class="form-select" id="companyType">
+                    <option value="">Select industry</option>
+                    <option value="saas">SaaS/Software</option>
+                    <option value="services">Professional Services</option>
+                    <option value="ecommerce">E-commerce</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="financial">Financial Services</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Team Size</label>
+                <div class="chips-group">
+                    <button class="chip" data-size="1-10">1-10</button>
+                    <button class="chip" data-size="11-50">11-50</button>
+                    <button class="chip" data-size="51-200">51-200</button>
+                    <button class="chip" data-size="200+">200+</button>
+                </div>
+            </div>
+
+            <button class="btn-continue" id="continueBtn">Continue</button>
+        </div>
+
+        <!-- Step 3: Loading -->
+        <div id="step3" class="step-content" style="display: none;">
+            <div class="step-indicator">
+                <div class="step-dot done"></div>
+                <div class="step-dot done"></div>
+                <div class="step-dot active"></div>
+            </div>
+            <div class="loading-screen">
+                <h2 class="loading-title">Building your personalized demo...</h2>
+                <div class="loading-steps">
+                    <div class="loading-step" data-step="1">
+                        <div class="step-spinner"></div>
+                        <span>Configuring your role profile...</span>
+                    </div>
+                    <div class="loading-step" data-step="2">
+                        <div class="step-spinner"></div>
+                        <span>Loading realistic commitments...</span>
+                    </div>
+                    <div class="loading-step" data-step="3">
+                        <div class="step-spinner"></div>
+                        <span>Calibrating AI coaching...</span>
+                    </div>
+                    <div class="loading-step" data-step="4">
+                        <div class="step-spinner"></div>
+                        <span>Your demo is ready!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cta-section" id="ctaSection">
+    <h2>Why a self-serve demo?</h2>
+    <p>HeyWren is an AI-first company. We believe the product should sell itself. No sales reps, no booking calls, no waiting. Just explore and decide.</p>
+    <div class="social-proof">Join 1,200+ professionals who explored the demo this month</div>
+</div>
+
+<footer>
+    <div class="footer-content">
+        <div>
+            <div class="footer-logo">
+                <svg viewBox="0 0 370 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0, 4)">
+                        <ellipse cx="38" cy="42" rx="18" ry="14" stroke="#7c3aed" stroke-width="2.2" fill="none"/>
+                        <circle cx="50" cy="30" r="9" stroke="#7c3aed" stroke-width="2.2" fill="none"/>
+                        <circle cx="53" cy="28" r="2" fill="#7c3aed"/>
+                        <path d="M 58 29 L 66 26 L 59 33" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                        <path d="M 26 45 C 34 39, 46 37, 52 41" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                        <path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#7c3aed" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+                        <path d="M 22 40 C 16 36, 13 28, 16 21" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                        <path d="M 56 36 C 58 42, 56 50, 50 55" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                        <path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#7c3aed" stroke-width="1.8" stroke-linecap="round" fill="none"/>
+                    </g>
+                    <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    <g stroke="#7c3aed" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                        <path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/>
+                        <path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/>
+                        <path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/>
+                    </g>
+                    <g stroke="#7c3aed" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none">
+                        <path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/>
+                        <path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/>
+                        <path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/>
+                        <path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/>
+                    </g>
+                </svg>
+            </div>
+            <p style="font-size: 13px; margin-top: 12px;">AI-powered follow-through for teams that actually want to get things done.</p>
+        </div>
+        <div>
+            <h4>Product</h4>
+            <a href="/#features">Features</a>
+            <a href="/#pricing">Pricing</a>
+            <a href="demo.html">Interactive Demo</a>
+            <a href="blog/">Blog</a>
+            <a href="glossary.html">Glossary</a>
+        </div>
+        <div>
+            <h4>Resources</h4>
+            <a href="faq.html">FAQ</a>
+            <a href="/">Home</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div>
+            <h4>Legal</h4>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+            <a href="/dpa">Data Processing</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-credit">© 2026 HeyWren</div>
+        <div>
+            <a href="https://twitter.com">Twitter</a>
+            <a href="https://linkedin.com">LinkedIn</a>
+            <a href="https://github.com">GitHub</a>
+        </div>
+    </div>
+</footer>
+
+<div class="app-container" id="appContainer">
+    <iframe id="app-iframe"></iframe>
+</div>
+
+<button class="exit-demo-btn" id="exitDemoBtn">← Exit Demo</button>
+
+<script>
+    let selectedRole = null;
+    let selectedTeamSize = null;
+
+    const navbar = document.getElementById("navbar");
+    const heroCta = document.getElementById("hero-cta");
+    const heroSection = document.getElementById("hero");
+    const profilerSection = document.getElementById("profiler");
+    const ctaSection = document.getElementById("ctaSection");
+    const step1 = document.getElementById("step1");
+    const step2 = document.getElementById("step2");
+    const step3 = document.getElementById("step3");
+    const continueBtn = document.getElementById("continueBtn");
+    const appContainer = document.getElementById("appContainer");
+    const appIframe = document.getElementById("app-iframe");
+    const exitDemoBtn = document.getElementById("exitDemoBtn");
+    const companyNameInput = document.getElementById("companyName");
+    const companyTypeSelect = document.getElementById("companyType");
+
+    window.addEventListener("scroll", function() {
+        if (window.scrollY > 50) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+    });
+
+    heroCta.addEventListener("click", function() {
+        profilerSection.scrollIntoView({ behavior: "smooth" });
+    });
+
+    document.querySelectorAll(".role-card").forEach(function(card) {
+        card.addEventListener("click", function() {
+            document.querySelectorAll(".role-card").forEach(function(c) {
+                c.classList.remove("selected");
+            });
+            this.classList.add("selected");
+            selectedRole = this.dataset.role;
+            setTimeout(function() {
+                step1.style.display = "none";
+                step2.style.display = "block";
+                profilerSection.scrollIntoView({ behavior: "smooth" });
+            }, 300);
+        });
+    });
+
+    document.querySelectorAll(".chip").forEach(function(chip) {
+        chip.addEventListener("click", function() {
+            document.querySelectorAll(".chip").forEach(function(c) {
+                c.classList.remove("selected");
+            });
+            this.classList.add("selected");
+            selectedTeamSize = this.dataset.size;
+        });
+    });
+
+    continueBtn.addEventListener("click", function() {
+        if (!companyTypeSelect.value) {
+            alert("Please select a company type");
+            return;
+        }
+        if (!selectedTeamSize) {
+            alert("Please select a team size");
+            return;
+        }
+
+        step2.style.display = "none";
+        step3.style.display = "block";
+        profilerSection.scrollIntoView({ behavior: "smooth" });
+
+        const steps = [
+            { delay: 500, duration: 300 },
+            { delay: 1300, duration: 300 },
+            { delay: 2100, duration: 300 },
+            { delay: 2700, duration: 400 }
+        ];
+
+        steps.forEach(function(stepConfig, index) {
+            setTimeout(function() {
+                const stepElement = document.querySelector("[data-step='" + (index + 1) + "']");
+                stepElement.classList.add("done");
+                const spinner = stepElement.querySelector(".step-spinner");
+                spinner.style.display = "none";
+                const check = document.createElement("div");
+                check.className = "step-check";
+                check.textContent = "✓";
+                stepElement.querySelector(".step-spinner").replaceWith(check);
+            }, stepConfig.delay);
+        });
+
+        setTimeout(function() {
+            launchApp();
+        }, 3100);
+    });
+
+    function launchApp() {
+        const companyName = companyNameInput.value || "Acme Corp";
+        const companyType = companyTypeSelect.value;
+
+        const params = new URLSearchParams({
+            demo: "1",
+            role: selectedRole,
+            company: companyName,
+            companyType: companyType,
+            teamSize: selectedTeamSize
+        });
+
+        // Navigate directly to app.html with demo params
+        window.location.href = "app.html?" + params.toString();
+    }
+
+    exitDemoBtn.addEventListener("click", function() {
+        appContainer.classList.remove("active");
+        exitDemoBtn.classList.remove("visible");
+        heroSection.style.display = "block";
+        profilerSection.style.display = "block";
+        ctaSection.style.display = "block";
+        navbar.style.display = "flex";
+        document.querySelector("footer").style.display = "block";
+
+        step1.style.display = "block";
+        step2.style.display = "none";
+        step3.style.display = "none";
+
+        document.querySelectorAll(".role-card").forEach(function(card) {
+            card.classList.remove("selected");
+        });
+        document.querySelectorAll(".chip").forEach(function(chip) {
+            chip.classList.remove("selected");
+        });
+
+        selectedRole = null;
+        selectedTeamSize = null;
+        companyNameInput.value = "";
+        companyTypeSelect.value = "";
+
+        heroSection.scrollIntoView({ behavior: "smooth" });
+    });
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "HeyWren Interactive Demo",
+  "description": "Try HeyWren's interactive demo personalized to your role. No signup required.",
+  "url": "https://heywren.ai/demo",
+  "image": "https://heywren.ai/og-image.png",
+  "applicationCategory": "ProductivityApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Stop Things From Falling Through the Cracks: A Complete Guide</title>
+    <meta name="description" content="Learn proven strategies to prevent things from falling through cracks at work. Master commitment tracking, task management, and team accountability.">
+    <meta name="keywords" content="things falling through the cracks, nothing falls through cracks, stop forgetting tasks, commitment tracking">
+    <meta property="og:title" content="How to Stop Things From Falling Through the Cracks: A Complete Guide">
+    <meta property="og:description" content="Learn proven strategies to prevent things from falling through cracks at work and ensure nothing gets forgotten.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+            padding: 80px 2rem 72px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .article-header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -60px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .header-bird {
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+        .article-header h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .article-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            align-items: center;
+        }
+        .article-meta-divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        .category-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            color: #c7d2fe;
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+        }
+        .author-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 14px 4px 4px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-body {
+            padding: 2rem 0;
+            font-size: 18px;
+        }
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            color: #111827;
+        }
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem 0;
+            color: #1f2937;
+        }
+        .article-body p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        .article-body ul, .article-body ol {
+            margin: 1.5rem 0 1.5rem 1.5rem;
+            line-height: 1.8;
+        }
+        .article-body li {
+            margin-bottom: 0.75rem;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        .cta-box h3 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+        .cta-box p {
+            margin-bottom: 1.5rem;
+            color: #f0f0f0;
+        }
+        .cta-button-white {
+            background: white;
+            color: #4f46e5;
+            padding: 0.875rem 2rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            font-size: 16px;
+        }
+        .cta-button-white:hover {
+            transform: translateY(-2px);
+        }
+        .related-posts {
+            margin: 4rem 0;
+            padding-top: 3rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        .related-posts h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .post-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .post-card:hover {
+            border-color: #4f46e5;
+        }
+        .post-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .post-card a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .post-card a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        footer a {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .article-header h1 {
+                font-size: 28px;
+            }
+            .article-header {
+                padding: 60px 1.5rem 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <nav>
+        <a href="/" class="logo" style="display:flex;align-items:center"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+        <ul class="nav-links">
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="../demo.html">Demo</a></li>
+                    <li><a href="./">Blog</a></li>
+            <li><a href="../glossary.html">Glossary</a></li>
+            <li><a href="../faq.html">FAQ</a></li>
+        </ul>
+        <a href="#" class="cta-button">Start 7-Day Free Trial</a>
+    </nav>
+
+    <div class="article-header">
+        <div class="header-inner">
+            <svg class="header-bird" width="48" height="48" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="50" cy="30" r="9" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="53" cy="28" r="2" fill="rgba(255,255,255,0.2)"/><path d="M 58 29 L 66 26 L 59 33" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            <span class="category-tag">PRODUCTIVITY</span>
+            <h1>How to Stop Things From Falling Through the Cracks: A Complete Guide</h1>
+            <p class="article-subtitle">Practical strategies to make sure every commitment gets the attention it deserves.</p>
+            <div class="article-meta">
+                <span class="author-badge"><span class="author-avatar"><svg width="14" height="14" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="14" ry="10" stroke="#fff" stroke-width="2" fill="none"/><circle cx="48" cy="32" r="7" stroke="#fff" stroke-width="2" fill="none"/></svg></span>The Wren Team</span>
+                <span class="article-meta-divider"></span>
+                <span>March 21, 2026</span>
+                <span class="article-meta-divider"></span>
+                <span>7 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="article-body">
+            <p>The phrase "falling through the cracks" exists for a reason: it happens constantly.</p>
+
+            <p>A customer email sits in your inbox for two weeks before you remember to respond. A critical task gets assigned in a meeting, written down somewhere, and then disappears. A commitment made to a colleague gets forgotten. Important projects stall because nobody's tracking progress.</p>
+
+            <p>Nothing falls through the cracks by accident. It falls through because there's no system preventing it.</p>
+
+            <p>The good news: you can build that system. And it doesn't have to be complicated.</p>
+
+            <h2>Why Things Fall Through the Cracks</h2>
+
+            <p>Before we talk about solutions, let's understand the root causes:</p>
+
+            <p><strong>No single source of truth.</strong> Commitments live in email, Slack, meeting notes, Google Docs, or someone's brain. With that fragmentation, something's guaranteed to slip through.</p>
+
+            <p><strong>No deadline visibility.</strong> Even when something is tracked, if the deadline isn't visible until the day it's due, there's no time to act or escalate.</p>
+
+            <p><strong>No ownership.</strong> When it's unclear who's responsible for something, nobody acts. Everyone assumes someone else is handling it.</p>
+
+            <p><strong>No follow-up system.</strong> Things get written down but never reviewed. Status isn't surfaced. Blockers aren't escalated. The thing just sits there until it's too late.</p>
+
+            <p><strong>Competing priorities.</strong> Everything feels urgent. Without a system that surfaces what actually matters, important work gets deprioritized by the loudest/most recent request.</p>
+
+            <h2>The Three-Layer System for Capturing Everything</h2>
+
+            <p><strong>Layer 1: Capture</strong></p>
+
+            <p>Every commitment needs to be written down immediately. Not "remember to email this person." Written down. Captured in a system.</p>
+
+            <p>For meetings: create a shared document or tool where action items are captured in real-time. "Owner: Sarah. Task: Revise proposal. Due: Friday."</p>
+
+            <p>For email: use a system where you can flag important emails that need a follow-up or action. Don't just leave them in your inbox and hope.</p>
+
+            <p>For random conversations: if something important gets said, it needs to be written down. Slack messages fade. Physical notes get lost. Write it somewhere that persists.</p>
+
+            <p><strong>Layer 2: Make it Visible</strong></p>
+
+            <p>Once something is captured, it needs to be visible. Create a dashboard where you can see all your commitments and deadlines at a glance. Update it regularly.</p>
+
+            <p>For teams: create a shared view of all action items so the whole group can see what's assigned, who it's assigned to, and when it's due. Transparency creates accountability.</p>
+
+            <p>For individuals: your task list should be the first thing you see when you start your day. Not email. Not Slack. Your commitments.</p>
+
+            <div class="cta-box">
+                <h3>Never Let Commitments Disappear Again</h3>
+                <p>HeyWren automatically captures, tracks, and surfaces every commitment so nothing falls through the cracks.</p>
+                <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+            </div>
+
+            <p><strong>Layer 3: Follow Up</strong></p>
+
+            <p>The system that makes the biggest difference: proactive follow-up. Schedule a check-in 24 hours before a deadline. Send a reminder. Surface blockers.</p>
+
+            <p>In team settings: review open action items from previous meetings. Ask for status updates. Celebrate completions. This ritual creates accountability and keeps things moving.</p>
+
+            <h2>The Seven Habits of People Who Don't Let Things Slip</h2>
+
+            <p><strong>1. They have a single inbox for commitments.</strong> One place where everything goes. Not spread across email, Slack, and post-its.</p>
+
+            <p><strong>2. They process daily.</strong> Every morning or evening, they review what needs to be done. They know what's due when.</p>
+
+            <p><strong>3. They set clear deadlines at the point of assignment.</strong> "Do this when you can" disappears. "Do this by Thursday at 3pm" doesn't.</p>
+
+            <p><strong>4. They communicate blockers early.</strong> If something is going to miss a deadline, they flag it 48 hours before, not the day of.</p>
+
+            <p><strong>5. They follow up before, not after, the deadline.</strong> They don't wait for the deadline to pass and then ask what happened. They check in beforehand.</p>
+
+            <p><strong>6. They build buffers into timelines.</strong> They deliver early, which creates a reputation for reliability and gives cushion if something goes wrong.</p>
+
+            <p><strong>7. They review what fell through and learn from it.</strong> When something does slip, they analyze why and fix the system.</p>
+
+            <h2>Building a Team System That Works</h2>
+
+            <p>For individual follow-through, these habits work. But for teams, you need a slightly different approach:</p>
+
+            <ul>
+                <li><strong>Meeting ritual:</strong> Start every team meeting by reviewing action items from the last meeting. What got done? What didn't? Why?</li>
+                <li><strong>Shared visibility:</strong> All action items are in one place where everyone can see them. Not buried in different tools.</li>
+                <li><strong>Clear ownership:</strong> Every action item has a clear owner. Not "the team should handle this." A specific person's name.</li>
+                <li><strong>Status updates:</strong> Regular check-ins on progress. Maybe weekly standups where people briefly state what they completed and what's blocked.</li>
+                <li><strong>Escalation paths:</strong> If something is at risk, there's a clear way to escalate it before it's too late.</li>
+            </ul>
+
+            <h2>Tools Don't Matter as Much as Discipline</h2>
+
+            <p>You don't need fancy software for this. You can use a spreadsheet, a document, Jira, Asana, Notion, or a whiteboard in your meeting room.</p>
+
+            <p>What matters is discipline: capturing things consistently, reviewing them regularly, and following up on them proactively.</p>
+
+            <p>The tool is just the container. The system is what makes it work.</p>
+
+            <p>That said, the right tool can make it easier. You want something where you can:</p>
+
+            <ul>
+                <li>Capture action items quickly (during meetings, in email, via Slack)</li>
+                <li>Assign owners and deadlines</li>
+                <li>Get automatic reminders as deadlines approach</li>
+                <li>See everything in one view</li>
+                <li>Track status and completion</li>
+            </ul>
+
+            <h2>Starting Today</h2>
+
+            <p>You don't need to overhaul your entire system right now. Start with one meeting. Capture action items clearly. Set deadlines. Assign owners. Send a recap email.</p>
+
+            <p>Then, 24 hours before each deadline, send a reminder to the person assigned.</p>
+
+            <p>See what happens. I bet your completion rate goes up significantly.</p>
+
+            <p>From there, expand it. Add it to other meetings. Build it into your team's culture. Make completion the expectation, not the exception.</p>
+
+            <p>Nothing falls through the cracks because you want it to. It falls because there's no system stopping it. Build the system, and watch what happens.</p>
+        </div>
+
+        <div class="related-posts">
+            <h3>Related Posts</h3>
+            <div class="posts-grid">
+                <div class="post-card">
+                    <h4>44% of Action Items Never Get Completed — Here's Why</h4>
+                    <p><a href="action-items-never-completed.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>The Ultimate Guide to Meeting Action Items That Actually Get Done</h4>
+                    <p><a href="meeting-action-items-guide.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>Why Follow-Through Is the #1 Predictor of Career Success</h4>
+                    <p><a href="why-follow-through-matters.html">Read article →</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box" style="margin: 4rem 0 2rem 0;">
+            <h3>Build a System That Catches Everything</h3>
+            <p>Stop letting things fall through cracks. HeyWren ensures every commitment is tracked and completed.</p>
+            <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+        </div>
+    </div>
+
+        <footer>
+        <p>&copy; 2026 HeyWren | <a href="/">Home</a> | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+    </footer>
+</body>
+</html>

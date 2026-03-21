@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What Is Work Observability? The New Category Changing How Teams Execute</title>
+    <meta name="description" content="Understand work observability—the new category that's transforming how teams execute. Learn why it matters and how to implement it.">
+    <meta name="keywords" content="work observability, work monitoring, team execution tracking, commitment tracking">
+    <meta property="og:title" content="What Is Work Observability? The New Category Changing How Teams Execute">
+    <meta property="og:description" content="Discover work observability—the new category for tracking team execution, commitments, and following through on what matters.">
+    <meta property="og:type" content="article">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #1f2937;
+            background-color: #ffffff;
+        }
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #4b5563;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #4f46e5;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4338ca 100%);
+            padding: 80px 2rem 72px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .article-header::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -40px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .article-header::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -60px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(79,70,229,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        .header-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        .header-bird {
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+        .article-header h1 {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+        .article-subtitle {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 28px;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            align-items: center;
+        }
+        .article-meta-divider {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+        }
+        .category-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            color: #c7d2fe;
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(4px);
+        }
+        .author-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px 14px 4px 4px;
+            border-radius: 100px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .article-body {
+            padding: 2rem 0;
+            font-size: 18px;
+        }
+        .article-body h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 2rem 0 1rem 0;
+            color: #111827;
+        }
+        .article-body h3 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem 0;
+            color: #1f2937;
+        }
+        .article-body p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        .article-body ul, .article-body ol {
+            margin: 1.5rem 0 1.5rem 1.5rem;
+            line-height: 1.8;
+        }
+        .article-body li {
+            margin-bottom: 0.75rem;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        .cta-box h3 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 0.5rem;
+        }
+        .cta-box p {
+            margin-bottom: 1.5rem;
+            color: #f0f0f0;
+        }
+        .cta-button-white {
+            background: white;
+            color: #4f46e5;
+            padding: 0.875rem 2rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+            font-size: 16px;
+        }
+        .cta-button-white:hover {
+            transform: translateY(-2px);
+        }
+        .related-posts {
+            margin: 4rem 0;
+            padding-top: 3rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        .related-posts h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #111827;
+        }
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .post-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .post-card:hover {
+            border-color: #4f46e5;
+        }
+        .post-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+        .post-card a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .post-card a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        footer a {
+            color: #4f46e5;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .article-header h1 {
+                font-size: 28px;
+            }
+            .article-header {
+                padding: 60px 1.5rem 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+        <nav>
+        <a href="/" class="logo" style="display:flex;align-items:center"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+        <ul class="nav-links">
+            <li><a href="/#features">Features</a></li>
+            <li><a href="/#pricing">Pricing</a></li>
+                    <li><a href="../demo.html">Demo</a></li>
+                    <li><a href="./">Blog</a></li>
+            <li><a href="../glossary.html">Glossary</a></li>
+            <li><a href="../faq.html">FAQ</a></li>
+        </ul>
+        <a href="#" class="cta-button">Start 7-Day Free Trial</a>
+    </nav>
+
+    <div class="article-header">
+        <div class="header-inner">
+            <svg class="header-bird" width="48" height="48" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="50" cy="30" r="9" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/><circle cx="53" cy="28" r="2" fill="rgba(255,255,255,0.2)"/><path d="M 58 29 L 66 26 L 59 33" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="rgba(255,255,255,0.25)" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+            <span class="category-tag">STRATEGY</span>
+            <h1>What Is Work Observability? The New Category Changing How Teams Execute</h1>
+            <p class="article-subtitle">A new category is emerging — and it is about to change everything about team execution.</p>
+            <div class="article-meta">
+                <span class="author-badge"><span class="author-avatar"><svg width="14" height="14" viewBox="0 0 80 80" fill="none"><ellipse cx="38" cy="42" rx="14" ry="10" stroke="#fff" stroke-width="2" fill="none"/><circle cx="48" cy="32" r="7" stroke="#fff" stroke-width="2" fill="none"/></svg></span>The Wren Team</span>
+                <span class="article-meta-divider"></span>
+                <span>March 21, 2026</span>
+                <span class="article-meta-divider"></span>
+                <span>7 min read</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="article-body">
+            <p>Ten years ago, Datadog created a category: observability for infrastructure.</p>
+
+            <p>Before Datadog, teams had metrics and logs scattered across tools. They couldn't see what was actually happening in their systems. Datadog solved it by creating a unified view: observability. You could see system health in real-time.</p>
+
+            <p>Today, teams face a similar problem with their actual work: commitments, decisions, action items, and progress are scattered across email, Slack, documents, and meeting notes. Nobody can see what's actually happening with execution.</p>
+
+            <p>That's the problem work observability solves.</p>
+
+            <h2>What Is Work Observability?</h2>
+
+            <p>Work observability is the ability to see, in real-time, what's happening with commitments, execution, and progress across your team.</p>
+
+            <p>It answers critical questions:</p>
+
+            <ul>
+                <li>What have we committed to?</li>
+                <li>Who's responsible for what?</li>
+                <li>What's on track, what's at risk, what's blocked?</li>
+                <li>What are the bottlenecks?</li>
+                <li>Are we doing what we said we'd do?</li>
+            </ul>
+
+            <p>Without work observability, these questions are impossible to answer. You have fragments of information scattered everywhere. You have to manually ask people for status updates. And even then, you don't get a complete picture.</p>
+
+            <h2>How It's Different From Project Management</h2>
+
+            <p>Project management tools track tasks. HeyWren tracks commitments—the promises made in meetings that actually move the business forward.</p>
+
+            <p>A task is "update the documentation." A commitment is "we will have updated documentation reviewed by Friday so we can launch the feature."</p>
+
+            <p>Project management focuses on the detailed execution. Work observability focuses on the big commitments and whether they're actually getting done.</p>
+
+            <p>You need both. But most teams only have project management. They're missing the observability layer that tells them if the important stuff is actually happening.</p>
+
+            <h2>The Three Core Capabilities</h2>
+
+            <p><strong>1. Capture</strong></p>
+
+            <p>Every commitment gets captured. Not in someone's head. Not scattered across platforms. In one place where it's visible to the whole team.</p>
+
+            <p><strong>2. Visibility</strong></p>
+
+            <p>Real-time visibility into what's happening. Status of every commitment. Blockers. Risks. Progress. No status meetings needed. You can see it.</p>
+
+            <p><strong>3. Follow-Through</strong></p>
+
+            <p>Automatic reminders, deadline alerts, blocker escalation. The system surfaces what matters. It ensures commitments don't disappear.</p>
+
+            <div class="cta-box">
+                <h3>See Your Team's Execution in Real-Time</h3>
+                <p>HeyWren provides work observability—complete visibility into commitments, execution, and progress across your team.</p>
+                <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+            </div>
+
+            <h2>Why Observability Matters Now</h2>
+
+            <p><strong>Complexity has exploded.</strong> Teams are distributed. Dependencies are hidden. Work is async. You can't just walk around and see what's happening.</p>
+
+            <p><strong>Execution is the bottleneck.</strong> Ideas are cheap. Strategy is cheap. Execution is rare. Teams that execute well win.</p>
+
+            <p><strong>Visibility creates accountability without surveillance.</strong> When everyone can see what's happening, accountability emerges naturally. No micromanagement needed.</p>
+
+            <p><strong>Data-driven decisions become possible.</strong> With work observability, you can see patterns: what types of commitments regularly slip, which people or teams are reliable, where the bottlenecks are. You can fix them.</p>
+
+            <h2>The Impact</h2>
+
+            <p>Teams that implement work observability report:</p>
+
+            <ul>
+                <li>40-50% improvement in commitment completion rate (from ~55% to ~85%)</li>
+                <li>30% fewer status meetings (visibility kills the need for check-ins)</li>
+                <li>Better executive visibility (leadership isn't surprised by delays)</li>
+                <li>Faster problem-solving (blockers surface immediately, not weeks later)</li>
+                <li>Improved team morale (people feel trusted, not surveilled)</li>
+            </ul>
+
+            <h2>How Work Observability Changes Execution</h2>
+
+            <p><strong>Before Work Observability:</strong></p>
+
+            <p>A commitment gets made in a meeting. It's written down in meeting notes. Someone forgets to follow up. The deadline passes. Nobody notices until someone asks "Whatever happened to that thing?"</p>
+
+            <p><strong>After Work Observability:</strong></p>
+
+            <p>A commitment gets made in a meeting. It's captured in the system. Owner and deadline are visible. 24 hours before the deadline, reminders go out. If it's at risk, it gets flagged. On deadline day, completion is tracked. The next meeting reviews what was completed and what slipped, and why.</p>
+
+            <p>The difference: execution quality jumps dramatically.</p>
+
+            <h2>The Competitive Advantage</h2>
+
+            <p>As work becomes more async and distributed, the teams with work observability will have a massive advantage.</p>
+
+            <p>They'll execute faster. They'll have better visibility into what's actually happening. They'll waste less time in status meetings. They'll catch problems earlier.</p>
+
+            <p>Teams without work observability will increasingly look like they're moving in slow motion, constantly surprised by missed deadlines and unclear progress.</p>
+
+            <h2>Getting Started</h2>
+
+            <p>Start small. Pick one important commitment from your next meeting. Capture it clearly: owner, deadline, what done looks like. Track it through to completion. Set a reminder 24 hours before.</p>
+
+            <p>Notice the difference. Then expand it to all commitments from that meeting. Then all meetings.</p>
+
+            <p>That's how work observability becomes part of your culture—one commitment at a time.</p>
+
+            <h2>The Future</h2>
+
+            <p>In 2-3 years, work observability will be table stakes. Teams without it will be seen as disorganized and slow. Teams with it will be fast, reliable, and focused.</p>
+
+            <p>The organizations that figure this out now will have a significant competitive advantage.</p>
+
+            <p>Because execution is everything. And visibility is how you make execution happen.</p>
+        </div>
+
+        <div class="related-posts">
+            <h3>Related Posts</h3>
+            <div class="posts-grid">
+                <div class="post-card">
+                    <h4>Datadog for Work: Why Your Team Needs an Observability Layer</h4>
+                    <p><a href="datadog-for-work.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>The Execution Gap: Why Strategy Fails and How to Close It</h4>
+                    <p><a href="team-execution-gap.html">Read article →</a></p>
+                </div>
+                <div class="post-card">
+                    <h4>Commitment Tracking vs. Project Management: Why You Need Both</h4>
+                    <p><a href="commitment-tracking-vs-project-management.html">Read article →</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box" style="margin: 4rem 0 2rem 0;">
+            <h3>Observability for Your Team's Execution</h3>
+            <p>HeyWren brings work observability to your organization. See what's happening. Ensure it gets done.</p>
+            <button class="cta-button-white">Try Pro free for 7 days — No credit card required</button>
+        </div>
+    </div>
+
+        <footer>
+        <p>&copy; 2026 HeyWren | <a href="/">Home</a> | <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Observability Glossary — HeyWren</title>
+    <meta name="description" content="Definitions for commitment tracing, work observability, follow-through scoring, and 30+ terms used in modern team execution and AI-powered productivity.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "DefinedTermSet",
+        "name": "Work Observability Glossary",
+        "description": "Comprehensive glossary of terms related to work observability, follow-through, and AI-powered team execution",
+        "url": "https://heywren.ai/glossary.html",
+        "hasDefinedTerm": [
+            {
+                "@type": "DefinedTerm",
+                "name": "@HeyWren Mention",
+                "description": "Tagging @HeyWren in Slack or email to flag an item for follow-through tracking"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Achievement Badge",
+                "description": "Milestone earned through consistent follow-through behavior (e.g., 'First Spark,' 'Streak Legend')"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Action Item",
+                "description": "A specific task committed to during a meeting or conversation"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Anomaly Detection",
+                "description": "When Wren identifies behavior that deviates from your personal baseline"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Blind Spot",
+                "description": "A commitment, relationship, or pattern you're unaware of or have lost visibility into"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Commitment",
+                "description": "Any promise, task, or deliverable that a person has explicitly or implicitly agreed to complete"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Commitment Score",
+                "description": "A 0-100 rating that measures the urgency and risk of a specific commitment (9 weighted signals)"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Commitment Tracing",
+                "description": "Following a commitment from its origin through every touchpoint until resolution"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Context Switch",
+                "description": "Moving attention between unrelated tasks, which research shows reduces productivity by up to 40%"
+            },
+            {
+                "@type": "DefinedTerm",
+                "name": "Customer Promise",
+                "description": "A commitment made to an external customer, tagged separately for higher-stakes tracking"
+            }
+        ]
+    }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #27272a;
+            line-height: 1.6;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e4e4e7;
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 100%;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav svg {
+            height: 26px;
+            width: auto;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #52525b;
+        }
+
+        .nav-cta {
+            background: #4f46e5;
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover {
+            background: #4338ca;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .glossary-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .glossary-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #18181b;
+            margin-bottom: 16px;
+        }
+
+        .glossary-header p {
+            font-size: 18px;
+            color: #52525b;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .glossary-layout {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .glossary-sidebar {
+            position: sticky;
+            top: 80px;
+            height: fit-content;
+        }
+
+        .sidebar-nav {
+            background: white;
+            border: 1px solid #e4e4e7;
+            border-radius: 14px;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .sidebar-nav a {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4f46e5;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .sidebar-nav a:hover {
+            background: #f3f0ff;
+        }
+
+        .glossary-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .term-card {
+            background: white;
+            border: 1px solid #e4e4e7;
+            border-radius: 14px;
+            padding: 24px;
+            transition: all 0.3s;
+            scroll-margin-top: 80px;
+        }
+
+        .term-card:hover {
+            border-color: #4f46e5;
+            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.08);
+        }
+
+        .term-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #4f46e5;
+            margin-bottom: 12px;
+        }
+
+        .term-card p {
+            font-size: 14px;
+            color: #52525b;
+            line-height: 1.6;
+        }
+
+        .term-card a {
+            color: #4f46e5;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .term-card a:hover {
+            text-decoration: underline;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            border-radius: 14px;
+            padding: 60px 40px;
+            text-align: center;
+            color: white;
+            margin: 60px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 16px;
+            margin-bottom: 24px;
+            opacity: 0.95;
+        }
+
+        .cta-button {
+            background: white;
+            color: #4f46e5;
+            padding: 12px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        footer {
+            background: #18181b;
+            padding: 60px 40px;
+            color: #a1a1aa;
+        }
+
+        .footer-content {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .footer-col a {
+            display: block;
+            color: #a1a1aa;
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 8px;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid #27272a;
+            font-size: 12px;
+            color: #52525b;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        footer svg {
+            height: 26px;
+            width: auto;
+            margin-bottom: 12px;
+        }
+
+        .footer-description {
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .glossary-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .glossary-sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            .sidebar-nav {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .glossary-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 16px;
+                font-size: 12px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            nav {
+                padding: 0 20px;
+            }
+
+            .glossary-header h1 {
+                font-size: 28px;
+            }
+
+            .cta-section {
+                padding: 40px 20px;
+            }
+
+            .cta-section h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-logo">
+            <svg width="120" height="26" viewBox="0 0 370 80" fill="none">
+                <g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g>
+                <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/>
+                <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g>
+                <g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g>
+            </svg>
+        </a>
+        <div class="nav-links">
+            <a href="/#features">Features</a>
+            <a href="/#pricing">Pricing</a>
+            <a href="demo.html">Demo</a>
+            <a href="blog/why-follow-through-matters.html">Blog</a>
+            <a href="glossary.html">Glossary</a>
+            <a href="faq.html">FAQ</a>
+            <a href="/" class="nav-cta">Start 7-Day Free Trial</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="glossary-header">
+            <h1>Work Observability Glossary</h1>
+            <p>Your guide to the terminology that powers modern team execution, follow-through tracking, and AI-driven productivity. Browse, bookmark, and deep-link to any term.</p>
+        </div>
+
+        <div class="glossary-layout">
+            <div class="glossary-sidebar">
+                <div class="sidebar-nav">
+                    <a href="#a">A</a>
+                    <a href="#b">B</a>
+                    <a href="#c">C</a>
+                    <a href="#d">D</a>
+                    <a href="#e">E</a>
+                    <a href="#f">F</a>
+                    <a href="#g">G</a>
+                    <a href="#h">H</a>
+                    <a href="#m">M</a>
+                    <a href="#n">N</a>
+                    <a href="#o">O</a>
+                    <a href="#p">P</a>
+                    <a href="#r">R</a>
+                    <a href="#s">S</a>
+                    <a href="#t">T</a>
+                    <a href="#w">W</a>
+                </div>
+            </div>
+
+            <div class="glossary-content">
+                <!-- A Section -->
+                <div class="term-card" id="a-heywren-mention">
+                    <h3>@HeyWren Mention</h3>
+                    <p>Tagging @HeyWren in Slack or email to flag an item for follow-through tracking. A lightweight way to add any conversation to your commitment radar without leaving your chat interface.</p>
+                </div>
+
+                <div class="term-card" id="achievement-badge">
+                    <h3>Achievement Badge</h3>
+                    <p>Milestone earned through consistent follow-through behavior (e.g., "First Spark," "Streak Legend"). Badges celebrate your progress and reinforce positive execution habits.</p>
+                </div>
+
+                <div class="term-card" id="action-item">
+                    <h3>Action Item</h3>
+                    <p>A specific task committed to during a meeting or conversation. Action items form the atomic unit of follow-through tracking—each one has a lifecycle from creation to closure.</p>
+                </div>
+
+                <div class="term-card" id="anomaly-detection">
+                    <h3>Anomaly Detection</h3>
+                    <p>When Wren identifies behavior that deviates from your personal baseline. Examples include unusual delays in responding to direct reports, or a spike in context switches.</p>
+                </div>
+
+                <!-- B Section -->
+                <div class="term-card" id="blind-spot">
+                    <h3>Blind Spot</h3>
+                    <p>A commitment, relationship, or pattern you're unaware of or have lost visibility into. Wren surfaces blind spots so you can reclaim focus on what matters most.</p>
+                </div>
+
+                <!-- C Section -->
+                <div class="term-card" id="commitment">
+                    <h3>Commitment</h3>
+                    <p>Any promise, task, or deliverable that a person has explicitly or implicitly agreed to complete. Commitments are the building blocks of work observability; tracking them end-to-end prevents slip-through.</p>
+                </div>
+
+                <div class="term-card" id="commitment-score">
+                    <h3>Commitment Score</h3>
+                    <p>A 0-100 rating that measures the urgency and risk of a specific commitment, calculated from 9 weighted signals including recency, stakeholder seniority, and historical completion time.</p>
+                </div>
+
+                <div class="term-card" id="commitment-tracing">
+                    <h3>Commitment Tracing</h3>
+                    <p>Following a commitment from its origin (meeting, email, Slack) through every touchpoint until resolution. The core feature that prevents commitments from falling through cracks.</p>
+                </div>
+
+                <div class="term-card" id="context-switch">
+                    <h3>Context Switch</h3>
+                    <p>Moving attention between unrelated tasks, which research shows reduces productivity by up to 40%. Wren monitors context switches to help you protect deep work time.</p>
+                </div>
+
+                <div class="term-card" id="customer-promise">
+                    <h3>Customer Promise</h3>
+                    <p>A commitment made to an external customer, tagged separately for higher-stakes tracking. Customer promises typically get elevated priority in follow-through scoring.</p>
+                </div>
+
+                <!-- D Section -->
+                <div class="term-card" id="deep-work">
+                    <h3>Deep Work</h3>
+                    <p>Uninterrupted focus blocks of 45+ minutes, essential for complex follow-through tasks. Wren helps you schedule and protect deep work time to increase actual completion rates.</p>
+                </div>
+
+                <div class="term-card" id="delegation-tracking">
+                    <h3>Delegation Tracking</h3>
+                    <p>Monitoring whether tasks you've assigned to others produce artifacts within expected timeframes. Prevents delegated work from becoming invisible until it's overdue.</p>
+                </div>
+
+                <div class="term-card" id="draft-queue">
+                    <h3>Draft Queue</h3>
+                    <p>AI-generated follow-up messages that Wren pre-writes for your review and approval. Saves you the mental load of composing status updates, reminders, and next-step communications.</p>
+                </div>
+
+                <!-- E Section -->
+                <div class="term-card" id="energy-monitoring">
+                    <h3>Energy Monitoring</h3>
+                    <p>Tracking meeting load, context switches, and deep work blocks to assess your capacity. High energy depletion signals when you need to reduce commitments or delegate more aggressively.</p>
+                </div>
+
+                <!-- F Section -->
+                <div class="term-card" id="follow-through">
+                    <h3>Follow-Through</h3>
+                    <p>The act of completing what was committed to, all the way to resolution. Follow-through is the counterforce to the chaos of modern async work; it's the difference between intention and impact.</p>
+                </div>
+
+                <div class="term-card" id="follow-through-score">
+                    <h3>Follow-Through Score</h3>
+                    <p>Your weekly percentage of commitments resolved vs. total active. A personal metric that tracks your execution consistency and helps identify when you're overcommitted.</p>
+                </div>
+
+                <div class="term-card" id="forecasting">
+                    <h3>Forecasting</h3>
+                    <p>Wren's predictions about backlog clearance, SLO breaches, and capacity needs based on your historical patterns. Forecast alerts let you preempt bottlenecks before they cascade.</p>
+                </div>
+
+                <!-- G Section -->
+                <div class="term-card" id="geo">
+                    <h3>GEO (Generative Engine Optimization)</h3>
+                    <p>Optimizing content so AI systems (ChatGPT, Perplexity, Claude, etc.) surface it in their answers. A newer discipline that complements SEO for the AI-first web.</p>
+                </div>
+
+                <!-- H Section -->
+                <div class="term-card" id="handoff-protocol">
+                    <h3>Handoff Protocol</h3>
+                    <p>The process of transferring open commitments when someone goes on PTO or changes roles. Wren's handoff tools ensure continuity and prevent commitments from being forgotten during transitions.</p>
+                </div>
+
+                <!-- M Section -->
+                <div class="term-card" id="meeting-roi">
+                    <h3>Meeting ROI</h3>
+                    <p>A score (0-100) measuring the ratio of action items generated to action items completed from a given meeting. High Meeting ROI means your meetings are productive and outcomes-focused.</p>
+                </div>
+
+                <div class="term-card" id="momentum">
+                    <h3>Momentum</h3>
+                    <p>A composite metric combining streak length, follow-through rate, and XP progression. Momentum reflects the positive compounding effect of consistent execution.</p>
+                </div>
+
+                <!-- N Section -->
+                <div class="term-card" id="nudge">
+                    <h3>Nudge</h3>
+                    <p>An AI-generated alert from Wren about a commitment that needs attention—either approaching deadline, stakeholder waiting, or unusual delay. Nudges are timely, contextual, and actionable.</p>
+                </div>
+
+                <!-- O Section -->
+                <div class="term-card" id="observability">
+                    <h3>Observability (Work)</h3>
+                    <p>Visibility into the state, health, and progress of work commitments across an organization. Work observability is to team execution what monitoring is to infrastructure—a prerequisite for reliability.</p>
+                </div>
+
+                <!-- P Section -->
+                <div class="term-card" id="personal-slo">
+                    <h3>Personal SLO</h3>
+                    <p>A self-set Service Level Objective for response time, follow-through rate, or other personal metrics. Personal SLOs help you define and measure what "reliable execution" means for your role.</p>
+                </div>
+
+                <div class="term-card" id="playbook">
+                    <h3>Playbook</h3>
+                    <p>A user-defined trigger-action rule that automates how Wren handles specific situations (e.g., "if customer promise and overdue, escalate to my manager"). Playbooks let you encode your decision logic once.</p>
+                </div>
+
+                <div class="term-card" id="pre-meeting-briefing">
+                    <h3>Pre-Meeting Briefing</h3>
+                    <p>An auto-generated context card with open items, relationship health, and talking points for each attendee. Meeting briefings maximize the value of every hour spent in conversation.</p>
+                </div>
+
+                <!-- R Section -->
+                <div class="term-card" id="relationship-health">
+                    <h3>Relationship Health Score</h3>
+                    <p>A metric based on interaction frequency, sentiment, and mutual follow-through between you and a colleague. Relationship health helps you spot when partnerships are drifting.</p>
+                </div>
+
+                <div class="term-card" id="role-archetype">
+                    <h3>Role Archetype</h3>
+                    <p>One of 6 user profiles (CEO, VP Sales, Marketing, Engineering, CS, Ops) that adapts Wren's coaching style and feature prioritization to your domain-specific challenges.</p>
+                </div>
+
+                <!-- S Section -->
+                <div class="term-card" id="seo">
+                    <h3>SEO (Search Engine Optimization)</h3>
+                    <p>Optimizing web content to rank higher in search engine results like Google. SEO drives long-term organic traffic and credibility for your brand.</p>
+                </div>
+
+                <div class="term-card" id="slo">
+                    <h3>SLO (Service Level Objective)</h3>
+                    <p>A target metric for acceptable performance (e.g., "respond to direct reports within 4 hours" or "clear follow-through backlog by Friday EOD"). SLOs turn vague goals into measurable commitments.</p>
+                </div>
+
+                <div class="term-card" id="streak">
+                    <h3>Streak</h3>
+                    <p>Consecutive days where you complete at least one commitment, tracked with fire icons. Streaks create positive momentum and reinforce execution habits.</p>
+                </div>
+
+                <!-- T Section -->
+                <div class="term-card" id="tone-analysis">
+                    <h3>Tone Analysis</h3>
+                    <p>Wren's assessment of communication sentiment across your messages. Tone analysis helps you spot when your relationship with a stakeholder is cooling or when they're stressed about a commitment.</p>
+                </div>
+
+                <!-- W Section -->
+                <div class="term-card" id="weekly-review">
+                    <h3>Weekly Review</h3>
+                    <p>A structured reflection on the past week's commitments, wins, and areas for improvement. Weekly reviews build self-awareness about your execution patterns and inform the coming week's priorities.</p>
+                </div>
+
+                <div class="term-card" id="work-observability-platform">
+                    <h3>Work Observability Platform</h3>
+                    <p>A software category (pioneered by HeyWren) that provides real-time visibility into work execution, commitment health, and follow-through metrics across teams and individuals.</p>
+                </div>
+
+                <div class="term-card" id="xp">
+                    <h3>XP (Experience Points)</h3>
+                    <p>Points earned for completing nudges, maintaining streaks, and hitting personal SLOs. XP gamifies the follow-through journey and surfaces progress you might otherwise miss.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>Ready to See These Concepts in Action?</h2>
+        <p>Start your 7-day free trial and experience work observability firsthand. No credit card required.</p>
+        <a href="/" class="cta-button">Start Free Trial</a>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <svg width="120" height="26" viewBox="0 0 370 80" fill="none">
+                    <g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#818cf8" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#818cf8" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#818cf8"/><path d="M 58 29 L 66 26 L 59 33" stroke="#818cf8" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g>
+                    <path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#818cf8" stroke-width="1.6" fill="none"/>
+                    <g stroke="#818cf8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g>
+                    <g stroke="#818cf8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g>
+                </svg>
+                <p class="footer-description">AI-powered follow-through for teams that refuse to let things slip through the cracks.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Product</h3>
+                <a href="features/ai-nudges.html">AI Nudges</a>
+                <a href="features/draft-queue.html">Draft Queue</a>
+                <a href="features/meeting-briefings.html">Meeting Briefings</a>
+                <a href="features/commitment-tracing.html">Commitment Tracing</a>
+                <a href="features/achievements.html">Achievements</a>
+            </div>
+            <div class="footer-col">
+                <h3>Resources</h3>
+                <a href="blog/why-follow-through-matters.html">Blog</a>
+                <a href="glossary.html">Glossary</a>
+                <a href="faq.html">FAQ</a>
+                <a href="/#pricing">Pricing</a>
+            </div>
+            <div class="footer-col">
+                <h3>Company</h3>
+                <a href="/">Home</a>
+                <a href="mailto:hello@heywren.ai">Contact</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 HeyWren. All rights reserved.</span>
+            <span>Made with care for teams that ship.</span>
+        </div>
+    </footer>
+</body>
+</html>
