@@ -1569,7 +1569,8 @@
             <li><a href="faq.html">FAQ</a></li>
         </ul>
 
-        <button class="nav-cta">Start 7-Day Free Trial</button>
+        <a href="https://app.heywren.ai/login" style="color:#4f46e5;font-weight:600;font-size:14px;text-decoration:none;">Log in</a>
+        <a href="#signup" class="nav-cta" style="text-decoration:none;">Start Free Trial</a>
         <button class="mobile-menu-btn">☰</button>
     </nav>
 
@@ -1594,7 +1595,11 @@
                 <p>Every team has commitments scattered across Slack, email, meetings, and docs. Things slip. Wren watches everything and makes sure they don't. When follow-through becomes automatic, your team moves faster and your customers stay happier.</p>
 
                 <div class="hero-ctas">
-                    <button class="btn-primary">Start 7-Day Free Trial</button>
+                    <div id="signup"></div>
+                    <form id="mc-hero-form" style="display:flex;gap:10px;flex-wrap:wrap;">
+                        <input type="email" id="mc-hero-email" placeholder="Enter your work email" required style="padding:14px 20px;border-radius:10px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;font-size:16px;min-width:260px;font-family:inherit;outline:none;" onfocus="this.style.borderColor='#818cf8'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'">
+                        <button type="submit" class="btn-primary">Start 7-Day Free Trial</button>
+                    </form>
                     <a href="demo.html" class="btn-secondary" style="display:inline-block;text-align:center;">See Interactive Demo</a>
                 </div>
 
@@ -1837,11 +1842,11 @@
             <h2 class="features-title">Powerful Features Built For Real Teams</h2>
 
             <div class="features-grid">
-                <div class="feature-card" onclick="window.location.href='/features/ai-nudges-scoring'">
+                <div class="feature-card" onclick="window.location.href='/features/ai-nudges'">
                     <div class="feature-icon">🎯</div>
                     <h4>AI Nudges & Scoring</h4>
                     <p>Smart reminders and priority scores keep your most important commitments front and center.</p>
-                    <a href="/features/ai-nudges-scoring" class="feature-link">Learn more →</a>
+                    <a href="/features/ai-nudges" class="feature-link">Learn more →</a>
                 </div>
 
                 <div class="feature-card" onclick="window.location.href='/features/draft-queue'">
@@ -1851,11 +1856,11 @@
                     <a href="/features/draft-queue" class="feature-link">Learn more →</a>
                 </div>
 
-                <div class="feature-card" onclick="window.location.href='/features/pre-meeting-briefings'">
+                <div class="feature-card" onclick="window.location.href='/features/meeting-briefings'">
                     <div class="feature-icon">📋</div>
                     <h4>Pre-Meeting Briefings</h4>
                     <p>Walk into every meeting prepared with your history, status, and suggested topics.</p>
-                    <a href="/features/pre-meeting-briefings" class="feature-link">Learn more →</a>
+                    <a href="/features/meeting-briefings" class="feature-link">Learn more →</a>
                 </div>
 
                 <div class="feature-card" onclick="window.location.href='/features/commitment-tracing'">
@@ -1872,25 +1877,25 @@
                     <a href="/features/relationship-health" class="feature-link">Learn more →</a>
                 </div>
 
-                <div class="feature-card" onclick="window.location.href='/features/achievements-streaks'">
+                <div class="feature-card" onclick="window.location.href='/features/achievements'">
                     <div class="feature-icon">🔥</div>
                     <h4>Achievements & Streaks</h4>
                     <p>Gamified accountability that makes staying on top of commitments fun and motivating.</p>
-                    <a href="/features/achievements-streaks" class="feature-link">Learn more →</a>
+                    <a href="/features/achievements" class="feature-link">Learn more →</a>
                 </div>
 
-                <div class="feature-card" onclick="window.location.href='/features/playbooks-automation'">
+                <div class="feature-card" onclick="window.location.href='/features/playbooks'">
                     <div class="feature-icon">⚙️</div>
                     <h4>Playbooks & Automation</h4>
                     <p>Set up workflows for recurring commitment types—sales cycles, project handoffs, hiring.</p>
-                    <a href="/features/playbooks-automation" class="feature-link">Learn more →</a>
+                    <a href="/features/playbooks" class="feature-link">Learn more →</a>
                 </div>
 
-                <div class="feature-card" onclick="window.location.href='/features/pto-handoff'">
+                <div class="feature-card" onclick="window.location.href='/features/handoff'">
                     <div class="feature-icon">🏖️</div>
                     <h4>PTO Handoff Protocol</h4>
                     <p>Automatically transfer commitments and ensure nothing slips while you're away.</p>
-                    <a href="/features/pto-handoff" class="feature-link">Learn more →</a>
+                    <a href="/features/handoff" class="feature-link">Learn more →</a>
                 </div>
 
                 <div class="feature-card" onclick="window.location.href='/features/heywren-mentions'">
@@ -2250,7 +2255,7 @@
                 <h4>Resources</h4>
                 <a href="faq.html">FAQ</a>
                 <a href="/">Home</a>
-                <a href="#contact">Contact</a>
+                <a href="mailto:hello@heywren.ai">Contact</a>
             </div>
 
             <div>
@@ -2264,9 +2269,9 @@
         <div class="footer-bottom">
             <div class="footer-credit">© 2026 HeyWren</div>
             <div>
-                <a href="https://twitter.com">Twitter</a>
-                <a href="https://linkedin.com">LinkedIn</a>
-                <a href="https://github.com">GitHub</a>
+                <a href="https://twitter.com/heywren">Twitter</a>
+                <a href="https://linkedin.com/company/heywren">LinkedIn</a>
+                <a href="https://github.com/heywren">GitHub</a>
             </div>
         </div>
     </footer>
@@ -2384,5 +2389,74 @@
         // Initialize ROI on load
         updateROI();
     </script>
+
+    <!-- Email Signup Modal -->
+    <div id="signup-modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;justify-content:center;align-items:center;">
+        <div style="background:white;border-radius:16px;padding:40px;max-width:440px;width:90%;text-align:center;position:relative;">
+            <button onclick="document.getElementById('signup-modal').style.display='none'" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:24px;color:#9ca3af;cursor:pointer;">&times;</button>
+            <h3 style="font-size:24px;font-weight:700;color:#1e1b4b;margin-bottom:8px;">Start your free trial</h3>
+            <p style="color:#6b7280;margin-bottom:24px;">7 days free. No credit card required.</p>
+            <form id="mc-modal-form">
+                <input type="email" id="mc-modal-email" placeholder="your@workemail.com" required style="width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:10px;font-size:16px;margin-bottom:12px;font-family:inherit;outline:none;" onfocus="this.style.borderColor='#4f46e5'" onblur="this.style.borderColor='#e5e7eb'">
+                <button type="submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;">Get Started Free</button>
+            </form>
+            <p style="font-size:12px;color:#9ca3af;margin-top:12px;">We'll send you a link to set up your workspace.</p>
+        </div>
+    </div>
+
+    <!-- Sticky bottom CTA bar (appears on scroll) -->
+    <div id="sticky-cta" style="display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#1e1b4b,#312e81);padding:12px 24px;z-index:9998;box-shadow:0 -4px 12px rgba(0,0,0,0.15);">
+        <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <p style="color:rgba(255,255,255,0.9);font-size:15px;font-weight:500;">Ready to stop things from falling through the cracks?</p>
+            <form id="mc-sticky-form" style="display:flex;gap:8px;">
+                <input type="email" id="mc-sticky-email" placeholder="your@email.com" required style="padding:10px 16px;border-radius:8px;border:none;font-size:14px;min-width:220px;font-family:inherit;">
+                <button type="submit" style="padding:10px 20px;background:#7c3aed;color:white;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;">Start Free Trial</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // Show modal when any nav-cta is clicked
+    document.querySelectorAll('.nav-cta').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            if (!this.getAttribute('href') || this.getAttribute('href') === '#signup') {
+                e.preventDefault();
+                document.getElementById('signup-modal').style.display = 'flex';
+            }
+        });
+    });
+
+    // Mailchimp form handler
+    function handleSignup(formId, emailId) {
+        var form = document.getElementById(formId);
+        if (!form) return;
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var email = document.getElementById(emailId).value;
+            // Store in Mailchimp - replace a41757dde1c120bdd7a8a31bf61e9139 and 03e5683144 after setup
+            var mcUrl = 'https://heywren.us13.list-manage.com/subscribe/post?u=a41757dde1c120bdd7a8a31bf61e9139&id=03e5683144&EMAIL=' + encodeURIComponent(email) + '&SIGNUP_SOURCE=' + encodeURIComponent(formId);
+            window.open(mcUrl, '_blank');
+            if (formId === 'mc-modal-form') {
+                form.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:16px;">Thanks! Check your email to get started.</p>';
+            } else {
+                form.innerHTML = '<p style="color:white;font-weight:600;padding:8px;">Thanks! Check your email.</p>';
+            }
+        });
+    }
+    handleSignup('mc-hero-form', 'mc-hero-email');
+    handleSignup('mc-modal-form', 'mc-modal-email');
+    handleSignup('mc-sticky-form', 'mc-sticky-email');
+
+    // Show sticky CTA after scrolling past hero
+    var stickyCta = document.getElementById('sticky-cta');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 800) {
+            stickyCta.style.display = 'block';
+        } else {
+            stickyCta.style.display = 'none';
+        }
+    });
+    </script>
+
 </body>
 </html>
