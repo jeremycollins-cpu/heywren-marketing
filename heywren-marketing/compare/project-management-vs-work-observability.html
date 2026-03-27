@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0G6280N4E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y0G6280N4E');
+    </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Project management tools track tasks you create. Work observability tracks commitments you make. Learn why your team needs both.">
+  <meta property="og:title" content="Project Management vs Work Observability — What's the Difference? | HeyWren">
+  <meta property="og:description" content="Project management tools track tasks you create. Work observability tracks commitments you make. Learn why your team needs both.">
+  <meta property="og:image" content="https://heywren.ai/og-compare-pm-vs-wo.png">
+  <meta property="og:url" content="https://heywren.ai/compare/project-management-vs-work-observability">
+  <meta property="og:type" content="article">
+  <link rel="canonical" href="https://heywren.ai/compare/project-management-vs-work-observability">
+  <title>Project Management vs Work Observability — What's the Difference? | HeyWren</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #1f2937; background: #fafbfc; line-height: 1.6; }
+
+    /* === UNIFIED NAV === */
+    .hw-nav { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #e5e7eb; padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .hw-nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .hw-nav-logo svg { height: 26px; width: auto; }
+    .hw-nav-links { display: flex; gap: 28px; list-style: none; align-items: center; margin: 0; padding: 0; }
+    .hw-nav-links a { text-decoration: none; color: #4b5563; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .hw-nav-links a:hover { color: #4f46e5; }
+    .hw-nav-links a.active { color: #4f46e5; font-weight: 600; }
+    .hw-nav-right { display: flex; align-items: center; gap: 16px; }
+    .hw-nav-login { color: #4b5563; font-size: 14px; font-weight: 500; text-decoration: none; padding: 8px 16px; border: 1px solid #e5e7eb; border-radius: 8px; transition: all 0.2s; }
+    .hw-nav-login:hover { color: #4f46e5; border-color: #c7d2fe; background: #eef2ff; }
+    .hw-nav-cta { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white !important; font-size: 14px; font-weight: 600; text-decoration: none; padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 8px rgba(79,70,229,0.25); display: inline-block; }
+    .hw-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,70,229,0.35); }
+
+    /* Hero */
+    .hero { max-width: 800px; margin: 0 auto; padding: 80px 24px 48px; text-align: center; }
+    .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero .subtitle { font-size: 20px; color: #6b7280; line-height: 1.5; max-width: 640px; margin: 0 auto; }
+
+    /* Sections */
+    .section { max-width: 800px; margin: 0 auto; padding: 48px 24px; }
+    .section-wide { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+    .section-title { font-size: 32px; font-weight: 800; margin-bottom: 16px; color: #1f2937; }
+    .section-subtitle { font-size: 18px; color: #6b7280; margin-bottom: 32px; line-height: 1.5; }
+
+    /* Definition block */
+    .definition-block { background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%); border-left: 4px solid #4f46e5; padding: 28px 32px; border-radius: 0 14px 14px 0; margin-bottom: 32px; font-size: 17px; line-height: 1.7; color: #374151; }
+
+    /* Prose */
+    .prose { font-size: 16px; line-height: 1.8; color: #4b5563; }
+    .prose p { margin-bottom: 20px; }
+    .prose a { color: #4f46e5; text-decoration: underline; }
+    .prose a:hover { color: #7c3aed; }
+
+    /* Comparison Table */
+    .compare-table-wrap { overflow-x: auto; margin: 32px 0; }
+    .compare-table { width: 100%; border-collapse: collapse; background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04); }
+    .compare-table thead th { padding: 18px 24px; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; text-align: left; }
+    .compare-table thead th:first-child { background: #f9fafb; color: #6b7280; }
+    .compare-table thead th:nth-child(2) { background: #f9fafb; color: #6b7280; }
+    .compare-table thead th:nth-child(3) { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; }
+    .compare-table tbody td { padding: 16px 24px; font-size: 15px; border-top: 1px solid #f3f4f6; vertical-align: top; }
+    .compare-table tbody td:first-child { font-weight: 600; color: #374151; background: #fafbfc; white-space: nowrap; }
+    .compare-table tbody td:nth-child(2) { color: #6b7280; }
+    .compare-table tbody td:nth-child(3) { color: #374151; background: #faf5ff; }
+
+    /* Integration cards */
+    .integration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 32px; }
+    .integration-card { background: white; padding: 28px; border-radius: 14px; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .integration-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+    .integration-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: #1f2937; }
+    .integration-card p { font-size: 14px; color: #6b7280; line-height: 1.6; }
+
+    /* Stats */
+    .stats-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 32px 0; }
+    .stat-card { text-align: center; background: white; padding: 28px 20px; border-radius: 14px; border: 1px solid #e5e7eb; }
+    .stat-number { font-size: 42px; font-weight: 800; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-label { font-size: 14px; color: #6b7280; margin-top: 4px; }
+    .stat-source { font-size: 11px; color: #9ca3af; margin-top: 6px; }
+
+    /* FAQ */
+    .faq-list { margin-top: 32px; }
+    .faq-item { background: white; border: 1px solid #e5e7eb; border-radius: 14px; padding: 24px 28px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .faq-question { font-size: 17px; font-weight: 700; color: #1f2937; margin-bottom: 10px; }
+    .faq-answer { font-size: 15px; color: #6b7280; line-height: 1.7; }
+    .faq-answer a { color: #4f46e5; text-decoration: underline; }
+
+    /* Final CTA */
+    .final-cta { text-align: center; padding: 80px 24px; background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%); }
+    .final-cta h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; color: #1f2937; }
+    .final-cta p { font-size: 18px; color: #6b7280; margin-bottom: 32px; }
+    .cta-button { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border: none; padding: 14px 40px; border-radius: 14px; font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 4px 12px rgba(79,70,229,0.3), 0 2px 4px rgba(79,70,229,0.2); text-decoration: none; display: inline-block; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79,70,229,0.4), 0 4px 8px rgba(79,70,229,0.25); }
+
+    /* Updated date */
+    .updated-date { text-align: center; padding: 16px; font-size: 13px; color: #9ca3af; }
+
+    /* === UNIFIED FOOTER === */
+    .hw-footer { background: #0f0d2e; color: rgba(255,255,255,0.6); padding: 64px 32px 32px; font-size: 14px; line-height: 1.6; }
+    .hw-footer a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .hw-footer a:hover { color: white; }
+    .hw-footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; }
+    .hw-footer-brand p { margin-top: 16px; font-size: 13px; line-height: 1.7; max-width: 280px; }
+    .hw-footer-brand svg { opacity: 0.7; }
+    .hw-footer h4 { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; }
+    .hw-footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .hw-footer-col a { font-size: 14px; }
+    .hw-footer-bottom { max-width: 1100px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .hw-footer-legal { display: flex; gap: 20px; font-size: 13px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { padding: 48px 24px 32px; }
+      .hero h1 { font-size: 32px; }
+      .integration-grid, .stats-bar { grid-template-columns: 1fr; }
+      .hw-nav-links { display: none; }
+      .hw-nav-login { display: none; }
+      .hw-nav { padding: 0 16px; }
+      .hw-footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .hw-footer-brand { grid-column: 1 / -1; }
+      .hw-footer-bottom { flex-direction: column; text-align: center; }
+      .compare-table thead th, .compare-table tbody td { padding: 12px 14px; font-size: 13px; }
+    }
+    @media (max-width: 480px) {
+      .hw-footer-grid { grid-template-columns: 1fr; }
+      .hw-footer { padding: 40px 20px 24px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Project Management vs Work Observability — What's the Difference?",
+        "description": "Project management tools track tasks you create. Work observability tracks commitments you make. Learn why your team needs both.",
+        "url": "https://heywren.ai/compare/project-management-vs-work-observability",
+        "dateModified": "2026-03-27",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "HeyWren",
+          "url": "https://heywren.ai"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does work observability replace project management tools?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Work observability and project management are complementary categories. Project management tools like Asana, Linear, and Jira are essential for planning and tracking structured work. Work observability fills the gap by capturing the informal commitments — made in Slack, email, and meetings — that never make it into a ticket."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is work observability?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Work observability is a new category of software that automatically monitors workplace communication — Slack, email, meetings — to detect, track, and ensure completion of commitments. Unlike project management tools which require manual input, work observability operates passively on your existing workflows."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does HeyWren integrate with my existing PM tools?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "HeyWren connects with Asana, Linear, Jira, and other project management tools. When HeyWren detects a commitment that maps to an existing ticket, it links them. When it detects a commitment with no corresponding ticket, it can surface that gap so nothing falls through the cracks."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is work observability just another surveillance tool?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Work observability is designed to help individuals follow through on their own commitments, not to monitor employees. HeyWren nudges the person who made the commitment — not their manager. There are no leaderboards, no productivity scores, and no screenshot monitoring. Think of it as a personal accountability layer, not a surveillance system."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="hw-nav">
+    <a href="/" class="hw-nav-logo"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+    <ul class="hw-nav-links">
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/demo">Demo</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <div class="hw-nav-right">
+      <a href="https://app.heywren.ai/login" class="hw-nav-login">Log in</a>
+      <a href="https://app.heywren.ai/signup" class="hw-nav-cta">Start Free Trial</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>Project Management vs Work Observability</h1>
+    <p class="subtitle">One tracks the work you plan. The other tracks the commitments you actually make. Here's why the most effective teams use both.</p>
+  </section>
+
+  <!-- Definition Block -->
+  <section class="section">
+    <div class="definition-block">
+      Work observability is a new category of software that automatically monitors workplace communication — Slack, email, meetings — to detect, track, and ensure completion of commitments. Unlike project management tools which require manual input, work observability operates passively on your existing workflows.
+    </div>
+    <div class="prose">
+      <p>If you manage a team, you already know the feeling: a commitment was made in a Slack thread three days ago, and nobody can remember who owns it or when it was due. It never became a Jira ticket. It never made it into the sprint. But the person on the other end is still waiting.</p>
+      <p>Project management tools are built for <em>planned</em> work — the tasks you deliberately create, assign, and prioritize. They are essential. But they only capture a fraction of the commitments teams actually make. The rest live in chat messages, email replies, and meeting conversations — invisible to your PM tool and at high risk of being forgotten.</p>
+      <p>That gap is what <a href="/blog/what-is-work-observability">work observability</a> is designed to close.</p>
+    </div>
+  </section>
+
+  <!-- Comparison Table -->
+  <section class="section-wide">
+    <h2 class="section-title">Side-by-Side Comparison</h2>
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Project Management Tools</th>
+            <th>Work Observability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Input method</td>
+            <td>Manual — someone creates a ticket or task</td>
+            <td>Automatic — AI detects commitments from conversations</td>
+          </tr>
+          <tr>
+            <td>What's tracked</td>
+            <td>Planned tasks, epics, sprints, and milestones</td>
+            <td>Informal commitments, follow-ups, and promises</td>
+          </tr>
+          <tr>
+            <td>Coverage</td>
+            <td>Only work that gets entered into the system</td>
+            <td>All commitments across Slack, email, and meetings</td>
+          </tr>
+          <tr>
+            <td>Effort required</td>
+            <td>High — ongoing ticket creation, grooming, and updates</td>
+            <td>Near-zero — works passively on existing communication</td>
+          </tr>
+          <tr>
+            <td>Best for</td>
+            <td>Structured project planning and execution</td>
+            <td>Catching what falls between the cracks of planned work</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Why You Need Both -->
+  <section class="section">
+    <h2 class="section-title">Why You Need Both</h2>
+    <div class="prose">
+      <p>This is not an either-or decision. Project management and work observability serve different purposes and are strongest when used together.</p>
+      <p>Your PM tool is the system of record for planned work. It is where you define priorities, estimate effort, and coordinate delivery across a team. Nothing replaces that.</p>
+      <p>Work observability fills a different need: it captures the <em>unplanned</em> commitments that happen organically throughout the workday. The "I'll send you that doc after lunch" in Slack. The "Let me check with legal and get back to you" from a meeting. The "We'll have the API ready by Thursday" in an email thread. These promises carry real weight — and real consequences when broken — but they rarely become tickets.</p>
+      <p>Together, the two categories give you complete visibility: planned work <em>and</em> the commitments that surround it. McKinsey research estimates that employees spend <strong>28% of their workweek</strong> managing email alone, much of which contains actionable commitments that never reach a project board.</p>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section class="section-wide">
+    <h2 class="section-title">How HeyWren Works With Your PM Tools</h2>
+    <p class="section-subtitle">HeyWren is designed to complement — not replace — the tools your team already uses.</p>
+    <div class="integration-grid">
+      <div class="integration-card">
+        <h3>Asana</h3>
+        <p>HeyWren detects commitments in Slack and email, then cross-references them with your Asana tasks. Commitments with no matching task are surfaced so you can decide whether to create one or simply track the follow-through. <a href="/integrations/asana" style="color:#4f46e5">Learn more</a>.</p>
+      </div>
+      <div class="integration-card">
+        <h3>Linear</h3>
+        <p>For engineering teams on Linear, HeyWren links detected promises to existing issues and cycles. When a commitment made in standup does not map to a Linear issue, HeyWren flags it — closing the gap between conversation and execution.</p>
+      </div>
+      <div class="integration-card">
+        <h3>Jira</h3>
+        <p>HeyWren connects to Jira Cloud and Data Center. It maps verbal and written commitments to epics, stories, and tasks — giving managers a single view of both ticketed work and informal promises across sprints.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="section-wide">
+    <h2 class="section-title">The Numbers Behind the Gap</h2>
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-number">44%</div>
+        <div class="stat-label">of meeting action items are never completed</div>
+        <div class="stat-source">Fellow.app, 2023</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">28%</div>
+        <div class="stat-label">of the workweek spent managing email</div>
+        <div class="stat-source">McKinsey Global Institute</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3.5hrs</div>
+        <div class="stat-label">per week managers spend chasing follow-ups</div>
+        <div class="stat-source">Asana Anatomy of Work, 2023</div>
+      </div>
+    </div>
+    <div class="prose" style="text-align:center; max-width:640px; margin:0 auto;">
+      <p>These numbers point to a systemic problem: the commitments teams make in conversation far outnumber the tasks they formally track. Work observability exists to close that gap.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">Does work observability replace project management tools?</div>
+        <div class="faq-answer">No. Work observability and project management are complementary categories. Project management tools like Asana, Linear, and Jira are essential for planning and tracking structured work. Work observability fills the gap by capturing the informal commitments — made in Slack, email, and meetings — that never make it into a ticket.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What is work observability?</div>
+        <div class="faq-answer">Work observability is a new category of software that automatically monitors workplace communication to detect, track, and ensure completion of commitments. Learn more in our guide: <a href="/blog/what-is-work-observability">What Is Work Observability?</a></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How does HeyWren integrate with my existing PM tools?</div>
+        <div class="faq-answer">HeyWren connects with <a href="/integrations/asana">Asana</a>, Linear, Jira, and other project management tools. When HeyWren detects a commitment that maps to an existing ticket, it links them. When it detects a commitment with no corresponding ticket, it surfaces that gap so nothing falls through the cracks.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is work observability just another surveillance tool?</div>
+        <div class="faq-answer">No. Work observability is designed to help individuals follow through on their own commitments, not to monitor employees. HeyWren nudges the person who made the commitment — not their manager. There are no leaderboards, no productivity scores, and no screenshot monitoring. Think of it as a personal accountability layer, not a surveillance system.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2>See What Your PM Tool Is Missing</h2>
+    <p>Start tracking the commitments that fall between the cracks — free, with no credit card required.</p>
+    <a href="https://app.heywren.ai/signup" class="cta-button">Start Free — No Credit Card</a>
+  </section>
+
+  <div class="updated-date">Last updated: March 2026</div>
+
+  <!-- Footer -->
+  <footer class="hw-footer">
+    <div class="hw-footer-grid">
+      <div class="hw-footer-brand">
+        <svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg>
+        <p>AI-powered follow-through for teams that actually get things done. Never let a commitment fall through the cracks again.</p>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Product</h4>
+        <a href="/features/ai-nudges">AI Nudges</a>
+        <a href="/features/draft-queue">Draft Queue</a>
+        <a href="/features/meeting-briefings">Briefings</a>
+        <a href="/features/commitment-tracing">Commitment Tracing</a>
+        <a href="/features/achievements">Achievements</a>
+        <a href="/features/playbooks">Playbooks</a>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Resources</h4>
+        <a href="/blog">Blog</a>
+        <a href="/glossary">Glossary</a>
+        <a href="/faq">FAQ</a>
+        <a href="/demo">Interactive Demo</a>
+        <a href="/#pricing">Pricing</a>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Company</h4>
+        <a href="/">Home</a>
+        <a href="mailto:hello@heywren.ai">Contact</a>
+        <a href="https://twitter.com/heywren">Twitter</a>
+        <a href="https://linkedin.com/company/heywren">LinkedIn</a>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Legal</h4>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+        <a href="/dpa">Data Processing</a>
+      </div>
+    </div>
+    <div class="hw-footer-bottom">
+      <span>&copy; 2026 HeyWren, Inc. All rights reserved.</span>
+      <div class="hw-footer-legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
