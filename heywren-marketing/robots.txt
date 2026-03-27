@@ -1,8 +1,28 @@
 User-agent: *
 Allow: /
+Disallow: /app
+
+# Explicitly allow AI search bots for GEO (Generative Engine Optimization)
+# These bots power AI search results in ChatGPT, Perplexity, Claude, Gemini, and Copilot
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
 
 Sitemap: https://heywren.ai/sitemap.xml
-
-# Block admin and internal paths
-User-agent: *
-Disallow: /app
