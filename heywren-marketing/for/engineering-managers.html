@@ -117,7 +117,7 @@
     .hw-footer { background: #0f0d2e; color: rgba(255,255,255,0.6); padding: 64px 32px 32px; font-size: 14px; line-height: 1.6; }
     .hw-footer a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
     .hw-footer a:hover { color: white; }
-    .hw-footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; }
+    .hw-footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr; gap: 48px; }
     .hw-footer-brand p { margin-top: 16px; font-size: 13px; line-height: 1.7; max-width: 280px; }
     .hw-footer-brand svg { opacity: 0.7; }
     .hw-footer h4 { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; }
@@ -180,6 +180,7 @@
     <a href="/" class="hw-nav-logo"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
     <ul class="hw-nav-links">
       <li><a href="/#features">Features</a></li>
+      <li><a href="/#integrations">Integrations</a></li>
       <li><a href="/#pricing">Pricing</a></li>
       <li><a href="/demo">Demo</a></li>
       <li><a href="/blog">Blog</a></li>
@@ -187,6 +188,30 @@
     <div class="hw-nav-right">
       <a href="https://app.heywren.ai/login" class="hw-nav-login">Log in</a>
       <a href="https://app.heywren.ai/signup" class="hw-nav-cta">Start Free Trial</a>
+      <button class="hw-mobile-toggle" aria-label="Open menu" onclick="document.querySelector('.hw-mobile-menu').classList.add('open');document.querySelector('.hw-mobile-backdrop').classList.add('open');document.body.style.overflow='hidden';">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="hw-mobile-backdrop" onclick="document.querySelector('.hw-mobile-menu').classList.remove('open');this.classList.remove('open');document.body.style.overflow='';"></div>
+  <nav class="hw-mobile-menu" aria-label="Mobile navigation">
+    <button class="hw-mobile-close" aria-label="Close menu" onclick="this.parentElement.classList.remove('open');document.querySelector('.hw-mobile-backdrop').classList.remove('open');document.body.style.overflow='';">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="/demo">Demo</a>
+    <a href="/blog">Blog</a>
+    <a href="/faq">FAQ</a>
+    <span class="hw-mobile-section">Integrations</span>
+    <a href="/integrations/slack" class="hw-mobile-sub">Slack</a>
+    <a href="/integrations/outlook" class="hw-mobile-sub">Outlook</a>
+    <a href="/integrations/asana" class="hw-mobile-sub">Asana</a>
+    <div class="hw-mobile-cta-group">
+      <a href="https://app.heywren.ai/login" class="hw-mobile-login">Log in</a>
+      <a href="https://app.heywren.ai/signup" class="hw-mobile-signup">Start Free Trial</a>
     </div>
   </nav>
 
@@ -361,11 +386,16 @@
         <a href="/features/playbooks">Playbooks</a>
       </div>
       <div class="hw-footer-col">
+        <h4>Integrations</h4>
+        <a href="/integrations/slack">Slack</a>
+        <a href="/integrations/outlook">Outlook</a>
+        <a href="/integrations/asana">Asana</a>
+      </div>
+      <div class="hw-footer-col">
         <h4>Resources</h4>
         <a href="/blog">Blog</a>
-        <a href="/glossary">Glossary</a>
+        <a href="/demo">Demo</a>
         <a href="/faq">FAQ</a>
-        <a href="/demo">Interactive Demo</a>
         <a href="/#pricing">Pricing</a>
       </div>
       <div class="hw-footer-col">
