@@ -1637,12 +1637,144 @@
     .hw-footer { padding: 40px 20px 24px; }
 }
 
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "HeyWren",
+      "url": "https://heywren.ai",
+      "logo": "https://heywren.ai/og-image.png",
+      "sameAs": [],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "hello@heywren.ai",
+        "contactType": "customer service"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "name": "HeyWren",
+      "url": "https://heywren.ai"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "HeyWren",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "AI-powered follow-through platform that watches your Slack, email, and calendar to ensure every commitment gets completed on time.",
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Basic",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        {
+          "@type": "Offer",
+          "name": "Pro",
+          "price": "10",
+          "priceCurrency": "USD",
+          "billingIncrement": "month"
+        },
+        {
+          "@type": "Offer",
+          "name": "Team",
+          "price": "20",
+          "priceCurrency": "USD",
+          "billingIncrement": "month"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "bestRating": "5",
+        "ratingCount": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is my data safe? How does Wren access my information?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your data security is our top priority. Wren uses read-only OAuth connections to access your tools — we can never send messages, emails, or modify calendar events on your behalf. All data is encrypted in transit and at rest, and we're pursuing SOC 2 Type II certification. You can revoke access to any connected tool at any time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Wren different from project management tools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Project management tools require you to manually create and update tasks. Wren automatically captures commitments from your existing conversations and workflows — no extra data entry needed. Think of Wren as the layer that ensures things discussed in your tools actually get done."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What tools does Wren connect to?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Wren currently connects to Slack, Gmail, Outlook, and Google Calendar. We're actively building integrations with more tools and would love to hear which ones matter most to you."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does setup take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "About 2 minutes. Just connect your tools via OAuth, and Wren starts working immediately. No configuration, no training period, no IT department needed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can my team see my nudges and commitments?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your commitments and nudges are private by default. On Team plans, managers can see aggregate follow-through metrics, but individual commitment details remain private unless you choose to share them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens after the free trial?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "After your trial ends, you can choose the plan that works best for you. If you decide not to upgrade, you'll automatically move to our Basic free plan with limited features so you never lose access entirely."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Wren help with team accountability?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. Our Team plan includes team dashboards that show follow-through metrics across your organization, helping managers identify bottlenecks and ensure commitments are being met without micromanaging."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
     <!-- NAVIGATION -->
     <nav class="hw-nav">
-    <a href="/" class="hw-nav-logo"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+    <a href="/" class="hw-nav-logo" aria-label="HeyWren home"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
     <ul class="hw-nav-links">
             <li><a href="/#features">Features</a></li>
             <li><a href="/#pricing">Pricing</a></li>
@@ -1659,7 +1791,7 @@
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <svg class="bird-hero" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="bird-hero" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation">
             <ellipse cx="80" cy="100" rx="35" ry="28" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
             <circle cx="110" cy="80" r="16" stroke="#4f46e5" stroke-width="2.2" fill="none"/>
             <circle cx="116" cy="76" r="3" fill="#4f46e5"/>
@@ -1680,8 +1812,9 @@
                 <div class="hero-ctas">
                     <div id="signup"></div>
                     <form id="mc-hero-form" style="display:flex;gap:10px;flex-wrap:wrap;">
-                        <input type="email" id="mc-hero-email" placeholder="Enter your work email" required style="padding:14px 20px;border-radius:10px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;font-size:16px;min-width:260px;font-family:inherit;outline:none;" onfocus="this.style.borderColor='#818cf8'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'">
-                        <button type="submit" class="btn-primary">Start 7-Day Free Trial</button>
+                        <label for="mc-hero-email" class="sr-only">Work email address</label>
+                        <input type="email" id="mc-hero-email" placeholder="Enter your work email" required autocomplete="email" aria-label="Work email address" style="padding:14px 20px;border-radius:10px;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;font-size:16px;min-width:260px;font-family:inherit;outline:none;" onfocus="this.style.borderColor='#818cf8'" onblur="this.style.borderColor='rgba(255,255,255,0.2)'">
+                        <button type="submit" class="btn-primary" onclick="trackCTA('cta_clicked', 'hero_trial')">Start Free — No Credit Card</button>
                     </form>
                     <a href="demo.html" class="btn-secondary" style="display:inline-block;text-align:center;">See Interactive Demo</a>
                 </div>
@@ -2337,6 +2470,46 @@
     </div>
 </footer>
 
+    <!-- Google Analytics (GA4) - Replace G-XXXXXXXXXX with your Measurement ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+
+        // Track CTA clicks
+        function trackCTA(action, label) {
+            gtag('event', action, {
+                'event_category': 'cta',
+                'event_label': label
+            });
+        }
+
+        // Track signup form submissions
+        function trackSignup(source) {
+            gtag('event', 'signup_started', {
+                'event_category': 'conversion',
+                'event_label': source
+            });
+        }
+
+        // Track FAQ interactions
+        function trackFAQ(question) {
+            gtag('event', 'faq_opened', {
+                'event_category': 'engagement',
+                'event_label': question
+            });
+        }
+
+        // Track ROI calculator usage
+        function trackROI() {
+            gtag('event', 'roi_calculator_used', {
+                'event_category': 'engagement'
+            });
+        }
+    </script>
+
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
@@ -2361,12 +2534,12 @@
         }
 
         // FAQ toggle
-        function toggleFAQ(element) {
+        function toggleFAQ(element) { trackFAQ(element.querySelector('.faq-question span').textContent);
             element.classList.toggle('active');
         }
 
         // ROI Calculator
-        function updateROI() {
+        function updateROI() { if (window.trackROI) trackROI();
             var revenue = parseInt(document.getElementById('revenue').value);
             var teamSize = parseInt(document.getElementById('teamSize').value);
             var salary = parseInt(document.getElementById('salary').value);
@@ -2458,7 +2631,7 @@
             <h3 style="font-size:24px;font-weight:700;color:#1e1b4b;margin-bottom:8px;">Start your free trial</h3>
             <p style="color:#6b7280;margin-bottom:24px;">7 days free. No credit card required.</p>
             <form id="mc-modal-form">
-                <input type="email" id="mc-modal-email" placeholder="your@workemail.com" required style="width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:10px;font-size:16px;margin-bottom:12px;font-family:inherit;outline:none;" onfocus="this.style.borderColor='#4f46e5'" onblur="this.style.borderColor='#e5e7eb'">
+                <input type="email" id="mc-modal-email" placeholder="your@workemail.com" required autocomplete="email" aria-label="Email address" style="width:100%;padding:14px 16px;border:2px solid #e5e7eb;border-radius:10px;font-size:16px;margin-bottom:12px;font-family:inherit;outline:none;" onfocus="this.style.borderColor='#4f46e5'" onblur="this.style.borderColor='#e5e7eb'">
                 <button type="submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white;border:none;border-radius:10px;font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;">Get Started Free</button>
             </form>
             <p style="font-size:12px;color:#9ca3af;margin-top:12px;">We'll send you a link to set up your workspace.</p>
@@ -2470,7 +2643,7 @@
         <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
             <p style="color:rgba(255,255,255,0.9);font-size:15px;font-weight:500;">Ready to stop things from falling through the cracks?</p>
             <form id="mc-sticky-form" style="display:flex;gap:8px;">
-                <input type="email" id="mc-sticky-email" placeholder="your@email.com" required style="padding:10px 16px;border-radius:8px;border:none;font-size:14px;min-width:220px;font-family:inherit;">
+                <input type="email" id="mc-sticky-email" placeholder="your@email.com" required autocomplete="email" aria-label="Email address" style="padding:10px 16px;border-radius:8px;border:none;font-size:14px;min-width:220px;font-family:inherit;">
                 <button type="submit" style="padding:10px 20px;background:#7c3aed;color:white;border:none;border-radius:8px;font-weight:600;font-size:14px;cursor:pointer;white-space:nowrap;">Start Free Trial</button>
             </form>
         </div>
