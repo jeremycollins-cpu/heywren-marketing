@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://heywren.ai/sitemap.xml
+
+# Block admin and internal paths
+User-agent: *
+Disallow: /app
