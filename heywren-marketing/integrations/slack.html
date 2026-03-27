@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y0G6280N4E"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-Y0G6280N4E');
+    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HeyWren integrates with Slack to automatically track commitments made in channels and DMs. No manual logging — Wren watches your conversations and ensures follow-through.">
+  <meta property="og:title" content="HeyWren + Slack — Never Miss a Commitment in Slack Again">
+  <meta property="og:description" content="HeyWren integrates with Slack to automatically track commitments made in channels and DMs. No manual logging — Wren watches your conversations and ensures follow-through.">
+  <meta property="og:image" content="https://heywren.ai/og-slack.png">
+  <meta property="og:url" content="https://heywren.ai/integrations/slack">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://heywren.ai/integrations/slack">
+  <title>HeyWren + Slack — Never Miss a Commitment in Slack Again</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #1f2937; background: #fafbfc; line-height: 1.6; }
+    .hw-nav { position: sticky; top: 0; z-index: 1000; background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #e5e7eb; padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+    .hw-nav-logo { display: flex; align-items: center; text-decoration: none; }
+    .hw-nav-logo svg { height: 26px; width: auto; }
+    .hw-nav-links { display: flex; gap: 28px; list-style: none; align-items: center; margin: 0; padding: 0; }
+    .hw-nav-links a { text-decoration: none; color: #4b5563; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .hw-nav-links a:hover { color: #4f46e5; }
+    .hw-nav-right { display: flex; align-items: center; gap: 16px; }
+    .hw-nav-login { color: #4b5563; font-size: 14px; font-weight: 500; text-decoration: none; padding: 8px 16px; border: 1px solid #e5e7eb; border-radius: 8px; transition: all 0.2s; }
+    .hw-nav-login:hover { color: #4f46e5; border-color: #c7d2fe; background: #eef2ff; }
+    .hw-nav-cta { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white !important; font-size: 14px; font-weight: 600; text-decoration: none; padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 8px rgba(79,70,229,0.25); display: inline-block; }
+    .hw-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,70,229,0.35); }
+    .hero { max-width: 900px; margin: 0 auto; padding: 80px 24px 60px; text-align: center; }
+    .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 12px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero .subtitle { font-size: 22px; color: #6b7280; margin-bottom: 32px; }
+    .definition { max-width: 800px; margin: 0 auto 48px; background: white; border-left: 4px solid #4f46e5; padding: 20px 24px; border-radius: 0 14px 14px 0; font-size: 17px; color: #374151; line-height: 1.7; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .section { max-width: 1000px; margin: 0 auto; padding: 60px 24px; }
+    .section-title { font-size: 32px; font-weight: 800; margin-bottom: 16px; color: #1f2937; text-align: center; }
+    .section-subtitle { font-size: 18px; color: #6b7280; margin-bottom: 48px; text-align: center; }
+    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step-card { background: white; padding: 28px; border-radius: 14px; border: 1px solid #e5e7eb; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    .step-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); transition: all 0.3s; }
+    .step-number { width: 40px; height: 40px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; margin-bottom: 16px; }
+    .step-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1f2937; }
+    .step-card p { font-size: 14px; color: #6b7280; line-height: 1.6; }
+    .use-cases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+    .use-case { background: linear-gradient(135deg, #fafbfc 0%, #f3f0ff 100%); padding: 28px; border-radius: 14px; border: 1px solid #e5e7eb; }
+    .use-case-label { font-size: 14px; font-weight: 700; color: #4f46e5; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+    .use-case-desc { font-size: 15px; color: #374151; line-height: 1.6; }
+    .stat-banner { text-align: center; padding: 48px 24px; background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%); }
+    .stat-big { font-size: 56px; font-weight: 800; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .stat-desc { font-size: 18px; color: #374151; margin-top: 8px; }
+    .stat-src { font-size: 13px; color: #9ca3af; margin-top: 4px; }
+    .feature-links { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 32px; }
+    .feature-link { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; background: white; border: 1px solid #e5e7eb; border-radius: 10px; text-decoration: none; font-size: 14px; font-weight: 500; color: #4b5563; transition: all 0.2s; }
+    .feature-link:hover { border-color: #c7d2fe; background: #eef2ff; color: #4f46e5; }
+    .final-cta { text-align: center; padding: 80px 24px; background: linear-gradient(135deg, #f3f0ff 0%, #faf5ff 100%); }
+    .final-cta h2 { font-size: 36px; font-weight: 800; margin-bottom: 16px; color: #1f2937; }
+    .final-cta p { font-size: 18px; color: #6b7280; margin-bottom: 32px; }
+    .cta-button { background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); color: white; border: none; padding: 14px 40px; border-radius: 14px; font-weight: 600; font-size: 16px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(79,70,229,0.3); text-decoration: none; display: inline-block; }
+    .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79,70,229,0.4); }
+    .updated-date { text-align: center; padding: 16px; font-size: 13px; color: #9ca3af; }
+    .hw-footer { background: #0f0d2e; color: rgba(255,255,255,0.6); padding: 64px 32px 32px; font-size: 14px; line-height: 1.6; }
+    .hw-footer a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
+    .hw-footer a:hover { color: white; }
+    .hw-footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 48px; }
+    .hw-footer-brand p { margin-top: 16px; font-size: 13px; line-height: 1.7; max-width: 280px; }
+    .hw-footer-brand svg { opacity: 0.7; }
+    .hw-footer h4 { color: rgba(255,255,255,0.9); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 16px; }
+    .hw-footer-col { display: flex; flex-direction: column; gap: 10px; }
+    .hw-footer-col a { font-size: 14px; }
+    .hw-footer-bottom { max-width: 1100px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.08); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .hw-footer-legal { display: flex; gap: 20px; font-size: 13px; }
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 32px; }
+      .steps-grid, .use-cases { grid-template-columns: 1fr; }
+      .hw-nav-links { display: none; }
+      .hw-nav-login { display: none; }
+      .hw-nav { padding: 0 16px; }
+      .hw-footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .hw-footer-brand { grid-column: 1 / -1; }
+      .hw-footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .hw-footer-grid { grid-template-columns: 1fr; }
+      .hw-footer { padding: 40px 20px 24px; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "HeyWren + Slack — Never Miss a Commitment in Slack Again",
+        "description": "HeyWren integrates with Slack to automatically track commitments made in channels and DMs. No manual logging — Wren watches your conversations and ensures follow-through.",
+        "url": "https://heywren.ai/integrations/slack",
+        "isPartOf": { "@type": "WebSite", "name": "HeyWren", "url": "https://heywren.ai" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "HeyWren",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Free trial, no credit card required" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="hw-nav">
+    <a href="/" class="hw-nav-logo"><svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg></a>
+    <ul class="hw-nav-links">
+      <li><a href="/#features">Features</a></li>
+      <li><a href="/#pricing">Pricing</a></li>
+      <li><a href="/demo">Demo</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+    <div class="hw-nav-right">
+      <a href="https://app.heywren.ai/login" class="hw-nav-login">Log in</a>
+      <a href="https://app.heywren.ai/signup" class="hw-nav-cta">Start Free Trial</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>HeyWren + Slack</h1>
+    <p class="subtitle">Never Miss a Commitment in Slack Again</p>
+  </section>
+
+  <div class="definition">HeyWren integrates natively with Slack to automatically detect and track commitments made in channels, DMs, and threads. Using AI to understand natural conversation, Wren identifies promises, deadlines, and action items — then nudges you before they fall through the cracks. No manual logging required.</div>
+
+  <section class="stat-banner">
+    <div class="stat-big">44%</div>
+    <div class="stat-desc">of action items from Slack conversations are never completed</div>
+    <div class="stat-src">Source: Fellow.app</div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <h3>Connect Slack via OAuth</h3>
+          <p>One click to authorize. Wren gets read-only access to your workspace channels and DMs. No messages are stored — only commitments are extracted.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <h3>Wren reads your conversations</h3>
+          <p>AI analyzes messages in real-time to detect commitments: "I'll send the proposal by Friday," "Let me follow up with the client," "I'll review the PR today."</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <h3>Get nudges before things slip</h3>
+          <p>When a commitment is approaching its deadline or at risk of being forgotten, Wren sends a gentle nudge right in Slack — where you already work.</p>
+        </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Use Cases</h2>
+    <div class="use-cases">
+        <div class="use-case">
+          <div class="use-case-label">Team Standups</div>
+          <div class="use-case-desc">Promises made in daily standups ("I'll finish the API endpoint today") are tracked automatically. No more forgotten follow-ups.</div>
+        </div>
+        <div class="use-case">
+          <div class="use-case-label">Client Promises</div>
+          <div class="use-case-desc">When someone tells a client "We'll have that ready by Thursday" in a shared channel, Wren ensures it actually happens.</div>
+        </div>
+        <div class="use-case">
+          <div class="use-case-label">Cross-Functional Requests</div>
+          <div class="use-case-desc">Requests that span teams ("Can design review this by EOD?") get tracked even when they'd normally fall between the cracks.</div>
+        </div>
+    </div>
+  </section>
+
+  <section class="section" style="text-align:center;">
+    <h2 class="section-title">Explore More</h2>
+    <div class="feature-links">
+    <a href="/features/ai-nudges" class="feature-link">AI Nudges</a>
+    <a href="/features/commitment-tracing" class="feature-link">Commitment Tracing</a>
+    <a href="/features/draft-queue" class="feature-link">Draft Queue</a>
+    <a href="/integrations/asana" class="feature-link">HeyWren + Asana</a>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <h2>Ready to Stop Dropping Commitments?</h2>
+    <p>Start your free 7-day trial. No credit card required. Set up in 2 minutes.</p>
+    <a href="https://app.heywren.ai/signup" class="cta-button">Start Free — No Credit Card</a>
+  </section>
+
+  <div class="updated-date">Last updated: March 2026</div>
+
+  <footer class="hw-footer">
+    <div class="hw-footer-grid">
+      <div class="hw-footer-brand">
+        <svg width="120" height="26" viewBox="0 0 370 80" fill="none"><g transform="translate(0, 4)"><ellipse cx="38" cy="42" rx="18" ry="14" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="50" cy="30" r="9" stroke="#4f46e5" stroke-width="2.2" fill="none"/><circle cx="53" cy="28" r="2" fill="#4f46e5"/><path d="M 58 29 L 66 26 L 59 33" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/><path d="M 28 39 C 34 33, 44 31, 50 35" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M 20 38 C 14 32, 12 22, 15 15" stroke="#4f46e5" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M 36 56 L 34 65 M 44 55 L 42 64" stroke="#4f46e5" stroke-width="1.8" stroke-linecap="round" fill="none"/></g><path d="M 90 8 Q 76 8, 76 22 L 76 30 L 66 37 L 76 44 L 76 56 Q 76 70, 90 70 L 342 70 Q 356 70, 356 56 L 356 22 Q 356 8, 342 8 Z" stroke="#4f46e5" stroke-width="1.6" fill="none"/><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 94 22 L 95 56"/><path d="M 114 22 L 113 56"/><path d="M 95 39 C 100 37, 108 37, 113 39"/><path d="M 128 42 C 128 36, 133 31, 140 31 C 147 31, 151 36, 151 42 L 128 42 C 128 50, 134 55, 142 55 C 147 55, 150 53, 152 50"/><path d="M 162 32 L 171 56"/><path d="M 181 32 L 168 62 C 165 68, 161 70, 157 67"/></g><g stroke="#4f46e5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M 200 22 L 209 56 L 221 30 L 233 56 L 242 22"/><path d="M 254 32 L 254 56"/><path d="M 254 40 C 258 32, 266 30, 271 33"/><path d="M 281 42 C 281 36, 286 31, 293 31 C 300 31, 304 36, 304 42 L 281 42 C 281 50, 287 55, 295 55 C 300 55, 303 53, 305 50"/><path d="M 316 32 L 316 56"/><path d="M 316 40 C 320 32, 328 30, 334 33 C 338 35, 339 40, 339 44 L 339 56"/></g></svg>
+        <p>AI-powered follow-through for teams that actually get things done. Never let a commitment fall through the cracks again.</p>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Product</h4>
+        <a href="/features/ai-nudges">AI Nudges</a>
+        <a href="/features/draft-queue">Draft Queue</a>
+        <a href="/features/meeting-briefings">Briefings</a>
+        <a href="/features/commitment-tracing">Commitment Tracing</a>
+        <a href="/features/achievements">Achievements</a>
+        <a href="/features/playbooks">Playbooks</a>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Resources</h4>
+        <a href="/blog">Blog</a>
+        <a href="/glossary">Glossary</a>
+        <a href="/faq">FAQ</a>
+        <a href="/demo">Interactive Demo</a>
+        <a href="/#pricing">Pricing</a>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Company</h4>
+        <a href="/">Home</a>
+        <a href="mailto:hello@heywren.ai">Contact</a>
+        <a href="https://twitter.com/heywren">Twitter</a>
+        <a href="https://linkedin.com/company/heywren">LinkedIn</a>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Legal</h4>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Service</a>
+        <a href="/dpa">Data Processing</a>
+      </div>
+    </div>
+    <div class="hw-footer-bottom">
+      <span>&copy; 2026 HeyWren, Inc. All rights reserved.</span>
+      <div class="hw-footer-legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
