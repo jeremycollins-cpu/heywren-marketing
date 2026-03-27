@@ -374,11 +374,114 @@
     display: inline-block;
 }
 .hw-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35); }
-@media (max-width: 768px) {
-    .hw-nav-links { display: none; }
-    .hw-nav-login { display: none; }
-    .hw-nav { padding: 0 16px; }
+/* Mobile menu */
+.hw-mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #4b5563;
+    transition: color 0.2s;
 }
+.hw-mobile-toggle:hover { color: #4f46e5; }
+.hw-mobile-toggle svg { display: block; }
+.hw-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 300px;
+    max-width: 85vw;
+    height: 100vh;
+    background: white;
+    z-index: 2000;
+    padding: 24px;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+    transition: right 0.3s ease;
+    overflow-y: auto;
+    flex-direction: column;
+}
+.hw-mobile-menu.open { display: flex; right: 0; }
+.hw-mobile-backdrop {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.4);
+    z-index: 1999;
+}
+.hw-mobile-backdrop.open { display: block; }
+.hw-mobile-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    color: #4b5563;
+    margin-bottom: 16px;
+}
+.hw-mobile-close:hover { color: #4f46e5; }
+.hw-mobile-menu a {
+    display: block;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #1f2937;
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: color 0.2s;
+}
+.hw-mobile-menu a:hover { color: #4f46e5; }
+.hw-mobile-menu .hw-mobile-section {
+    font-size: 11px;
+    font-weight: 700;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 20px 0 8px;
+    border-bottom: none;
+}
+.hw-mobile-menu .hw-mobile-sub { padding-left: 16px; font-size: 15px; color: #4b5563; }
+.hw-mobile-menu .hw-mobile-cta-group {
+    margin-top: auto;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.hw-mobile-menu .hw-mobile-login {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    text-decoration: none;
+}
+.hw-mobile-menu .hw-mobile-login:hover { color: #4f46e5; border-color: #c7d2fe; background: #eef2ff; }
+.hw-mobile-menu .hw-mobile-signup {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(79,70,229,0.25);
+}
+.hw-mobile-menu .hw-mobile-signup:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(79,70,229,0.35); }
+    @media (max-width: 768px) {
+      .hw-nav-links { display: none; }
+      .hw-nav-login { display: none; }
+      .hw-nav { padding: 0 16px; }
+      .hw-mobile-toggle { display: block; }
+      .hw-nav-cta { display: none; }
+    }
 
 /* === UNIFIED FOOTER === */
 /* === UNIFIED FOOTER === */
@@ -395,7 +498,7 @@
     max-width: 1100px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
     gap: 48px;
 }
 .hw-footer-brand p { margin-top: 16px; font-size: 13px; line-height: 1.7; max-width: 280px; }
@@ -622,15 +725,20 @@
             <a href="/features/achievements">Achievements</a>
             <a href="/features/playbooks">Playbooks</a>
         </div>
-        <div class="hw-footer-col">
-            <h4>Resources</h4>
-            <a href="/blog">Blog</a>
-            <a href="/glossary">Glossary</a>
-            <a href="/faq">FAQ</a>
-            <a href="/demo">Interactive Demo</a>
-            <a href="/#pricing">Pricing</a>
-        </div>
-        <div class="hw-footer-col">
+      <div class="hw-footer-col">
+        <h4>Integrations</h4>
+        <a href="/integrations/slack">Slack</a>
+        <a href="/integrations/outlook">Outlook</a>
+        <a href="/integrations/asana">Asana</a>
+      </div>
+      <div class="hw-footer-col">
+        <h4>Resources</h4>
+        <a href="/blog">Blog</a>
+        <a href="/demo">Demo</a>
+        <a href="/faq">FAQ</a>
+        <a href="/#pricing">Pricing</a>
+      </div>
+      <div class="hw-footer-col">
             <h4>Company</h4>
             <a href="/">Home</a>
             <a href="mailto:hello@heywren.ai">Contact</a>
