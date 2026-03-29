@@ -2829,34 +2829,37 @@ function closeMobileMenu(){document.querySelector('.hw-mobile-menu').classList.r
         });
     });
 
-    // Mailchimp form handler — submits via hidden form POST
+    // Email signup — posts to our own API (replaces Mailchimp)
     function handleSignup(formId, emailId) {
         var form = document.getElementById(formId);
         if (!form) return;
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             var email = document.getElementById(emailId).value;
-            // Create hidden form to POST to Mailchimp
-            var mcForm = document.createElement('form');
-            mcForm.method = 'POST';
-            mcForm.action = 'https://heywren.us13.list-manage.com/subscribe/post';
-            mcForm.target = '_blank';
-            var fields = {u: 'a41757dde1c120bdd7a8a31bf61e9139', id: '03e5683144', EMAIL: email, SIGNUP_SOURCE: formId};
-            for (var key in fields) {
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = fields[key];
-                mcForm.appendChild(input);
-            }
-            document.body.appendChild(mcForm);
-            mcForm.submit();
-            document.body.removeChild(mcForm);
-            if (formId === 'mc-modal-form') {
-                form.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:16px;">Thanks! Check your email to confirm.</p>';
-            } else {
-                form.innerHTML = '<p style="color:white;font-weight:600;padding:8px;">Thanks! Check your email to confirm.</p>';
-            }
+            var btn = form.querySelector('button');
+            if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+
+            fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, source: formId })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    if (formId === 'mc-modal-form') {
+                        form.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:16px;">Thanks! You\'re on the list.</p>';
+                    } else {
+                        form.innerHTML = '<p style="color:white;font-weight:600;padding:8px;">Thanks! You\'re on the list.</p>';
+                    }
+                    if (window.trackSignup) trackSignup(formId);
+                } else {
+                    if (btn) { btn.disabled = false; btn.textContent = 'Try again'; }
+                }
+            })
+            .catch(function() {
+                if (btn) { btn.disabled = false; btn.textContent = 'Try again'; }
+            });
         });
     }
     handleSignup('mc-hero-form', 'mc-hero-email');
