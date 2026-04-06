@@ -1798,7 +1798,7 @@
         {
           "@type": "Offer",
           "name": "Basic",
-          "price": "0",
+          "price": "5",
           "priceCurrency": "USD"
         },
         {
@@ -2345,6 +2345,35 @@ function closeMobileMenu(){document.querySelector('.hw-mobile-menu').classList.r
         </div>
     </section>
 
+    <!-- INTEGRATIONS -->
+    <section class="features" id="integrations" style="background: linear-gradient(135deg, #fafbfc 0%, #f3f0ff 100%);">
+        <div class="features-content">
+            <h2 class="features-title">Works With the Tools You Already Use</h2>
+            <p style="text-align:center;font-size:17px;color:#52525b;margin-top:-32px;margin-bottom:48px;max-width:640px;margin-left:auto;margin-right:auto;">Wren connects to your existing workflow with read-only access. No behavior change required — just better follow-through.</p>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;max-width:900px;margin:0 auto;">
+                <a href="/integrations/slack" style="text-decoration:none;background:white;padding:32px 24px;border-radius:14px;border:1px solid #e5e7eb;text-align:center;transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.04);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.04)'">
+                    <div style="font-size:40px;margin-bottom:16px;">💬</div>
+                    <h4 style="font-size:18px;font-weight:700;color:#18181b;margin-bottom:8px;">Slack</h4>
+                    <p style="font-size:14px;color:#52525b;line-height:1.6;">Catches commitments in channels, DMs, and threads automatically.</p>
+                    <span style="display:inline-block;margin-top:12px;font-size:13px;font-weight:600;color:#4f46e5;">Learn more →</span>
+                </a>
+                <a href="/integrations/outlook" style="text-decoration:none;background:white;padding:32px 24px;border-radius:14px;border:1px solid #e5e7eb;text-align:center;transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.04);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.04)'">
+                    <div style="font-size:40px;margin-bottom:16px;">📧</div>
+                    <h4 style="font-size:18px;font-weight:700;color:#18181b;margin-bottom:8px;">Outlook</h4>
+                    <p style="font-size:14px;color:#52525b;line-height:1.6;">Tracks promises buried in email threads and calendar invites.</p>
+                    <span style="display:inline-block;margin-top:12px;font-size:13px;font-weight:600;color:#4f46e5;">Learn more →</span>
+                </a>
+                <a href="/integrations/asana" style="text-decoration:none;background:white;padding:32px 24px;border-radius:14px;border:1px solid #e5e7eb;text-align:center;transition:all 0.3s;box-shadow:0 2px 8px rgba(0,0,0,0.04);" onmouseover="this.style.transform='translateY(-4px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.1)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.04)'">
+                    <div style="font-size:40px;margin-bottom:16px;">📋</div>
+                    <h4 style="font-size:18px;font-weight:700;color:#18181b;margin-bottom:8px;">Asana</h4>
+                    <p style="font-size:14px;color:#52525b;line-height:1.6;">Bridges the gap between conversations and your project board.</p>
+                    <span style="display:inline-block;margin-top:12px;font-size:13px;font-weight:600;color:#4f46e5;">Learn more →</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- HOW IT WORKS -->
     <section class="how-it-works" id="how-it-works">
         <div class="how-content">
@@ -2652,7 +2681,8 @@ function closeMobileMenu(){document.querySelector('.hw-mobile-menu').classList.r
     <script>
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
-            const navbar = document.getElementById('navbar');
+            const navbar = document.querySelector('.hw-nav');
+            if (!navbar) return;
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
@@ -2799,34 +2829,37 @@ function closeMobileMenu(){document.querySelector('.hw-mobile-menu').classList.r
         });
     });
 
-    // Mailchimp form handler — submits via hidden form POST
+    // Email signup — posts to our own API (replaces Mailchimp)
     function handleSignup(formId, emailId) {
         var form = document.getElementById(formId);
         if (!form) return;
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             var email = document.getElementById(emailId).value;
-            // Create hidden form to POST to Mailchimp
-            var mcForm = document.createElement('form');
-            mcForm.method = 'POST';
-            mcForm.action = 'https://heywren.us13.list-manage.com/subscribe/post';
-            mcForm.target = '_blank';
-            var fields = {u: 'a41757dde1c120bdd7a8a31bf61e9139', id: '03e5683144', EMAIL: email, SIGNUP_SOURCE: formId};
-            for (var key in fields) {
-                var input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = fields[key];
-                mcForm.appendChild(input);
-            }
-            document.body.appendChild(mcForm);
-            mcForm.submit();
-            document.body.removeChild(mcForm);
-            if (formId === 'mc-modal-form') {
-                form.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:16px;">Thanks! Check your email to confirm.</p>';
-            } else {
-                form.innerHTML = '<p style="color:white;font-weight:600;padding:8px;">Thanks! Check your email to confirm.</p>';
-            }
+            var btn = form.querySelector('button');
+            if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
+
+            fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: email, source: formId })
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    if (formId === 'mc-modal-form') {
+                        form.innerHTML = '<p style="color:#4f46e5;font-weight:600;padding:16px;">Thanks! You\'re on the list.</p>';
+                    } else {
+                        form.innerHTML = '<p style="color:white;font-weight:600;padding:8px;">Thanks! You\'re on the list.</p>';
+                    }
+                    if (window.trackSignup) trackSignup(formId);
+                } else {
+                    if (btn) { btn.disabled = false; btn.textContent = 'Try again'; }
+                }
+            })
+            .catch(function() {
+                if (btn) { btn.disabled = false; btn.textContent = 'Try again'; }
+            });
         });
     }
     handleSignup('mc-hero-form', 'mc-hero-email');

@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /app
+Disallow: /hq-9x7k4m
+Disallow: /api/
 
 # Explicitly allow AI search bots for GEO (Generative Engine Optimization)
 # These bots power AI search results in ChatGPT, Perplexity, Claude, Gemini, and Copilot

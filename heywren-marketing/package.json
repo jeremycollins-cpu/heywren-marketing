@@ -1,0 +1,12 @@
+{
+  "name": "heywren-marketing",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "setup": "echo 'POST /api/setup with your ADMIN_API_KEY to create database tables'"
+  },
+  "dependencies": {
+    "@vercel/postgres": "^0.10.0",
+    "resend": "^6.9.4"
+  }
+}
