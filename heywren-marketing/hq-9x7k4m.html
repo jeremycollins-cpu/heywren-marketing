@@ -152,7 +152,9 @@
           <h2>Dashboard</h2>
           <p class="subtitle">Overview of your marketing data</p>
         </div>
+        <button class="btn" onclick="setupDB()" id="setupBtn">Setup Database</button>
       </div>
+      <div class="send-status" id="setupStatus" style="margin-bottom:20px;"></div>
       <div class="stat-row">
         <div class="stat-card">
           <div class="stat-label">Total Contacts</div>
@@ -269,14 +271,14 @@ function doLogin() {
   const key = document.getElementById('loginKey').value.trim();
   if (!key) return;
   API_KEY = key;
-  // Verify key by hitting contacts endpoint
-  apiFetch('/api/contacts?limit=1').then(data => {
-    if (data.error) {
-      document.getElementById('loginError').style.display = 'block';
-      API_KEY = '';
-    } else {
+  // Verify key against auth endpoint (no DB required)
+  apiFetch('/api/auth').then(data => {
+    if (data.success) {
       sessionStorage.setItem('hw_admin_key', key);
       showApp();
+    } else {
+      document.getElementById('loginError').style.display = 'block';
+      API_KEY = '';
     }
   }).catch(() => {
     document.getElementById('loginError').style.display = 'block';
@@ -303,8 +305,8 @@ function showApp() {
   const saved = sessionStorage.getItem('hw_admin_key');
   if (saved) {
     API_KEY = saved;
-    apiFetch('/api/contacts?limit=1').then(data => {
-      if (!data.error) showApp();
+    apiFetch('/api/auth').then(data => {
+      if (data.success) showApp();
     }).catch(() => {});
   }
 })();
@@ -330,6 +332,32 @@ document.querySelectorAll('.sidebar-nav a').forEach(link => {
     if (this.dataset.page === 'dashboard') loadDashboard();
   });
 });
+
+// Setup DB
+async function setupDB() {
+  document.getElementById('setupBtn').disabled = true;
+  document.getElementById('setupBtn').textContent = 'Setting up...';
+  try {
+    const data = await apiFetch('/api/setup', { method: 'POST' });
+    const el = document.getElementById('setupStatus');
+    if (data.success) {
+      el.textContent = 'Database tables created successfully. Loading data...';
+      el.className = 'send-status success';
+      document.getElementById('setupBtn').style.display = 'none';
+      setTimeout(() => { el.style.display = 'none'; loadDashboard(); }, 2000);
+    } else {
+      el.textContent = data.error || 'Setup failed';
+      el.className = 'send-status error';
+      document.getElementById('setupBtn').disabled = false;
+      document.getElementById('setupBtn').textContent = 'Setup Database';
+    }
+  } catch(e) {
+    document.getElementById('setupStatus').textContent = 'Setup failed: ' + e.message;
+    document.getElementById('setupStatus').className = 'send-status error';
+    document.getElementById('setupBtn').disabled = false;
+    document.getElementById('setupBtn').textContent = 'Setup Database';
+  }
+}
 
 // Dashboard
 async function loadDashboard() {
